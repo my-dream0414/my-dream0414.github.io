@@ -283,6 +283,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/07/06/myaql-DDL%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/06/myaql-DDL%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">myaql-DDL操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-06 18:11:09 / 修改时间：18:22:29" itemprop="dateCreated datePublished" datetime="2022-07-06T18:11:09+08:00">2022-07-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="SQL："><a href="#SQL：" class="headerlink" title="SQL："></a>SQL：</h3><p>通用语法：</p>
+<p>1.SQL语句可以单行或多行书写，以分号结尾。</p>
+<p>2.SQL语句可以使用空格/缩进来增强语句的可读性。</p>
+<p>3.MYSQL数据库的SQL不区分大小写，关键字建议使用大写。</p>
+<p>4.注释：</p>
+<p>​             单行注释：–注释内容 或 #注释内容（MYSQL特写）</p>
+<p>​             多行注释：/* 注释内容 */</p>
+<p>语句分类：</p>
+<h4 id="DDL：数据定义语言，用来定义数据库对象（数据库，表，字段）"><a href="#DDL：数据定义语言，用来定义数据库对象（数据库，表，字段）" class="headerlink" title="DDL：数据定义语言，用来定义数据库对象（数据库，表，字段）"></a>DDL：数据定义语言，用来定义数据库对象（数据库，表，字段）</h4><h5 id="DDL-数据库操作"><a href="#DDL-数据库操作" class="headerlink" title="DDL-数据库操作"></a>DDL-数据库操作</h5><p>查询：</p>
+<p>查询所有数据库：</p>
+<p>SHOW DATABASES;</p>
+<p><img src="m1.png" alt="image-20220706134235068"></p>
+<p>查询当前数据库：</p>
+<p>SELECT  DATABAS();</p>
+<p>创建：</p>
+<p>CREATE DATABASES[IF NOT EXISTS] 数据库名 [DEFAOUT CHARSET 字符集] [COLLATE 排序规则]；</p>
+<p><img src="m2.png" alt="image-20220706134251372"></p>
+<p>删除：</p>
+<p>DROP DATABASE[IF EXISTS] 数据库名；</p>
+<p><img src="m3.png" alt="image-20220706134734980"></p>
+<p>使用：</p>
+<p>USE 数据库名；</p>
+<p><img src="m4.png" alt="image-20220706135027106"></p>
+<h5 id="DDL-表操作"><a href="#DDL-表操作" class="headerlink" title="DDL-表操作"></a>DDL-表操作</h5><p>DDL-表操作-查询：</p>
+<p>查询当前数据库所有表：</p>
+<p>SHOW TABLES；</p>
+<p><img src="m5.png" alt="image-20220706135511166"></p>
+<p>查询表结构：</p>
+<p>DESC 表名；</p>
+<p><img src="m6.png" alt="image-20220706141351745"></p>
+<p>查询指定表的建表语句：</p>
+<p>SHOW CREATE TABLE 表名；</p>
+<p><img src="m7.png" alt="image-20220706141507299"></p>
+<p>DDL-表操作-创建：</p>
+<p>CREATE TABLE 表名（</p>
+<p>​    字段1 字段1类型[COMMENT 字段1注释]，</p>
+<p>​    字段2 字段2类型[COMMENT 字段2注释]，</p>
+<p>​    ………….，</p>
+<p>​    字段n 字段n类型[COMMENT 字段n注释]</p>
+<p>）[COMMENT 表注释]；</p>
+<p><img src="m8.png" alt="image-20220706141115470"><br><img src="m9.png" alt="image-20220706141233234"></p>
+<p>DDL-表操作-数据类型：</p>
+<p>MySQL中的数据类型很多，主要分为：数值类型、字符串类型、日期时间类型。</p>
+<p>数值类型:</p>
+<p><img src="m10.png" alt="image-20220706141838724"></p>
+<p>字符串类型：</p>
+<p><img src="m11.png" alt="image-20220706142035128"></p>
+<p>注意：char(10) —-&gt;定长，不够空格补位，性能好，占用空间大。</p>
+<p>varchar(10)–&gt;不定长，根据数据长度存储，性能较差（事先计算数据长度），占用空间小。</p>
+<p>日期时间类型：</p>
+<p><img src="m12.png" alt="image-20220706142216443"></p>
+<p><img src="m13.png" alt="image-20220706143827142"></p>
+<p>DDL-表操作-修改：</p>
+<p>添加字段：</p>
+<p>ALTER TABLE 表名 ADD 字段名 类型(长度) [comment 注释] [约束]；</p>
+<p><img src="m14.png" alt="image-20220706144205463"></p>
+<p>修改字段名和字段数据类型：</p>
+<p>ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [comment 注释] [约束]；</p>
+<p><img src="m15.png" alt="image-20220706144529979"></p>
+<p>删除字段：</p>
+<p>ALTER TABLE 表名 DROP 字段名；</p>
+<p><img src="m16.png" alt="image-20220706144714475"></p>
+<p>修改表名：</p>
+<p>ALTER TABLE 表名 RENAME TO 新表名；</p>
+<p><img src="m17.png" alt="image-20220706145019930"></p>
+<p>DDL-表操作-删除：</p>
+<p>删除表：</p>
+<p>DROP TABLE [IF EXISTS] 表名；</p>
+<p><img src="m18.png" alt="image-20220706145447433"></p>
+<p>删除指定表，并重新穿件该表（等同于删除表中的数据，并没有删除表的结构）：</p>
+<p>TRUNCATE TABLE 表名；</p>
+<p><img src="m19.png" alt="image-20220706145649522"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -795,81 +925,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/01/27/%E4%BA%8B%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Changwei Luo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Strive-NUAA">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/27/%E4%BA%8B%E4%BB%B6/" class="post-title-link" itemprop="url">事件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-27 20:19:47 / 修改时间：20:21:03" itemprop="dateCreated datePublished" datetime="2022-01-27T20:19:47+08:00">2022-01-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VUE/" itemprop="url" rel="index"><span itemprop="name">VUE</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>......</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/27/%E4%BA%8B%E4%BB%B6/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -941,7 +996,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
