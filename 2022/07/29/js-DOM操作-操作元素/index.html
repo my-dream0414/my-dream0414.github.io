@@ -22,18 +22,18 @@
 
   <meta name="description" content="......">
 <meta property="og:type" content="article">
-<meta property="og:title" content="事件">
-<meta property="og:url" content="https://my-dream0414.github.io/2022/01/27/%E4%BA%8B%E4%BB%B6/index.html">
+<meta property="og:title" content="js-DOM操作-操作元素">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/07/29/js-DOM%E6%93%8D%E4%BD%9C-%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0/index.html">
 <meta property="og:site_name" content="Strive-NUAA">
 <meta property="og:description" content="......">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-27T12:19:47.000Z">
-<meta property="article:modified_time" content="2022-01-27T12:21:03.091Z">
+<meta property="article:published_time" content="2022-07-29T10:50:38.000Z">
+<meta property="article:modified_time" content="2022-07-29T10:51:04.609Z">
 <meta property="article:author" content="Changwei Luo">
-<meta property="article:tag" content="vue">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://my-dream0414.github.io/2022/01/27/%E4%BA%8B%E4%BB%B6/">
+<link rel="canonical" href="https://my-dream0414.github.io/2022/07/29/js-DOM%E6%93%8D%E4%BD%9C-%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>事件 | Strive-NUAA</title>
+  <title>js-DOM操作-操作元素 | Strive-NUAA</title>
   
 
 
@@ -166,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/01/27/%E4%BA%8B%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/07/29/js-DOM%E6%93%8D%E4%BD%9C-%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          事件
+          js-DOM操作-操作元素
         </h1>
 
         <div class="post-meta">
@@ -190,16 +190,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-27 20:19:47 / 修改时间：20:21:03" itemprop="dateCreated datePublished" datetime="2022-01-27T20:19:47+08:00">2022-01-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VUE/" itemprop="url" rel="index"><span itemprop="name">VUE</span></a>
-                </span>
+              <time title="创建时间：2022-07-29 18:50:38 / 修改时间：18:51:04" itemprop="dateCreated datePublished" datetime="2022-07-29T18:50:38+08:00">2022-07-29</time>
             </span>
 
           
@@ -214,17 +205,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="事件修饰符："><a href="#事件修饰符：" class="headerlink" title="事件修饰符："></a>事件修饰符：</h3><p>1.prevent：阻止默认事件（常用）[@click.prevevt=””]</p>
-<p>2.stop：阻止事件冒泡（常用）[@click.stop=””]</p>
-<p>3.once：事件只触发一次（常用）[@click.once=””]</p>
-<p>4.tapture：使用事件捕获模式 [@click.tapture=””]</p>
-<p>5.self：只用event.target是当前操作的元素时才触发事件 [@click.self=””]</p>
-<p>6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕 [@wheel.passive]</p>
-<h3 id="事件："><a href="#事件：" class="headerlink" title="事件："></a>事件：</h3><p>1.鼠标点击事件：[@click=]</p>
-<p>2.键盘事件(键盘弹起触发事件)：[@keyup=””] (@keyup.enter代表回车，delete代表删除和退格，esc代表退出，tab代表换行，space代表空格，up上，down代表下，left代表左，right代表右[注：有些特殊的按键按下之后就已经触发再使用keyup就失效了如tab，Ctrl，alt，shift，meta键，这些就需要使用keydown])</p>
-<p>最好是使用按键的名字去指定按键，而不是使用keycode去指定按键</p>
-<p>vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名</p>
-<p>3.键盘事件(键盘按下触发事件)：[@keydown=””]</p>
+        <h2 id="js-DOM操作-操作元素"><a href="#js-DOM操作-操作元素" class="headerlink" title="js-DOM操作-操作元素"></a>js-DOM操作-操作元素</h2><p>1.获取body元素</p>
+<p>document.body</p>
+<p>2.获取html元素</p>
+<p>document.documentElement</p>
+<p>3.获取元素</p>
+<p>var btn = document.querySelector(‘ button’);</p>
+<h4 id="事件基础"><a href="#事件基础" class="headerlink" title="事件基础"></a>事件基础</h4><p>JavaScript使我们有能力创建动态页面，而事件是可以被JavaScript侦测到的行为。（触发—响应的机制）</p>
+<h5 id="事件三要素："><a href="#事件三要素：" class="headerlink" title="事件三要素："></a>事件三要素：</h5><ul>
+<li>事件源：事件被触发的对象（document.getElementById()）</li>
+<li>事件类型：如何触发，什么事件（鼠标点击，键盘事件）</li>
+<li>事件处理程序：通过函数赋值的方式完成</li>
+</ul>
+<h5 id="事件处理步骤："><a href="#事件处理步骤：" class="headerlink" title="事件处理步骤："></a>事件处理步骤：</h5><ul>
+<li>获取事件源 var div = document.getEle.getElementById()</li>
+<li>绑定事件 注册事件 div.onclick</li>
+<li>添加事件处理程序 div.onclick = function(){ console.log()}</li>
+</ul>
+<h4 id="操作元素"><a href="#操作元素" class="headerlink" title="操作元素"></a>操作元素</h4><p>JavaScript的DOM操作可以改变网页内容、结构和样式，我们可以利用DOM操作元素来改变元素里面的内容、属性等。注意以下都是属性</p>
+<h5 id="1-改变元素内容"><a href="#1-改变元素内容" class="headerlink" title="1.改变元素内容"></a>1.改变元素内容</h5><p>element.innerText：从起始位置到终止位置的内容，但它去除html标签，同时空格和换行也会去掉</p>
+<p>element.innerHtml：起始位置到终止位置的全部内容，包括jtml标签。同时保留空格和换行</p>
+<p>上述两种方法的区别：</p>
+<p>innerText：不识别html标签，非标准 去除空格和换行</p>
+<p>innerHtml：识别html标签，标准  不去除空格和换行</p>
+<p>这个两种属性都是可读写的，可以获取元素里面的内容</p>
+<h5 id="2-修改元素属性-src（href，alt，title等都一致）"><a href="#2-修改元素属性-src（href，alt，title等都一致）" class="headerlink" title="2.修改元素属性 src（href，alt，title等都一致）"></a>2.修改元素属性 src（href，alt，title等都一致）</h5><ol>
+<li>获取元素  var img = document.queryselector( ‘img’);</li>
+<li>注册事件 处理程序 img.src = ‘images/zxy.jpg’;</li>
+</ol>
+<p>表单元素的属性操作</p>
+<h5 id="3-利用DOM可以操作如下表单属性："><a href="#3-利用DOM可以操作如下表单属性：" class="headerlink" title="3.利用DOM可以操作如下表单属性："></a>3.利用DOM可以操作如下表单属性：</h5><p>type、value、checked、selected、disabled</p>
+<h5 id="4-样式属性操作"><a href="#4-样式属性操作" class="headerlink" title="4.样式属性操作"></a>4.样式属性操作</h5><p>element.style 行内样式操作</p>
+<p>element.className 类名样式操作</p>
+<p><strong>注意：</strong>js里面的样式采用驼峰命名法 例如：fontSize，backgroundColor</p>
+<p>js修改style样式操作，产生的是行内样式，css权重比较高</p>
+<p><strong>注意：</strong>如果样式修改较多，可以采取操作类名方式更改元素样式</p>
+<p>class因为是个保留字，因此使用className来操作元素类名属性</p>
+<p>className会直接更改元素的类名，会覆盖原先的类名</p>
+<h5 id="5-排他思想"><a href="#5-排他思想" class="headerlink" title="5.排他思想"></a>5.排他思想</h5><h5 id="6-自定义属性的操作"><a href="#6-自定义属性的操作" class="headerlink" title="6.自定义属性的操作"></a>6.自定义属性的操作</h5><p>获取属性值：</p>
+<p>element.属性</p>
+<p>element.getAttribute(‘属性’)</p>
+<p><strong>区别：</strong>element.属性 获取少量元素属性值(元素本身自带的属性)</p>
+<p>element.getAttribute(‘属性’)；主要获得自定义的属性（标准）我们自定义的属性</p>
+<p>设置属性值：</p>
+<p>element.属性 = ‘值’   设置内置属性值</p>
+<p>element.setAttribute(‘属性’，’值’)</p>
+<p><strong>区别：</strong></p>
+<p>element.属性  设置内置属性值</p>
+<p>element.setAttribute(‘属性’，’值’)  主要设置自定义的属性（标准）</p>
+<p>移除属性值：</p>
+<p>element.removeAttribute（’index’）</p>
+<h5 id="7-H5自定义属性"><a href="#7-H5自定义属性" class="headerlink" title="7.H5自定义属性"></a>7.H5自定义属性</h5><p>自定义属性的目的：是为了保存并使用数据；有些数据可以保存到页面中而不用保存到数据库中</p>
+<p>自定义属性获取是通过getAttribute(‘属性’)获取</p>
+<p>但是有些自定义属性很容易引起歧义，不容易判断是元素的内置属性还是自定义属性</p>
+<p><strong>设置H5自定义属性：</strong></p>
+<p>H5规定自定义属性data-开头作为属性名并且赋值</p>
+<p>比如<div data-index> </div></p>
+<p><strong>获取H5自定义属性：</strong></p>
+<p>兼容性获取</p>
+<p>H5新增：element.dataset.属性名  </p>
+<p>如果自定义属性里面有多个string单词，我们获取的时候采取驼峰命名法</p>
 
     </div>
 
@@ -234,7 +274,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           </div>
 
         
@@ -243,13 +283,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/01/22/MIPS%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E5%92%8C%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F/" rel="prev" title="MIPS指令格式和寻址方式">
-      <i class="fa fa-chevron-left"></i> MIPS指令格式和寻址方式
+    <a href="/2022/07/23/js%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B-Array/" rel="prev" title="js集合引用类型-Array">
+      <i class="fa fa-chevron-left"></i> js集合引用类型-Array
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/01/28/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="next" title="数据类型">
-      数据类型 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -308,7 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">事件修饰符：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">事件：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js-DOM%E6%93%8D%E4%BD%9C-%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0"><span class="nav-number">1.</span> <span class="nav-text">js-DOM操作-操作元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%9F%BA%E7%A1%80"><span class="nav-number">1.0.1.</span> <span class="nav-text">事件基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E4%B8%89%E8%A6%81%E7%B4%A0%EF%BC%9A"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">事件三要素：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4%EF%BC%9A"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">事件处理步骤：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.2.</span> <span class="nav-text">操作元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%94%B9%E5%8F%98%E5%85%83%E7%B4%A0%E5%86%85%E5%AE%B9"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1.改变元素内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E5%85%83%E7%B4%A0%E5%B1%9E%E6%80%A7-src%EF%BC%88href%EF%BC%8Calt%EF%BC%8Ctitle%E7%AD%89%E9%83%BD%E4%B8%80%E8%87%B4%EF%BC%89"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2.修改元素属性 src（href，alt，title等都一致）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%88%A9%E7%94%A8DOM%E5%8F%AF%E4%BB%A5%E6%93%8D%E4%BD%9C%E5%A6%82%E4%B8%8B%E8%A1%A8%E5%8D%95%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3.利用DOM可以操作如下表单属性：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.样式属性操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-%E6%8E%92%E4%BB%96%E6%80%9D%E6%83%B3"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">5.排他思想</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">6.自定义属性的操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-H5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">7.H5自定义属性</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
