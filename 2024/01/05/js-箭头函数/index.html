@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js-箭头函数">
+<meta property="og:url" content="https://my-dream0414.github.io/2024/01/05/js-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-05T08:28:18.000Z">
+<meta property="article:modified_time" content="2024-01-05T08:30:39.642Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2024/01/05/js-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>js-箭头函数 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2024/01/05/js-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          js-箭头函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-05 16:28:18 / 修改时间：16:30:39" itemprop="dateCreated datePublished" datetime="2024-01-05T16:28:18+08:00">2024-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h1><h6 id="箭头函数没有独立的-this、arguments和super-绑定-en-US-，并且不可被用作方法。"><a href="#箭头函数没有独立的-this、arguments和super-绑定-en-US-，并且不可被用作方法。" class="headerlink" title="箭头函数没有独立的 this、arguments和super 绑定_(en-US)，并且不可被用作方法。"></a>箭头函数没有独立的 this、arguments和super 绑定_(en-US)，并且不可被用作方法。</h6><h6 id="箭头函数不能用作构造函数。使用new调用它们会引发TypeError。它们也无法访问new-target关键字。"><a href="#箭头函数不能用作构造函数。使用new调用它们会引发TypeError。它们也无法访问new-target关键字。" class="headerlink" title="箭头函数不能用作构造函数。使用new调用它们会引发TypeError。它们也无法访问new.target关键字。"></a>箭头函数不能用作构造函数。使用new调用它们会引发TypeError。它们也无法访问new.target关键字。</h6><h6 id="箭头函数不能在其主体中使用yield，也不能作为生成器函数创建。"><a href="#箭头函数不能在其主体中使用yield，也不能作为生成器函数创建。" class="headerlink" title="箭头函数不能在其主体中使用yield，也不能作为生成器函数创建。"></a>箭头函数不能在其主体中使用yield，也不能作为生成器函数创建。</h6><h4 id="1-箭头函数形式"><a href="#1-箭头函数形式" class="headerlink" title="1.箭头函数形式"></a>1.箭头函数形式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; expression</span><br><span class="line"></span><br><span class="line">param =&gt; expression</span><br><span class="line"></span><br><span class="line">(param) =&gt; expression</span><br><span class="line"></span><br><span class="line">(param1, paramN) =&gt; expression</span><br><span class="line"></span><br><span class="line">() =&gt; &#123;</span><br><span class="line">  statements</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">param =&gt; &#123;</span><br><span class="line">  statements</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(param1, paramN) =&gt; &#123;</span><br><span class="line">  statements</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>参数部分支持剩余参数、默认参数和解构赋值，并且始终需要使用括号</strong></p>
+<p>剩余参数：剩余参数语法允许我们将一个不定数量的参数表示为一个数组</p>
+<p>默认参数：函数默认参数允许在没有值或 undefined 被传入时使用默认形参</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line">multiply(<span class="number">5</span>, <span class="number">2</span>); <span class="comment">// 10</span></span><br><span class="line">multiply(<span class="number">5</span>); <span class="comment">// 5</span></span><br><span class="line"><span class="comment">//传入undefined值与其它假值的比较</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">num = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">typeof</span> num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(); <span class="comment">// &#x27;number&#x27; (num is set to 1)</span></span><br><span class="line">test(<span class="literal">undefined</span>); <span class="comment">// &#x27;number&#x27; (num is set to 1 too)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// test with other falsy values:</span></span><br><span class="line">test(<span class="string">&quot;&quot;</span>); <span class="comment">// &#x27;string&#x27; (num is set to &#x27;&#x27;)</span></span><br><span class="line">test(<span class="literal">null</span>); <span class="comment">// &#x27;object&#x27; (num is set to null)</span></span><br></pre></td></tr></table></figure>
+
+<p>结构赋值：结构赋值语法是一种 Javascript 表达式。可以将数组中的值或对象的属性取出，赋值给其他变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 剩余参数</span></span><br><span class="line">(a, b, ...r) =&gt; expression</span><br><span class="line"></span><br><span class="line">(a = <span class="number">400</span>, b = <span class="number">20</span>, c) =&gt; expression</span><br><span class="line"></span><br><span class="line"><span class="comment">//结构赋值</span></span><br><span class="line">([a, b] = [<span class="number">10</span>, <span class="number">20</span>]) =&gt; expression</span><br><span class="line">(&#123; a, b &#125; = &#123; <span class="attr">a</span>: <span class="number">10</span>, <span class="attr">b</span>: <span class="number">20</span> &#125;) =&gt; expression</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-将匿名函数分解为简单地箭头函数"><a href="#2-将匿名函数分解为简单地箭头函数" class="headerlink" title="2.将匿名函数分解为简单地箭头函数"></a>2.将匿名函数分解为简单地箭头函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统匿名函数</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + <span class="number">100</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 1. 移除“function”，并将箭头放置于参数和函数体起始大括号之间</span></span><br><span class="line"><span class="function">(<span class="params">a</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + <span class="number">100</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 2. 移除代表函数体的大括号和“return”——返回值是隐含的</span></span><br><span class="line"><span class="function">(<span class="params">a</span>) =&gt;</span> a + <span class="number">100</span>;</span><br><span class="line"><span class="comment">// 3. 移除参数周围的括号</span></span><br><span class="line"><span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况一：</span></span><br><span class="line"><span class="comment">// 传统匿名函数</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> chuck = <span class="number">42</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + chuck;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 箭头函数</span></span><br><span class="line"><span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> chuck = <span class="number">42</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + chuck;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况二：</span></span><br><span class="line"><span class="comment">// 传统无参匿名函数</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">100</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 无参箭头函数</span></span><br><span class="line"><span class="function">() =&gt;</span> a + b + <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 情况三：</span></span><br><span class="line"><span class="comment">// 传统函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bob</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 箭头函数</span></span><br><span class="line"><span class="keyword">const</span> bob2 = <span class="function">(<span class="params">a</span>) =&gt;</span> a + <span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-函数体"><a href="#3-函数体" class="headerlink" title="3.函数体"></a>3.函数体</h4><p>箭头函数既可以使用表达式体，也可以使用通常的块体。</p>
+<p>在表达式体中，只需指定一个表达式，它将成为隐式返回值。在块体中，必须使用显式的 return 语句。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> func = <span class="function">(<span class="params">x</span>) =&gt;</span> x * x;</span><br><span class="line"><span class="comment">// 表达式体语法，隐含返回值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> func2 = <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 块体语法，需要明确返回值</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-箭头函数不能用作方法"><a href="#4-箭头函数不能用作方法" class="headerlink" title="4.箭头函数不能用作方法"></a>4.箭头函数不能用作方法</h4><p>箭头函数表达式只能用于非方法函数，因为它们没有自己的 this。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">i</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">b</span>: <span class="function">() =&gt;</span> <span class="built_in">console</span>.log(<span class="built_in">this</span>.i, <span class="built_in">this</span>),</span><br><span class="line">  <span class="function"><span class="title">c</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.i, <span class="built_in">this</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.b(); <span class="comment">// 输出 undefined, Window &#123; /* … */ &#125;（或全局对象）</span></span><br><span class="line">obj.c(); <span class="comment">// 输出 10, Object &#123; /* … */ &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于类体具有this上下文，因此作为类字段的箭头函数会关闭类的this上下文，箭头函数体中的 this将正确指向实例(对于静态字段来说是类本身)。但是，由于它是一个闭包，而不是函数本身的绑定，因此this 的值不会根据执行上下文而改变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">  a = <span class="number">1</span>;</span><br><span class="line">  autoBoundMethod = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C();</span><br><span class="line">c.autoBoundMethod(); <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">const</span> &#123; autoBoundMethod &#125; = c;</span><br><span class="line">autoBoundMethod(); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 如果这是普通方法，此时应该是 undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>在大多数情况下，使用剩余参数是比使用arguments对象更好的选择。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> f = <span class="function">(<span class="params">...args</span>) =&gt;</span> args[<span class="number">0</span>] + n;</span><br><span class="line">  <span class="keyword">return</span> f(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">1</span>); <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-不能用作构造函数"><a href="#5-不能用作构造函数" class="headerlink" title="5.不能用作构造函数"></a>5.不能用作构造函数</h4><p>箭头函数不能用作构造函数，当使用new调用时会出错。它们也没有prototype属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Foo = <span class="function">() =&gt;</span> &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo(); <span class="comment">// TypeError: Foo is not a constructor</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;prototype&quot;</span> <span class="keyword">in</span> Foo); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-不能用作生成器"><a href="#6-不能用作生成器" class="headerlink" title="6.不能用作生成器"></a>6.不能用作生成器</h4><p>箭头函数的主体中不能使用yield关键字（(除非在箭头函数进一步嵌套的生成器函数中使用)。</p>
+<h4 id="7-箭头前换行（箭头函数的参数和箭头之间不能换行。）"><a href="#7-箭头前换行（箭头函数的参数和箭头之间不能换行。）" class="headerlink" title="7.箭头前换行（箭头函数的参数和箭头之间不能换行。）"></a>7.箭头前换行（箭头函数的参数和箭头之间不能换行。）</h4><p>为便于格式化，可在箭头后换行，或在函数体周围使用括号/花括号</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> func = <span class="function">(<span class="params">a, b, c</span>) =&gt;</span></span><br><span class="line">  <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> func2 = <span class="function">(<span class="params">a, b, c</span>) =&gt;</span> (</span><br><span class="line">  <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> func3 = <span class="function">(<span class="params">a, b, c</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> func4 = <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">  a,</span></span></span><br><span class="line"><span class="params"><span class="function">  b,</span></span></span><br><span class="line"><span class="params"><span class="function">  c,</span></span></span><br><span class="line"><span class="params"><span class="function"></span>) =&gt;</span> <span class="number">1</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="8-箭头函数的优先级"><a href="#8-箭头函数的优先级" class="headerlink" title="8.箭头函数的优先级"></a>8.箭头函数的优先级</h4><p>虽然箭头函数中的箭头不是运算符，但与普通函数相比，箭头函数具有特殊的解析规则，与运算符优先级的交互方式不同。</p>
+<p>由于=&gt;的优先级低于大多数运算符，因此需要使用括号来避免callback ll ()被解析为箭头函数的参数列表。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback = callback || (<span class="function">() =&gt;</span> &#123;&#125;);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/05/vue-%E7%9B%91%E5%90%AC%E5%99%A8/" rel="prev" title="vue-监听器">
+      <i class="fa fa-chevron-left"></i> vue-监听器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/05/vue-setUp/" rel="next" title="vue-setUp">
+      vue-setUp <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E6%B2%A1%E6%9C%89%E7%8B%AC%E7%AB%8B%E7%9A%84-this%E3%80%81arguments%E5%92%8Csuper-%E7%BB%91%E5%AE%9A-en-US-%EF%BC%8C%E5%B9%B6%E4%B8%94%E4%B8%8D%E5%8F%AF%E8%A2%AB%E7%94%A8%E4%BD%9C%E6%96%B9%E6%B3%95%E3%80%82"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">箭头函数没有独立的 this、arguments和super 绑定_(en-US)，并且不可被用作方法。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BD%9C%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E3%80%82%E4%BD%BF%E7%94%A8new%E8%B0%83%E7%94%A8%E5%AE%83%E4%BB%AC%E4%BC%9A%E5%BC%95%E5%8F%91TypeError%E3%80%82%E5%AE%83%E4%BB%AC%E4%B9%9F%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEnew-target%E5%85%B3%E9%94%AE%E5%AD%97%E3%80%82"><span class="nav-number">1.0.0.0.0.2.</span> <span class="nav-text">箭头函数不能用作构造函数。使用new调用它们会引发TypeError。它们也无法访问new.target关键字。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8D%E8%83%BD%E5%9C%A8%E5%85%B6%E4%B8%BB%E4%BD%93%E4%B8%AD%E4%BD%BF%E7%94%A8yield%EF%BC%8C%E4%B9%9F%E4%B8%8D%E8%83%BD%E4%BD%9C%E4%B8%BA%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA%E3%80%82"><span class="nav-number">1.0.0.0.0.3.</span> <span class="nav-text">箭头函数不能在其主体中使用yield，也不能作为生成器函数创建。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.箭头函数形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B0%86%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E5%88%86%E8%A7%A3%E4%B8%BA%E7%AE%80%E5%8D%95%E5%9C%B0%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.将匿名函数分解为简单地箭头函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%87%BD%E6%95%B0%E4%BD%93"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3.函数体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4.箭头函数不能用作方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BD%9C%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5.不能用作构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BD%9C%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6.不能用作生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E7%AE%AD%E5%A4%B4%E5%89%8D%E6%8D%A2%E8%A1%8C%EF%BC%88%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0%E5%92%8C%E7%AE%AD%E5%A4%B4%E4%B9%8B%E9%97%B4%E4%B8%8D%E8%83%BD%E6%8D%A2%E8%A1%8C%E3%80%82%EF%BC%89"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">7.箭头前换行（箭头函数的参数和箭头之间不能换行。）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">8.箭头函数的优先级</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

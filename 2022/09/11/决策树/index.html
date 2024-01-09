@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="决策树">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/11/%E5%86%B3%E7%AD%96%E6%A0%91/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/1.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/2.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/3.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/4.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/5.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/6.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/image-20210517234641817.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/8.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/9.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/10.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/11.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/12.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/13.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/14.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/15.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/16.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/决策树/17.png">
+<meta property="article:published_time" content="2022-09-11T09:04:33.000Z">
+<meta property="article:modified_time" content="2022-09-11T09:18:31.532Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/决策树/1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/11/%E5%86%B3%E7%AD%96%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>决策树 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/11/%E5%86%B3%E7%AD%96%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          决策树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-11 17:04:33 / 修改时间：17:18:31" itemprop="dateCreated datePublished" datetime="2022-09-11T17:04:33+08:00">2022-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="第四章-决策树算法"><a href="#第四章-决策树算法" class="headerlink" title="第四章 决策树算法"></a>第四章 决策树算法</h1><h2 id="一、基本流程"><a href="#一、基本流程" class="headerlink" title="一、基本流程"></a>一、基本流程</h2><p>一般决策树包含一个根节点，若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个人属性；每个节点包含的样本集合根据属性测试的结果被划分到子结点中；根节点包含样本全集，</p>
+<p>目的：为了产生一颗泛化能力强，即处理未见示例能力强的决策树，其基本流程遵循简单且直观的“分而治之”策略；</p>
+<p>西瓜问题的决策树：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\1.png" alt="image-20210517230151137"></p>
+<p>决策树算法：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\2.png" alt="image-20210517230259974">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </p>
+<h2 id="二、划分选择"><a href="#二、划分选择" class="headerlink" title="二、划分选择"></a>二、划分选择</h2><h4 id="算法关键：如何选择最优划分属性"><a href="#算法关键：如何选择最优划分属性" class="headerlink" title="算法关键：如何选择最优划分属性"></a>算法关键：如何选择最优划分属性</h4><p>​      1、信息增益</p>
+<p>   信息熵：度量样本集合纯度的一种指标</p>
+<p>假定当前样本集合 </p>
+<p>中第 类样本所占的比例为 Pk (k = 1, 2,. . . , IYI) ，则的信息熵定义为</p>
+<p>   算法：<img src="D:\blog\myblog\source_posts\决策树\3.png" alt="image-20210517233013999"></p>
+<p><img src="D:\blog\myblog\source_posts\决策树\4.png" alt="image-20210517233500027"></p>
+<p>Ent(D)的值越小，则D的纯度越高。</p>
+<p> 信息增益 （对数目骄较多的属性有所偏好）</p>
+<p>算法：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\5.png" alt="image-20210517233747979"></p>
+<p>增益率：对数目较少的属性有所偏好</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\6.png" alt="image-20210517234131882"></p>
+<p>Ⅳ(α)称为α的“固有值”属性α的可能取值数目越多(即 α越大)，则 IV(α) 的值通常会越大.</p>
+<p>基尼指数：</p>
+<p>基尼值：从数据集D中随机抽取两个样本，起类别标记不一致的概率。</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\image-20210517234641817.png" alt="image-20210517234641817"></p>
+<p>直观来说Gini(D)反映了从数据集D中随机抽取两个样本，其类别标记不一致的概率，Gini(D)越小，则数据集D的纯度越高。</p>
+<p>基尼指数：一般，选择使划分后基尼系数最小的属性作为最优化分属性</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\8.png" alt="image-20210517234931650"></p>
+<h2 id="三、剪枝处理"><a href="#三、剪枝处理" class="headerlink" title="三、剪枝处理"></a>三、剪枝处理</h2><p>剪枝是决策树学习算法对付“过拟合”的主要手段，目的 通过主动去掉一些分支来降低过拟合的风险。</p>
+<p>预剪枝：在决策树生成过程中，对每个节点在分裂前进行估计，若当前节点的划分不能带来决策树泛化性能提升，则停止分裂，并将当前节点标记为叶节点并返回。下图是针对西瓜数据集的预剪枝处理，可以发现比原决策树精简了很多。</p>
+<p>后剪枝：先通过算法生成一棵完整的决策树，然后自底向上的对非叶节点进行考察，若将该节点对应的子树替换为叶节点能带来决策树泛化能力的提升，则将该子树替换为叶节点。下图是针对西瓜数据集的后剪枝处理</p>
+<h2 id="四、连续值于缺失值"><a href="#四、连续值于缺失值" class="headerlink" title="四、连续值于缺失值"></a>四、连续值于缺失值</h2><p>连续值处理方法：</p>
+<p>  特征属性如果是连续值的话，可取值数目是无限的，不能按照离散值那样通过可取值数目来进行节点划分，最常用的办法是二分法。</p>
+<p>  数据集D和连续值属性a，假设a在D中出现了n个不同的取值，先把这些值从小到大排序，可以考察包含n-1个候选划分点集合：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\9.png" alt="img"></p>
+<p> 即把每两个取值点的中位点作为候选划分点，然后计算每个划分点之后的信息增益，选取信息增益最大的划分点进行分裂，也就是需找使Gain（D，a，t）最大的划分点。</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\10.png" alt="img"></p>
+<p>缺失值处理：需要解决的两个问题</p>
+<p>(1) 如何在属性值缺失的情况下进行划分属性选择</p>
+<p>(2) 给定划分属性，若样本在该属性上的值缺失，如何对样本进行划分</p>
+<p>假设有训练集D和属性a，D<del>表示D中在属性a上没有缺失值的样本集合（有效样本集合），属性a有V个取值{a1,a2,…..av},每个取值的样本数为D</del>v, D<del>k表示D</del>中第k类样本子集，为每个样本x赋予一个权重wx（初始化为1）, 因此有</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\11.png" alt="img"></p>
+<p><img src="D:\blog\myblog\source_posts\决策树\12.png" alt="img"></p>
+<p>p(rho)表示无缺失值样本所占的比例，pk<del>表示无缺失值样本中第k类样本所占的比例，rv</del>表示无缺失值样本中在属性a上取值av的样本所占的比例</p>
+<p>所以针对问题一解决方案：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\13.png" alt="img"></p>
+<p>针对问题二解决方案：</p>
+<p>如果样本x在属性a上取值已知，则把x划分到与其取值对应的子结点，并且样本权值在子结点中保持为wx; 如果样本x在属性a上取值未知，则将x同时划分到所有子结点，并且样本权值在与属性值av对应的子结点中调整为rv~乘以wx，也就是说让同一个样本以不同的概率划入到不同的子结点中去。</p>
+<h2 id="五、多变量决策树"><a href="#五、多变量决策树" class="headerlink" title="五、多变量决策树"></a>五、多变量决策树</h2><p>也叫‘斜决策树’，非叶子结点不再是针对单个属性，而是对属性的线性组合进行测试，也就是说每个非叶子结点都是一个形如的线性分类器，wi和t可以在该结点所含的样本集和属性集上学得。</p>
+<p>决策树形成的分类边界有一个明显的特点：轴平行，即它的分类边界由若干个与坐标轴平行的分段组成，如下图所示：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\14.png" alt="在这里插入图片描述"></p>
+<p>以上的分类边界使得分类结果有较好的解释性，但是在学习任务的真是分类边界比较复杂时，必须划分很多段才可以较好的近似，此时的决策树回很复杂，由于要进行大量的属性测试，预测时间的开销会变得非常大，如下图所示：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\15.png" alt="img"></p>
+<p>若能够使用上述红色边界，那么决策模型将会大大简化。“多决策变量树”即可实现这样的划分。</p>
+<p>在此类决策树当中，非叶结点不再是仅针对某一个属性，而是对多个属性的线性组合进行测试。</p>
+<p>换句话说，每个非叶结点是一个形如</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\16.png" alt="image-20210518191153631"></p>
+<p>的线性分类器。</p>
+<p>d个属性描述的样本对应d为空间的一个数据点，a代表各个属性，wi 和 t 都是结合该样本集和属性集上学习到的。</p>
+<p>与“传统单变量决策树”不同，在多变量决策树的学习过程中，不是为每个非叶结点寻找一个最优划分属性，而是试图建立一个合适的线性分类器，如下图所示：</p>
+<p><img src="D:\blog\myblog\source_posts\决策树\17.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/11/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/" rel="prev" title="线性模型">
+      <i class="fa fa-chevron-left"></i> 线性模型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/12/python-ndarray/" rel="next" title="python-numpy-ndarray">
+      python-numpy-ndarray <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">第四章 决策树算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一、基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%92%E5%88%86%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.</span> <span class="nav-text">二、划分选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%85%B3%E9%94%AE%EF%BC%9A%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E5%88%92%E5%88%86%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">算法关键：如何选择最优划分属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%89%AA%E6%9E%9D%E5%A4%84%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">三、剪枝处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%BF%9E%E7%BB%AD%E5%80%BC%E4%BA%8E%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="nav-number">1.4.</span> <span class="nav-text">四、连续值于缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%A4%9A%E5%8F%98%E9%87%8F%E5%86%B3%E7%AD%96%E6%A0%91"><span class="nav-number">1.5.</span> <span class="nav-text">五、多变量决策树</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js-利用express编写接口">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/08/01/Node-js-%E5%88%A9%E7%94%A8express%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-01T02:36:13.000Z">
+<meta property="article:modified_time" content="2022-08-01T02:36:55.179Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/08/01/Node-js-%E5%88%A9%E7%94%A8express%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Node.js-利用express编写接口 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/08/01/Node-js-%E5%88%A9%E7%94%A8express%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Node.js-利用express编写接口
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-01 10:36:13 / 修改时间：10:36:55" itemprop="dateCreated datePublished" datetime="2022-08-01T10:36:13+08:00">2022-08-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Node-js-利用express编写接口"><a href="#Node-js-利用express编写接口" class="headerlink" title="Node.js-利用express编写接口"></a>Node.js-利用express编写接口</h2><h4 id="创建基本的服务器"><a href="#创建基本的服务器" class="headerlink" title="创建基本的服务器"></a>创建基本的服务器</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建服务器</span></span><br><span class="line"><span class="comment">//导入express模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="comment">//创建express的服务器实例</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用app.listen 方法，指定端口号并启动web服务器</span></span><br><span class="line">app.listen(<span class="number">80</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;Express server running at http://127.0.0.1&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建API路由模块"><a href="#创建API路由模块" class="headerlink" title="创建API路由模块"></a>创建API路由模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> APIRouter = express.Router()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//在这里挂载对应的路由</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = APIRouter</span><br></pre></td></tr></table></figure>
+
+<p>服务器中注册路由</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入路由模块</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&#x27;./接口1.js&#x27;</span>)</span><br><span class="line"><span class="comment">//把路由模块，注册到app上</span></span><br><span class="line">app.use(<span class="string">&#x27;/api&#x27;</span>,router)</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写get接口"><a href="#编写get接口" class="headerlink" title="编写get接口"></a>编写get接口</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///定义get接口</span></span><br><span class="line">APIRouter.get(<span class="string">&#x27;/get&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//通过req.query获取客户端查询字符串，发送到服务器的数据</span></span><br><span class="line">    <span class="keyword">const</span> query = req.query</span><br><span class="line">    <span class="comment">//调用res.send() 方法，向服务器响应处理的结果</span></span><br><span class="line">    res.send(&#123;</span><br><span class="line">        <span class="attr">status</span>: <span class="number">0</span>,<span class="comment">//0:表示处理成功，1：表示处理失败</span></span><br><span class="line">        <span class="attr">msg</span>: <span class="string">&#x27;get 请求成功&#x27;</span>,  <span class="comment">//状态描述</span></span><br><span class="line">        <span class="attr">data</span>: query <span class="comment">//需要响应给客户端的数据</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="编写post接口"><a href="#编写post接口" class="headerlink" title="编写post接口"></a>编写post接口</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义post接口</span></span><br><span class="line">APIRouter.post(<span class="string">&#x27;/post&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//通过req. body获取请求体中包含的url-encoded格式的数据</span></span><br><span class="line">    <span class="keyword">const</span> body = req.body</span><br><span class="line">    <span class="comment">//调用res.send() 方法，向客户端响应接结果</span></span><br><span class="line">    res.send(&#123;</span><br><span class="line">        <span class="attr">status</span>: <span class="number">0</span>,<span class="comment">//0:表示处理成功，1：表示处理失败</span></span><br><span class="line">        <span class="attr">msg</span>: <span class="string">&#x27;get 请求成功&#x27;</span>,  <span class="comment">//状态描述</span></span><br><span class="line">        <span class="attr">data</span>: body <span class="comment">//需要响应给客户端的数据</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>**注意:**如果要获取URL-encoded格式的请求体数据，必须配置中间件 app.use(express.urlencoded({extended:false}))</p>
+<h4 id="CORS跨域资源共享"><a href="#CORS跨域资源共享" class="headerlink" title="CORS跨域资源共享"></a>CORS跨域资源共享</h4><h5 id="接口的跨域问题"><a href="#接口的跨域问题" class="headerlink" title="接口的跨域问题"></a>接口的跨域问题</h5><p>解决跨域问题的方式有两种：</p>
+<ol>
+<li>CORS(主流的解决方案，推荐使用)</li>
+<li>JSONP(有缺陷的解决方案:只支持GET请求)</li>
+</ol>
+<h5 id="使用cors中间件解决跨域问题"><a href="#使用cors中间件解决跨域问题" class="headerlink" title="使用cors中间件解决跨域问题"></a>使用cors中间件解决跨域问题</h5><p>cors 是Express的一个第三方中间件。通过安装和配置cors 中间件，可以很方便地解决跨域问题。</p>
+<ol>
+<li>运行npm install cors 安装中间件</li>
+<li>使用const cors = require(“cors”)导入中间件</li>
+<li>在路由之前调用app.use(cors())配置中间件</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定要在路由之前，配置 cors这个中间件，从而解决接口跨域的问题</span></span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>)</span><br><span class="line">app.use(cors())</span><br></pre></td></tr></table></figure>
+
+<p>CORS (Cross-Origin Resource Sharing，跨域资源共享）由一系列HTTP响应头组成，这些HTTP响应头决定浏览器是否阻止前端JS代码跨域获取资源。</p>
+<p>浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果接口服务器配置了CORS相关的HTTP响应头，就可以解除浏览器端的跨域访问限制。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>CORS主要在服务器端进行配置。客户端浏览器无须做任何额外的配置，即可请求开启了CORS的接口。</li>
+<li>CORS在浏览器中有兼容性。只有支持XMLHttpRequest Level2的浏览器，才能正常访问开启了CORS的服务端接口（例如:IE10+、Chrome4+、FireFox3.5+).</li>
+</ol>
+<h5 id="CORS响应头部-Access-Control-Allow-Origin"><a href="#CORS响应头部-Access-Control-Allow-Origin" class="headerlink" title="CORS响应头部- Access-Control-Allow-Origin"></a>CORS响应头部- Access-Control-Allow-Origin</h5><p>响应头部中可以携带一个Access-Control-Allow-Origin字段，其语法如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:&lt;origin&gt;|*</span><br><span class="line"><span class="comment">//其中，origin参数的值指定了允许访问该资源的外域URL。</span></span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">下面的字段值将只允许来自http:<span class="comment">//itcast.cn的请求:</span></span><br><span class="line">res.setHeader(<span class="string">&quot;Access-Control-Allow-origin&quot;</span>,<span class="string">&quot;http:ll/itcast.cn&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>如果指定了Access-Control-Allow-Origin字段的值为通配符*，表示允许来自任何域的请求，示例代码如下;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res.setHeader( <span class="string">&quot; Access-Control-Allow-origin&quot;</span>,“*<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="CORS响应头部–Access-Control-Allow-Headers"><a href="#CORS响应头部–Access-Control-Allow-Headers" class="headerlink" title="CORS响应头部–Access-Control-Allow-Headers"></a>CORS响应头部–Access-Control-Allow-Headers</h5><p>默认情况下，CORS仅支持客户端向服务器发送如下的9个请求头:</p>
+<p>Accept、Accept-Language、Content-Language、DPR、Downlink、Save-Data、Viewport-Width、Width ,Content-Type(值仅限于text/plain、multipart/form-data、application/x-www-form-urlencoded三者之一)</p>
+<p>如果客户端向服务器发送了额外的请求头信息，则需要在服务器端，通过Access-Control-Allow-Headers 对额外的请求头进行声明，否则这次请求会失败!</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//允许客户端额外向服务器发送Content-Type请求头和X-Custom-Header请求头</span></span><br><span class="line"><span class="comment">//注意:多个请求头之问使用英文的逗号进行分割</span></span><br><span class="line">res.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&#x27;,&#x27;Content,Type，x-Custom-Header&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="CORS响应头部-Access-Control-Allow-Methods"><a href="#CORS响应头部-Access-Control-Allow-Methods" class="headerlink" title="CORS响应头部- Access-Control-Allow-Methods"></a>CORS响应头部- Access-Control-Allow-Methods</h5><p>默认情况下，CORS仅支持客户端发起GET、POST、HEAD请求。</p>
+<p>如果客户端希望通过PUT、DELETE等方式请求服务器的资源，则需要在服务器端，通过Access-Control-Alow-Methods来指明实际请求所允许使用的 HTTP方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//只允许POST、GET、DELETE、HEAD请求方法</span></span><br><span class="line">res.setHeader(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>,<span class="string">&quot;POST,GET,DELETE,HEAD&#x27;)</span></span><br><span class="line"><span class="string">//允许所有的 HTTP请求方法</span></span><br><span class="line"><span class="string">res.setHeader(&quot;</span>Access-Control-Allow-Methods<span class="string">&quot;,&quot;</span>*<span class="string">&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="CORS请求的分类"><a href="#CORS请求的分类" class="headerlink" title="CORS请求的分类"></a>CORS请求的分类</h5><p>客户端在请求CORS 接口时，根据请求方式和请求头的不同，可以将CORS的请求分为两大类，分别是:</p>
+<ol>
+<li>简单请求（a.请求方式:GET、POST、HEAD三者之一 b.HTTP头部信息不超过以下几种字段:无自定义头部字段、Accept、Accept-Language、Content-Language、DPR.Downlink、Save-Data、Viewport-Width、width 、Content-Type (只有三个值application/x-www-form-urlencoded、multipart/form-data、text/plain) （满足上面两种））</li>
+<li>预检请求（a.请求方式为GET、POST、HEAD之外的请求 Method类型 b.请求头中包含自定义头部字段 c.向服务器发送了application/json格式的数据  (满足任意一种)）</li>
+</ol>
+<p>在浏览器与服务器正式通信之前，浏览器会先发送ОPTION请求进行预检，以获知服务器是否允许该实际请求，所以这一次的OPTION请求称为“预检请求”。服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。</p>
+<p>两种请求的区别;</p>
+<p>简单请求的特点:客户端与服务器之间只会发生一次请求。</p>
+<p>预检请求的特点:客户端与服务器之间会发生两次请求，OPTION预检请求成功之后，才会发起真正的请求。</p>
+<h4 id="JSONP接口"><a href="#JSONP接口" class="headerlink" title="JSONP接口"></a>JSONP接口</h4><p>概念:浏览器端通过<script>标签的src属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做JSONP。</p>
+<p>特点：</p>
+<ol>
+<li>JSONP不属于真正的 Ajax请求，因为它没有使用XMLHttpRequest这个对象。</li>
+<li>JSONP仅支持GET请求，不支持POST、PUT、DELETE等请求。</li>
+</ol>
+<p><strong>注意：</strong>如果项目中已经配置了CORS 跨域资源共享，为了防止冲突，必须在配置CORS中间件之前声明JSONP的接口。否则JSONP接口会被处理成开启了CORS的接口。示例代码如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//优先创建JSONP接口【这个借口不会被处理成CORS接口】</span></span><br><span class="line">app.get(<span class="string">&#x27;/api/JSONP&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123; &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//再配置CORS中间件【后续的所有接口，都会被处理成CORS接口】</span></span><br><span class="line">app.use(cors())</span><br><span class="line"></span><br><span class="line"><span class="comment">//这是一个开启CORS的接口</span></span><br><span class="line">app.get(<span class="string">&#x27;/api/get&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123; &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>实现步骤：</p>
+<ol>
+<li>获取客户端发送过来的回调函数的名字</li>
+<li>得到要通过JSONP形式发送给客户端的数据</li>
+<li>根据前两步得到的数据,拼接出一个函数调用的字符串</li>
+<li>把上一步拼接得到的字符串，响应给客户端的<script>标签进行解析执行</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/api/JSONP&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//TODO 定义JSONP接口的具体实现过程</span></span><br><span class="line">    <span class="comment">// 1. 获取客户端发送过来的回调函数的名字</span></span><br><span class="line">    <span class="keyword">const</span> funcName = req.query.callback</span><br><span class="line">    <span class="comment">// 2. 得到要通过JSONP形式发送给客户端的数据</span></span><br><span class="line">    <span class="keyword">const</span> data = &#123;<span class="attr">name</span>:<span class="string">&#x27;zs&#x27;</span>,<span class="attr">age</span>:<span class="number">22</span>&#125;</span><br><span class="line">    <span class="comment">// 3. 根据前两步得到的数据,拼接出一个函数调用的字符串</span></span><br><span class="line">    <span class="keyword">const</span> scriptStr = <span class="string">`<span class="subst">$&#123;funcName&#125;</span>(<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(data)&#125;</span>)`</span></span><br><span class="line">    <span class="comment">// 4. 把上一步拼接得到的字符串，响应给客户端的&lt;script&gt;标签进行解析执行</span></span><br><span class="line">    res.send(scriptStr)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</script></p>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/01/Node-js-%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="prev" title="Node.js-模块化">
+      <i class="fa fa-chevron-left"></i> Node.js-模块化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/11/mysql-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" rel="next" title="mysql-多表查询">
+      mysql-多表查询 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-%E5%88%A9%E7%94%A8express%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Node.js-利用express编写接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建基本的服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAAPI%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.2.</span> <span class="nav-text">创建API路由模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99get%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.0.3.</span> <span class="nav-text">编写get接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99post%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.0.4.</span> <span class="nav-text">编写post接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB"><span class="nav-number">1.0.5.</span> <span class="nav-text">CORS跨域资源共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">接口的跨域问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8cors%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">使用cors中间件解决跨域问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8-Access-Control-Allow-Origin"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">CORS响应头部- Access-Control-Allow-Origin</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8%E2%80%93Access-Control-Allow-Headers"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">CORS响应头部–Access-Control-Allow-Headers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS%E5%93%8D%E5%BA%94%E5%A4%B4%E9%83%A8-Access-Control-Allow-Methods"><span class="nav-number">1.0.5.5.</span> <span class="nav-text">CORS响应头部- Access-Control-Allow-Methods</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS%E8%AF%B7%E6%B1%82%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.0.5.6.</span> <span class="nav-text">CORS请求的分类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.0.6.</span> <span class="nav-text">JSONP接口</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

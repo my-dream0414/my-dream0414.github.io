@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java—网络编程">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-1.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-2.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/Cimage-3.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-4.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-5.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-6.png">
+<meta property="article:published_time" content="2022-06-05T06:59:39.000Z">
+<meta property="article:modified_time" content="2022-06-05T07:03:03.129Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/image-1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java—网络编程 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/06/05/java%E2%80%94%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java—网络编程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-05 14:59:39 / 修改时间：15:03:03" itemprop="dateCreated datePublished" datetime="2022-06-05T14:59:39+08:00">2022-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="java-网络编程-聊天程序"><a href="#java-网络编程-聊天程序" class="headerlink" title="java 网络编程-聊天程序"></a>java 网络编程-聊天程序</h2><h4 id="客户端-服务器端"><a href="#客户端-服务器端" class="headerlink" title="客户端-服务器端"></a>客户端-服务器端</h4><h5 id="1-程序设计："><a href="#1-程序设计：" class="headerlink" title="1.程序设计："></a>1.程序设计：</h5><p>1.聊天程序的实现分为两部分，第一部分为客户端实现，第二部分为服务器端实现。 </p>
+<p>2.服务器端实现：功能包括启动服务器、关闭服务器、显示内容、向客户端发送信息。 </p>
+<p>（1）界面设计：界面功能区大致包含两个部分，以显示内容界面为主，在显示内容界面下方有启动服务器按钮，消息编辑框，消息发送按钮，关闭服务器按钮。 </p>
+<p>（2）服务器端创建一个类Server，构造函数包括界面初始化，启动服务器按钮添加事件，事件内容是启动默认的端口并创建第一层线程（作用是让服务器端可以同时连接多个用户端）；发送按钮中的事件中，将jtf中的内容读取出来通过DataOutputStream发送给客户端。服务器端中接收客户端发过来的信息是利用DataInputStream,数据输入流允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型，在接收信息时，又增加了第二层线程，第一层线程主要是为发送信息使用，而第二层是专门用来接受信息，这也是为了不干扰主线程运行特意设计。最后是关闭服务器端，关闭服务器端的任务就是通过close来断开与端口的链接，并且清空所有线程。 </p>
+<p>3.客户端实现与服务器端实现你类似，客户端功能包括连接服务器与断开服务器，显示内容，接收与发送信息等。 </p>
+<p>（1）界面设计：界面大致分为三个部分，最上面包括服务器IP，端口号，用户名以及连接服务器和断开服务器的按钮，其中可以更改服务器IP，端口号，用户名；中间为两个文本框，第一个文本框是显示发送信息内容和接收信息的内容，第二个文本框是显示客户端作者以及版本信息。最下面是有一个文本框用来编辑发送的内容和一个发送按钮组成。 </p>
+<p>（2）内容交互信息：连接服务器的绑定的事件通过读取服务器IP，端口号，用户名这 三部分中的内容连接到相应的服务器，并将用户名发送到服务器端；信息的发送与接收同服 务器端的实现形式一样。在客户端的实现过程中只用到了一个线程也就是接收线程，原因获 取系统系统输入阻塞主线程。</p>
+<h5 id="2-程序实现代码："><a href="#2-程序实现代码：" class="headerlink" title="2.程序实现代码："></a>2.程序实现代码：</h5><p>服务器端：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> talk;</span><br><span class="line"><span class="keyword">import</span> java.awt.BorderLayout;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.DataInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.net.SocketException;</span><br><span class="line"><span class="keyword">import</span> java.net.SocketTimeoutException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JButton;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JPanel;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JScrollPane;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JTextArea;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JTextField;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> ServerSocket server;   </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> JTextArea jta;</span><br><span class="line">	<span class="comment">// 滚动条</span></span><br><span class="line">	<span class="keyword">private</span> JScrollPane jsp;</span><br><span class="line">	<span class="comment">// 面板里面是文本框和按钮</span></span><br><span class="line">	<span class="keyword">private</span> JPanel jp;</span><br><span class="line">	<span class="keyword">private</span> JTextField jtf;</span><br><span class="line">	<span class="keyword">private</span> JButton jb,jb1,jb2;</span><br><span class="line">	<span class="keyword">private</span> JFrame frame;</span><br><span class="line">	<span class="keyword">private</span> DataInputStream inFromClient;</span><br><span class="line">	<span class="keyword">private</span> DataOutputStream outToClient;</span><br><span class="line">	<span class="keyword">private</span> ThreadClient thread = <span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">//每个聊天的名字</span></span><br><span class="line">	<span class="keyword">private</span>  String name=<span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> String txt = <span class="string">&quot;&quot;</span>; </span><br><span class="line">	Socket clientSocket = <span class="keyword">null</span>;<span class="comment">//客户端socket</span></span><br><span class="line">	Socket socket;</span><br><span class="line">	Server()&#123;</span><br><span class="line">		frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		jta = <span class="keyword">new</span> JTextArea();</span><br><span class="line">		<span class="comment">// 将文本域添加到滚动条中</span></span><br><span class="line">		jsp = <span class="keyword">new</span> JScrollPane(jta);</span><br><span class="line">		jp = <span class="keyword">new</span> JPanel();</span><br><span class="line">		jtf =<span class="keyword">new</span> JTextField(<span class="number">15</span>);</span><br><span class="line">		jb1 = <span class="keyword">new</span> JButton(<span class="string">&quot;启动服务器&quot;</span>);</span><br><span class="line">		jb1.addActionListener((ActionListener) <span class="keyword">new</span> startserver());</span><br><span class="line">		jb = <span class="keyword">new</span> JButton(<span class="string">&quot;发送&quot;</span>);</span><br><span class="line">		jb.addActionListener((ActionListener) <span class="keyword">new</span> sendserver());</span><br><span class="line">		jb2 = <span class="keyword">new</span> JButton(<span class="string">&quot;关闭服务器&quot;</span>);</span><br><span class="line">		jb2.addActionListener((ActionListener) <span class="keyword">new</span> stopserver());</span><br><span class="line">		<span class="comment">// 把按钮和文本框添加到面板中</span></span><br><span class="line">		jp.add(jb1);</span><br><span class="line">        jp.add(jtf);</span><br><span class="line">		jp.add(jb);</span><br><span class="line">		jp.add(jb2);</span><br><span class="line">		<span class="comment">// 把滚动条和面板添加到JFrame中去</span></span><br><span class="line">		frame.add(jsp,BorderLayout.CENTER); <span class="comment">//这个设置在中间</span></span><br><span class="line">		frame.add(jp,BorderLayout.SOUTH); <span class="comment">//南</span></span><br><span class="line">		frame.setTitle(<span class="string">&quot;聊天服务器端&quot;</span>);</span><br><span class="line">		frame.setSize(<span class="number">500</span>,<span class="number">500</span>);</span><br><span class="line">		frame.setLocation(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);      </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">startserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				server=<span class="keyword">new</span> ServerSocket(<span class="number">8000</span>);</span><br><span class="line">				jta.append(<span class="string">&quot;-------------服务器端已启动----------------\n&quot;</span>);</span><br><span class="line">				jta.append(<span class="string">&quot;等待客户端连接...\n&quot;</span>);</span><br><span class="line">				Thread acptThrd = <span class="keyword">new</span> Thread(<span class="keyword">new</span> AcceptRunnable());</span><br><span class="line">                acptThrd.start();	</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">				jta.append(<span class="string">&quot;创建服务器失败！\n&quot;</span>);</span><br><span class="line">				e1.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">sendserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			String s = jtf.getText();</span><br><span class="line">			jtf.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	        <span class="keyword">if</span> (s.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">	            <span class="keyword">try</span> &#123;</span><br><span class="line">	                outToClient.writeUTF(s);</span><br><span class="line">	                outToClient.flush();</span><br><span class="line">	                jta.append(<span class="string">&quot;我（服务端）说：&quot;</span> + s + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	            &#125; <span class="keyword">catch</span> (IOException el) &#123;</span><br><span class="line">	                jta.append(<span class="string">&quot;你的消息：“&quot;</span> + jtf.getText() + <span class="string">&quot;”未能发出去!\n&quot;</span>);</span><br><span class="line">	            &#125;</span><br><span class="line">	        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">stopserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				server.close();</span><br><span class="line">				jta.append(<span class="string">&quot;-------------服务器端已关闭----------------\n&quot;</span>);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">				e1.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AcceptRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 持续监听端口，当有新用户连接时 再开启新线程</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                	<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;<span class="comment">//使用while死循环模拟客户端一直启动</span></span><br><span class="line">                        clientSocket = server.accept();<span class="comment">//获取连接服务端的客户端socket    </span></span><br><span class="line">                        outToClient = <span class="keyword">new</span> DataOutputStream(clientSocket.getOutputStream());</span><br><span class="line">                        thread = <span class="keyword">new</span> ThreadClient(clientSocket);</span><br><span class="line">                        thread.start();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                    System.out.println(ex);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadClient</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> DataOutputStream dataOutputStream = <span class="keyword">null</span>;<span class="comment">//用于输出服务器返回给客户端的信息</span></span><br><span class="line">        <span class="keyword">private</span> BufferedReader in;  <span class="comment">//缓冲区读取内容，（避免中文乱码）（先将字节存在缓冲区中）</span></span><br><span class="line">        <span class="keyword">private</span> String nickname = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ThreadClient</span><span class="params">(Socket socket)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//根据客户端获取输出流对象</span></span><br><span class="line">                <span class="keyword">this</span>.dataOutputStream = <span class="keyword">new</span> DataOutputStream(socket.getOutputStream());</span><br><span class="line">                InputStream is = socket.getInputStream();</span><br><span class="line">                in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(is));  </span><br><span class="line">                name =  in.readLine();</span><br><span class="line">                jta.append(name+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">                <span class="keyword">if</span>(name.equals(<span class="string">&quot;exit&quot;</span>)) &#123;</span><br><span class="line">                	jta.append(nickname+<span class="string">&quot;退出聊天室!\n&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                	nickname = name;</span><br><span class="line">                	jta.append(name+<span class="string">&quot;加入聊天室！\n&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="comment">//MyServerThread--end</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">			<span class="keyword">try</span>&#123;</span><br><span class="line">	            <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">	            	</span><br><span class="line">	            	inFromClient = <span class="keyword">new</span> DataInputStream(clientSocket.getInputStream());</span><br><span class="line">	                jta.append(name+<span class="string">&quot;：&quot;</span>+inFromClient.readUTF()+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">	            &#125;</span><br><span class="line">	        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">	            e.printStackTrace();</span><br><span class="line">	        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">	            e.printStackTrace();</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Server();       </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>客户端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> talk;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowAdapter;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowEvent;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.DataInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintStream;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.Vector;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.border.TitledBorder;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> javax.swing.WindowConstants.EXIT_ON_CLOSE;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> BufferedReader in = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> PrintWriter out = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String localPort = <span class="string">&quot;8000&quot;</span>;     <span class="comment">// 默认端口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String localIP = <span class="string">&quot;127.0.0.1&quot;</span>;     <span class="comment">// 默认服务器IP地址</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String nickname = <span class="string">&quot;&quot;</span>;      <span class="comment">// 默认用户名</span></span><br><span class="line">    <span class="keyword">public</span> Socket socket;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String msg;       <span class="comment">// 存放本次发送的消息</span></span><br><span class="line">    Vector&lt;String&gt; clientNames = <span class="keyword">new</span> Vector&lt;&gt;(); </span><br><span class="line">	JFrame frame;</span><br><span class="line">	JLabel jl1,jl2,jl3,jl4;</span><br><span class="line">	JButton jb1,jb2,jb3;</span><br><span class="line">	JTextField jtf1,jtf2,jtf3,jtf4;</span><br><span class="line">	JTextArea jta1,jta2,jta3;</span><br><span class="line">	JScrollPane js;</span><br><span class="line">	JPanel jp1,jp2,jp3;</span><br><span class="line">	Container container;</span><br><span class="line">	<span class="keyword">public</span> Socket user;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">private</span> ClientThread clientThread = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> DataInputStream inFromServer; <span class="comment">//数据输入流允许应用程序以与机器无关方式从底层输入流中读取基本 Java 数据类型</span></span><br><span class="line">	<span class="keyword">private</span> DataOutputStream outToServer; <span class="comment">//数据输出流允许应用程序以与机器无关方式将Java基本数据类型写到底层输出流。</span></span><br><span class="line">	User()</span><br><span class="line">	&#123;</span><br><span class="line">		frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		frame.setLayout(<span class="keyword">new</span> FlowLayout());<span class="comment">//流式布局</span></span><br><span class="line">        frame.setSize(<span class="number">800</span>,<span class="number">750</span>);<span class="comment">//大小</span></span><br><span class="line">        frame.setLocationRelativeTo(<span class="keyword">null</span>);<span class="comment">//居中</span></span><br><span class="line">        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);</span><br><span class="line">        frame.setResizable(<span class="keyword">false</span>);</span><br><span class="line">		jl1 = <span class="keyword">new</span> JLabel(<span class="string">&quot;服务器IP：&quot;</span>);</span><br><span class="line">		jl2 = <span class="keyword">new</span> JLabel(<span class="string">&quot;端口号：&quot;</span>);</span><br><span class="line">		jl3 = <span class="keyword">new</span> JLabel(<span class="string">&quot;用户名：&quot;</span>);</span><br><span class="line">		jl4 = <span class="keyword">new</span> JLabel();</span><br><span class="line">		jtf1 = <span class="keyword">new</span> JTextField(<span class="number">20</span>);</span><br><span class="line">		jtf1.setText(localIP);</span><br><span class="line">		jtf2 = <span class="keyword">new</span> JTextField(<span class="number">8</span>);</span><br><span class="line">		jtf2.setText(localPort);</span><br><span class="line">		jtf3 = <span class="keyword">new</span> JTextField(<span class="number">8</span>);</span><br><span class="line">		jtf3.setText(<span class="string">&quot;nuaa&quot;</span>);</span><br><span class="line">		jb1 = <span class="keyword">new</span> JButton(<span class="string">&quot;连接服务器&quot;</span>);</span><br><span class="line">		jb1.addActionListener((ActionListener) <span class="keyword">new</span> linkserver());</span><br><span class="line">		jb2 = <span class="keyword">new</span> JButton(<span class="string">&quot;断开服务器&quot;</span>);</span><br><span class="line">		jb2.addActionListener((ActionListener) <span class="keyword">new</span> stopserver());</span><br><span class="line">		jb3 = <span class="keyword">new</span> JButton(<span class="string">&quot;发送&quot;</span>);</span><br><span class="line">		jb3.addActionListener((ActionListener) <span class="keyword">new</span> sendserver());</span><br><span class="line">		jp1 = <span class="keyword">new</span> JPanel();</span><br><span class="line">		jp2 = <span class="keyword">new</span> JPanel();</span><br><span class="line">		jp3 = <span class="keyword">new</span> JPanel();</span><br><span class="line">		container =frame.getContentPane();</span><br><span class="line">		frame.addWindowListener(<span class="keyword">new</span> WindowAdapter() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">windowClosing</span><span class="params">(WindowEvent e)</span></span>&#123;</span><br><span class="line">                System.exit(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">		jp1.add(jl1);</span><br><span class="line">		jp1.add(jtf1);</span><br><span class="line">		jp1.add(jl2);</span><br><span class="line">		jp1.add(jtf2);</span><br><span class="line">		jp1.add(jl3);</span><br><span class="line">		jp1.add(jtf3);</span><br><span class="line">		jp1.add(jb1);</span><br><span class="line">		jp1.add(jb2);</span><br><span class="line">		jp1.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">800</span>,<span class="number">50</span>));</span><br><span class="line">		container.add(jp1);</span><br><span class="line">		jta1 = <span class="keyword">new</span> JTextArea(<span class="number">30</span>, <span class="number">35</span>);</span><br><span class="line">		</span><br><span class="line">		jta2 = <span class="keyword">new</span> JTextArea(<span class="number">30</span>, <span class="number">35</span>);</span><br><span class="line">		jp2.add(jta1);</span><br><span class="line">		jp2.add(jta2);</span><br><span class="line">		jta1.setEditable(<span class="keyword">false</span>);</span><br><span class="line">		jta2.setEditable(<span class="keyword">false</span>);</span><br><span class="line">		jp2.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">800</span>,<span class="number">400</span>));</span><br><span class="line">		container.add(jp2);</span><br><span class="line">		jta3 = <span class="keyword">new</span> JTextArea();</span><br><span class="line"></span><br><span class="line">		jta3.setLineWrap(<span class="keyword">true</span>);</span><br><span class="line">		jta3.setWrapStyleWord(<span class="keyword">true</span>);</span><br><span class="line">		js = <span class="keyword">new</span> JScrollPane(jta3);</span><br><span class="line">		js.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">300</span>,<span class="number">30</span>));</span><br><span class="line">        js.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);</span><br><span class="line"><span class="comment">//        jp3.add(jta3);</span></span><br><span class="line">        jp3.add(js);</span><br><span class="line">		jp3.add(jb3);</span><br><span class="line">		jp3.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">800</span>,<span class="number">100</span>));</span><br><span class="line">		container.add(jp3);</span><br><span class="line">        frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">linkserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			jb1.setEnabled(<span class="keyword">false</span>);</span><br><span class="line">          jb2.setEnabled(<span class="keyword">true</span>);</span><br><span class="line">          init();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">stopserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				out.println(<span class="string">&quot;exit&quot;</span>);</span><br><span class="line">				jb1.setEnabled(<span class="keyword">true</span>);</span><br><span class="line">	            jb2.setEnabled(<span class="keyword">false</span>);</span><br><span class="line">				jta1.setText(<span class="string">&quot;**** 退 出 聊 天 ****&quot;</span>);</span><br><span class="line">				socket.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e1.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//发送消息</span></span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">sendserver</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">			String text = jta3.getText();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (text.length()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">	            <span class="keyword">try</span>&#123;</span><br><span class="line">	                outToServer.writeUTF(text);</span><br><span class="line">	                outToServer.flush();<span class="comment">//刷新此流并强制将字节写入基本流(非静态方法，只能访问类对象)</span></span><br><span class="line">	                jta1.append(<span class="string">&quot;我（客户端）说： &quot;</span>+jta3.getText()+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	                jta3.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	            &#125; <span class="keyword">catch</span> (IOException e1)&#123;</span><br><span class="line">	                jta1.append(<span class="string">&quot;你的消息：“&quot;</span>+jta3.getText()+<span class="string">&quot;”未能发送出去！\n&quot;</span>);</span><br><span class="line">	            &#125;</span><br><span class="line">	        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		jta2.setText(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;客户端信息:\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;姓名: 罗昌伟\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;性别: 男\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;班级: 软件2002班\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;学院: 计算机科学与技术学院\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;学号: 5120206055\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta2.append(<span class="string">&quot;版本: v2.2.2\n&quot;</span>+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">		jta1.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">int</span> port = Integer.valueOf(localPort).intValue();</span><br><span class="line">			socket = <span class="keyword">new</span> Socket(localIP,port);</span><br><span class="line">            jta1.append(<span class="string">&quot;****（端口&quot;</span> + localPort + <span class="string">&quot;）已启动 ****\n&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span>(socket.isConnected())&#123;</span><br><span class="line">            	jta1.append(<span class="string">&quot;**** (服务器已连接!) ****\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            inFromServer=<span class="keyword">new</span> DataInputStream(socket.getInputStream());</span><br><span class="line">            outToServer=<span class="keyword">new</span> DataOutputStream(socket.getOutputStream());</span><br><span class="line">            out = <span class="keyword">new</span> PrintWriter(socket.getOutputStream(), <span class="keyword">true</span>);</span><br><span class="line">            nickname = jtf3.getText();</span><br><span class="line">			out.println(nickname);</span><br><span class="line">			<span class="comment">// 获得socket输入 in</span></span><br><span class="line">			<span class="comment">// 建立接收线程；原因获取系统输入会阻塞主线程</span></span><br><span class="line">			clientThread = <span class="keyword">new</span> ClientThread();</span><br><span class="line">			clientThread.start();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span>(IOException e)</span><br><span class="line">	      &#123;</span><br><span class="line">			jta1.append(<span class="string">&quot;==== 连接服务器失败~服务器未连接！ ====&quot;</span>);</span><br><span class="line">	      &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//接收消息</span></span><br><span class="line">	 <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">	             <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">	            	 jta1.append(<span class="string">&quot;服务端说：&quot;</span>+inFromServer.readUTF()+<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	                 Thread.sleep(<span class="number">500</span>);</span><br><span class="line">	             &#125;</span><br><span class="line">	         &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	         &#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> User();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="4-结果："><a href="#4-结果：" class="headerlink" title="4.结果："></a>4.结果：</h5><p>客户端：</p>
+<p><img src="image-1.png" alt="image-20220605145021894"></p>
+<p><img src="image-2.png" alt="image-20220605145036230"></p>
+<p><img src="Cimage-3.png" alt="image-20220605145045118"></p>
+<p>服务器端：</p>
+<p><img src="image-4.png" alt="image-20220605145127302"></p>
+<p><img src="image-5.png" alt="image-20220605145138110"></p>
+<p><img src="image-6.png" alt="image-20220605145145637"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/02/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-%E7%89%B9%E5%BE%81%E5%BD%92%E4%B8%80%E5%8C%96/" rel="prev" title="特征工程-特征归一化">
+      <i class="fa fa-chevron-left"></i> 特征工程-特征归一化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/06/myaql-DDL%E6%93%8D%E4%BD%9C/" rel="next" title="mysql-DDL操作">
+      mysql-DDL操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E8%81%8A%E5%A4%A9%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">java 网络编程-聊天程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">客户端-服务器端</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%9A"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1.程序设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2.程序实现代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">4.结果：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

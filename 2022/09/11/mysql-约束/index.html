@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql-约束">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/1.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/2.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/3.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/4.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/5.png">
+<meta property="article:published_time" content="2022-09-11T08:40:09.000Z">
+<meta property="article:modified_time" content="2022-09-11T08:46:01.511Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mysql-约束 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/11/mysql-%E7%BA%A6%E6%9D%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql-约束
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-11 16:40:09 / 修改时间：16:46:01" itemprop="dateCreated datePublished" datetime="2022-09-11T16:40:09+08:00">2022-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MYSQL/" itemprop="url" rel="index"><span itemprop="name">MYSQL</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MYSQL-约束"><a href="#MYSQL-约束" class="headerlink" title="MYSQL-约束"></a>MYSQL-约束</h1><h4 id="概念-约束是作用于表中字段上的规则，用于限制存储在表中的数据。"><a href="#概念-约束是作用于表中字段上的规则，用于限制存储在表中的数据。" class="headerlink" title="概念:约束是作用于表中字段上的规则，用于限制存储在表中的数据。"></a>概念:约束是作用于表中字段上的规则，用于限制存储在表中的数据。</h4><h4 id="目的：保证数据库中数据的正确、有效性和完整性。"><a href="#目的：保证数据库中数据的正确、有效性和完整性。" class="headerlink" title="目的：保证数据库中数据的正确、有效性和完整性。"></a>目的：保证数据库中数据的正确、有效性和完整性。</h4><h4 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h4><p><img src="1.png" alt="image-20220906170318130"></p>
+<p><strong>注意：</strong>约束时作用于表中字段上的，可以再创建表/或修改表的时候添加约束</p>
+<p><img src="2.png" alt="image-20220907152620520"></p>
+<p><img src="3.png" alt="image-20220907152656664"></p>
+<p><img src="4.png" alt="image-20220907152708111"></p>
+<h4 id="外键约束："><a href="#外键约束：" class="headerlink" title="外键约束："></a>外键约束：</h4><h5 id="概念：外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。"><a href="#概念：外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。" class="headerlink" title="概念：外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。"></a>概念：外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。</h5><p>**注意:**目前上述的两张表，在数据库层面，并未建立外键关联，所以是无法保证数据的一致性和完整性的。</p>
+<h5 id="添加外键-语法："><a href="#添加外键-语法：" class="headerlink" title="添加外键-语法："></a>添加外键-语法：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名(</span><br><span class="line">	字段名 数据类型</span><br><span class="line">    ...</span><br><span class="line">    [<span class="keyword">constraint</span>][外键名称] forrign key (外键字段名) <span class="keyword">references</span> 主表（主表列名）</span><br><span class="line">)；</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> 外键名称 <span class="keyword">FOREIGN</span> KEY (外键字段名) <span class="keyword">REFERENCES</span> 主表(主表列名);</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除外键-语法："><a href="#删除外键-语法：" class="headerlink" title="删除外键-语法："></a>删除外键-语法：</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">DROP</span> <span class="keyword">FOREIGN</span> KEY 外键名称;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除-更新行为："><a href="#删除-更新行为：" class="headerlink" title="删除/更新行为："></a>删除/更新行为：</h5><p><img src="5.png" alt="image-20220907154821528"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">ADD</span> CONSTRANT 外键名称 <span class="keyword">FOREIGN</span> KEY (外键字段) <span class="keyword">REFERENCES</span> 主表名(主表字段名) <span class="keyword">ON</span> UPDATE CASCADE <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/11/mysql-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" rel="prev" title="mysql-多表查询">
+      <i class="fa fa-chevron-left"></i> mysql-多表查询
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/11/mysql-%E5%87%BD%E6%95%B0/" rel="next" title="mysql-函数">
+      mysql-函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL-%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.</span> <span class="nav-text">MYSQL-约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-%E7%BA%A6%E6%9D%9F%E6%98%AF%E4%BD%9C%E7%94%A8%E4%BA%8E%E8%A1%A8%E4%B8%AD%E5%AD%97%E6%AE%B5%E4%B8%8A%E7%9A%84%E8%A7%84%E5%88%99%EF%BC%8C%E7%94%A8%E4%BA%8E%E9%99%90%E5%88%B6%E5%AD%98%E5%82%A8%E5%9C%A8%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%82"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">概念:约束是作用于表中字段上的规则，用于限制存储在表中的数据。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84%EF%BC%9A%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%AD%A3%E7%A1%AE%E3%80%81%E6%9C%89%E6%95%88%E6%80%A7%E5%92%8C%E5%AE%8C%E6%95%B4%E6%80%A7%E3%80%82"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">目的：保证数据库中数据的正确、有效性和完整性。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">分类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%EF%BC%9A"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">外键约束：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%EF%BC%9A%E5%A4%96%E9%94%AE%E7%94%A8%E6%9D%A5%E8%AE%A9%E4%B8%A4%E5%BC%A0%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B9%8B%E9%97%B4%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%EF%BC%8C%E4%BB%8E%E8%80%8C%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E5%92%8C%E5%AE%8C%E6%95%B4%E6%80%A7%E3%80%82"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">概念：外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%A4%96%E9%94%AE-%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">添加外键-语法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%96%E9%94%AE-%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">删除外键-语法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%A0%E9%99%A4-%E6%9B%B4%E6%96%B0%E8%A1%8C%E4%B8%BA%EF%BC%9A"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">删除&#x2F;更新行为：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

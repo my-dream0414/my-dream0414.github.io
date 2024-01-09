@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单周期处理器">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/dan-1.jpg">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/dan-2.jpg">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/dan-3.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/dan-4.png">
+<meta property="article:published_time" content="2022-01-20T07:19:50.000Z">
+<meta property="article:modified_time" content="2022-01-20T07:23:39.075Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="计算机组成与系统结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/dan-1.jpg">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>单周期处理器 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/01/20/%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          单周期处理器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-20 15:19:50 / 修改时间：15:23:39" itemprop="dateCreated datePublished" datetime="2022-01-20T15:19:50+08:00">2022-01-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">计算机组成与系统结构</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84/%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">中央处理器</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="单周期处理器"><a href="#单周期处理器" class="headerlink" title="单周期处理器"></a>单周期处理器</h1><p>单周期CPU指的是一条指令的执行在一个时钟周期内完成，然后开始下一条指令的执行，即一条指令用一个时钟周期完成。电平从低到高变化的瞬间称为时钟上升沿，两个相邻时钟上升沿之间的时间间隔称为一个时钟周期。时钟周期一般也称振荡周期（如果晶振的输出没有经过分频就直接作为CPU的工作时钟，则时钟周期就等于振荡周期。若振荡周期经二分频后形成时钟脉冲信号作为CPU的工作时钟，这样，时钟周期就是振荡周期的两倍。）<br><img src="dan-1.jpg" alt="img"></p>
+<p>处理器设计过程：</p>
+<p>第一步：分析每条指令的功能</p>
+<p>第二步：根据指令的功能给出所需的原件，并考虑如何将他们互连</p>
+<p>第三步：确定每一个元件所需的控制信号的取值</p>
+<p>第四部：汇总所有指令涉及的控制信号，生成反映指令与控制信号之间的关系表</p>
+<p>第五步：根据关系表，得到每个控制信号的逻辑表达式，据此设计控制电路</p>
+<p><img src="dan-2.jpg" alt="img"></p>
+<p>1.op：为操作码；<br>2.rs：只读。为第1个源操作数寄存器，寄存器地址（编号）是00000<del>11111，00</del>1F；<br>3.rt：可读可写。为第2个源操作数寄存器，或目的操作数寄存器，寄存器地址（同上）；<br>4.rd：只写。为目的操作数寄存器，寄存器地址（同上）；<br>5.sa：为位移量（shift amt），移位指令用于指定移多少位；<br>6.funct：为功能码，在寄存器类型指令中（R类型）用来指定指令的功能与操作码配合使用；<br>7.immediate：为16位立即数，用作无符号的逻辑操作数、有符号的算术操作数、数据加载（Load）/数据保存（Store）指令的数据地址字节偏移量和分支指令中相对程序计数器（PC）的有符号偏移量；<br>8.address：为地址。</p>
+<p>一.数据通路的设计：</p>
+<p>1.算术逻辑部件的设计：ALU的操作由一个ALU操作控制信号生成部件产生的控制信号来控制，该控制逻辑的输入是ALUctr信号，输出有4个控制信号：(1).SUBctr用来控制ALU执行加法还是减法运算，当SUBctr=1时，做减法，当SUBctr=0时做加法；</p>
+<p>(2). OPctr用来控制选择哪种运算的结果作为Result输出，因为所实现的11条指令中只可能有加/减、按位或、小于置1这3种运算,所以OPctr需要两位;</p>
+<p>(3).OVctr用来控制是否要进行溢出判断，当OVctr=1时,需要判断溢出，此时，若结果发生溢出,则溢出标志Overlow为1,当OVctr=0时，无需判断溢出，此时，即使结果发生溢出，溢出标志Overflow也不为1;</p>
+<p>(4).SIGctr信号控制ALU是执行“带符号整数比较小于置1”还是“无符号数比较小于置1”功能，当SIGctr=0,则执行“无符号数比较小于置1”，当SIGctr=1,则执行“带符号整数比较小于置1”。</p>
+<p>2.取指令部件的设计：每条指令的第一步都是完成取指令并计算下一条指令地址的功能。<img src="dan-3.png" alt="img"></p>
+<p>假定指令专门存放在指令存储器中，它只有读操作，读指令操作可看成是组合逻辑操作，因此无须控制信号的控制，只要给出指令地址,经过一-定的“取数时间”后，指令被送出。指令的地址来自PC,有专门的下地址逻辑来计算下条指令的地址,然后送PC。因为是单周期处理器，每个时钟周期执行一条指令,所以每来一个时钟,PC 的值都会被更新一次，因而，PC无须“写使能”信号控制。云地址逻辑中，要区分是顺序执行还是转移执行。若是顺序执行，则执行PC+4;若是转移乱行,则要根据当前指令是分支指令还是跳转指令来计算转移目标地址。</p>
+<p>3.R-型指令的数据通路</p>
+<p>用R-型指令相关的数据通路可以完成对两个寄存器Rs和Rt内容的运算并将运算结果写入Rd寄存器。指令中Rs和Rt是两个源操作数寄存器编号,Rd是目的寄存器编号,因此，寄存器堆二的两个读地址端Ra和Rb应分别与Rs和Rt相连,写地址端Rw与Rd相连。ALU运算结果连到寄存器堆的写数据端busW ,控制信号RegWr为“写使能”信号，只有在RegWr信号为1且不溢出的情况下,运算结果才写人寄存器堆，显然R型指令执行时时,RegWr信号应该为1.</p>
+<p>4.立即数运算指令的数据通路</p>
+<p>I-型带立即数的运算类指令都涉及对16位立即数进行符号扩展或零扩展，然后和R-的内容进行运算，最终把ALU的运算结果送目的寄存器Rt。</p>
+<p>11条目标指令中ori指令和addiu是I-型带立即数的运算类指令，涉及的操作有oraddu.图5.16是在图5.15的基础上增加了上型立即数运算类指令功能而得到的数据通路示意图,因此，它同时也能完成R型指令的执行。</p>
+<p>(1)因为R型指令和I型指令的目的寄存器不同,所以在寄存器堆的写地址端Rw处增加了一个多路选择器，由控制信号RegDst 控制选择Rd为目的寄存器还是Rt为目的寄</p>
+<p>(2)因为工型指令的立即数只有16位,需要对其扩展为32位才能送到32位ALU运算。对于按位逻辑运算，应采用零扩展对于算术运算.应采用符号扩展。因此，在数据道路中应增加一个扩展器,由控制信号 ExtOp控制进行符号扩展还是零扩展，其输人端连封指</p>
+<p>(3)因为R型指令和型指令在ALU的B口的操作数来源不同，所以,在ALU的B中输入端增加了一个多路选择器，有控制信号ALUScr控制选择busB还是扩展器输出作为ALU的B口操作数。</p>
+<p>5.Load/Store指令的数据通路</p>
+<p>lw/sw指令是1-型指令,1w指令的功能为R[Rt]- -M[R[Rs]+ SignExt(imm16)]指令的功能为M[R[Rs]+ SignExt(imm16)]- -R[Rt]。Load 指令和Store指令的地址计算过程一样，都要先对立即数imm16进行符号扩展，然后和寄存器Rs的内容相加,得到访存地址。Load指令从该地址中读取一个32位数，送到寄存器Rt中;Store指令则相反。</p>
+<p>图5.17是在图5.16的基础上增加了Load/Store指令功能而得到的数据通路示意图，因此，它同时也能完成R型和I-型运算类指令的执行。与图5. 16相比，有以下两处变动:</p>
+<p>(1)因为运算类指令和Load指令写人目的寄存器的来源不同，所以在寄存器堆的写数据端busW处增加了一个 多路选择器，由控制信号MentoReg控制选择将ALU结果还尽存储器读出数据写人目的寄存器。</p>
+<p>(2)因为Load/Store指令需要读写数据存储器，故增加了数据存储器。访存地址在ALU中计算,因此数据存储器的地址端Adr连到ALU的输出。Store指令将Rt内容送存储器,所以直接将busB连到数据存储器的DataIn输人端，而将输出端DataOut连到busW端的多路选择器上。控制信号MemWr用作“写使能”信号。Load/Store指令的地址运算对立即数imm16进行符号扩展,ALUctr输人端的操作类型是不判溢出的加法addu。</p>
+<p>6.分支指令的数据通路：</p>
+<p>分支指令也是I-型指令，能根据不同的条件进行分支转移。功能为if(R[Rs]= R[Rt]) PC&lt;- PC+4+(SignExt(imm16)X4) elsePC&lt;-PC+4。增加了取指令部件.转移目标地址计算在下地址逻辑中实现，在ALU中执行的是不判滥出的减法操作subu。</p>
+<p>下地址逻辑的输出是下一条指令地址:4个输人是PC 2ero标志、立即数inpu和控制信号Brne.在ALU中对R[Rs和R[RC(做碱法得到个 Zero标志，根据Zero标志可判断是否转移。对于转移目标地址的计算，需要先对立即数imm16进行符号扩展再乘4,</p>
+<p>然后和基准地址PC+4相加。所以，ALU的输出Zero标志需送到下地址逻辑，立即数上imm16和PC也要送到下地址逻辑，控制信号Branch表示当前指令是否是分支指令,也应送到下地址逻辑，以决定是否按分支指令方式计算下一条指令地址。</p>
+<p>因为指令长度为32位，主存按字节编址，所以指令地址总是4的倍数，即最后两位总是00,因此，PC中只需存放前30位地址，即PC&lt;31:2 &gt;。这样，下条指令地址的计算方法如下。</p>
+<p>顺序执行时: PC&lt;31：2&gt;&lt;- PC&lt;31：2&gt; +1。</p>
+<p>转移执行时:PC&lt;31:2 &gt;&lt;-PC&lt;31：2&gt;+ 1+ SignExt[ lmm16]。</p>
+<p>取指令时:指令地址 = PC&lt;31: 2&gt;||”00”</p>
+<p>7.无条件转移指令的数据通路</p>
+<p>无条件转移指令是J-型指令,指令中给出了26位目标地址，其功能是无条件将目标地8址设置到PC中。跳转目标地址的具体计算方法为PC&lt;31 :2&gt;←PC&lt;31 :28&gt; I target&lt;25 :0&gt;.图5.20给出了在图5.19的基础上加上无条件转移指令功能的完整的取指令部件示意图。下地址逻辑中增加了跳转目标地址的计算功能,并通过控制信号Jump来选择作为下一.条指令的PC值。</p>
+<p>取指令阶段开始时，新指令还来被取出和译码,因此取指令部件中的控制信号(Branch.Jump)的值还是上一条指令产生的旧值，此外，新指令还未被执行，因而标志(Zero)也为旧值。但是，由这些旧控制信号值确定的地址只被送到PC输人端，并不会写人PC,因此不会影响取指令功能。只要保证在下一个时钟Clk到来之前能产生正确的下一条指令地址即可。单周期方式下，所有指令都在单个时钟周期内完成执行，因而下一一个时钟会在足够长的时间(最长的指令周期)后到来，此时,控制信号早就是新取出的当前指令对应的控制信号了,因而,取指令部件能得到正确的下一条指令地址,并在下一个时钟到来前被送到PC的输人端，一旦下一个时钟到来后，该地址开始写人PC,并作为新指令的地址从指令存储器中</p>
+<p>取指令部件的输出是指令,输人有3个:标志Zero、控制信号Branch和Jump.下地址逻辑中的立即数imm16和目标地址target&lt;25: 0&gt;都直接来自取出的指令。因此，取指令部件的外部结构如图5.21所示。</p>
+<p>8.综合11条指令的完整数据通路</p>
+<p>综合考虑上述所有数据通路的结构,可得到如图5.22所示的完整单周期数据通路。图中所有加下划线的都是控制信号,用虚线表示。指令执行结果总是在下一一个时钟到来时开始保存在寄存器、数据存储器或PC中。<img src="dan-4.png" alt="image-20220120150012098"></p>
+<p>至此，已完成了所有11条指令所用到的数据通路包括所用元件及其互连.并给出只楼制信号。下一步应考虑如何产生控制信号，这就是控制逻辑单元的设计问题。</p>
+<p>二.控制逻辑单元的设计：</p>
+<p>控制逻辑单元包含指令译码器，其输入的指令操作码op(R-型指令还包括功能码func)，输出的是控制信号。</p>
+<p>1.控制信号取值分析</p>
+<p>包括：(1)I-型运算指令执行阶段</p>
+<p>(2)I-型运算指令执行阶段</p>
+<p>(3)Load/Store指令执行阶段</p>
+<p>(4)分支指令执行阶段</p>
+<p>2.控制单元设计</p>
+<p>包括：(1)主控制器的设计</p>
+<p>(2)ALU局部控制器的设计</p>
+<p>三.时钟周期的确定</p>
+<p>计算机性能（即程序执行速度）由三个关键因素决定：指令数目、时钟周期和CPI。其中,指令数目由编译器和指令集决定，二时钟周期和CPI由处理器的设计与实现决定。因此，处理器的设计与实现非常重要，它直接影响计算机性能。单周期处理器每条指令在一个时钟周期内完成，所以API为1，而时钟周期往往很长，通常取最复杂指令所用的指令周期。</p>
+<p>（lw指令的执行定时过程，包含：“PC锁存延迟（Clk-to-Q）+取指令时间+寄存器取数时间+ALU延迟+存储器取数时间+寄存器建立时间+时间扭斜”）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84/" rel="tag"># 计算机组成与系统结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/19/%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8/" rel="prev" title="中央处理器">
+      <i class="fa fa-chevron-left"></i> 中央处理器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/20/js%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E/" rel="next" title="js变量声明">
+      js变量声明 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">单周期处理器</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

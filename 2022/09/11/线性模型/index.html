@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性模型">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/11/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/1.image">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/2.image">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/3.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/4.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/5.png">
+<meta property="og:image" content="c:/Users/ACER/AppData/Roaming/Typora/typora-user-images/image-20210520094903628.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/6.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/7.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFzA?w=27&h=15">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFz8?w=50&h=16">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/8.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/9.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFBz?w=29&h=17">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/10.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/11.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/12.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/13.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/14.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/15.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/16.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/17.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFMC?w=26&h=18">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/18.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/19.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/20.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/21.png">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFN1?w=40&h=15">
+<meta property="og:image" content="https://segmentfault.com/img/bVbfFOi?w=37&h=33">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/22.jpg">
+<meta property="og:image" content="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4Sg7CbsHOnRKoYXickZd432123EAp8HmcSPsopZeltdw2AdibwcnNgy9Q/0?wx_fmt=png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/23.png">
+<meta property="og:image" content="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4U3s6FpZmj85OSbZAWpBXick6zrCyFRLw6vyUlS4HibLdbK7ZiaxTP5ic7Q/0?wx_fmt=png">
+<meta property="og:image" content="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4DwUEFNNiaLIfAPg2dcpP9htbicYBDN4iaVn4KFeFQh77VyaySibmYicYJibw/0?wx_fmt=png">
+<meta property="og:image" content="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW46EEBkPl2NAYD8aDHCREMzJl3U2aZGBN5TK4XVYibu8fD3LbwkicQWoAQ/0?wx_fmt=png">
+<meta property="og:image" content="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4j1whYKNf2icErpLDOg2iaZkRcxAhS9sXL4hrBxSXJhibCZrLsmZM4RxNg/0?wx_fmt=png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/24.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/25.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/27.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/28.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/29.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/线性模型/30.png">
+<meta property="article:published_time" content="2022-09-11T09:04:24.000Z">
+<meta property="article:modified_time" content="2022-09-11T09:18:41.023Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/线性模型/1.image">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/11/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>线性模型 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/11/%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线性模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-11 17:04:24 / 修改时间：17:18:41" itemprop="dateCreated datePublished" datetime="2022-09-11T17:04:24+08:00">2022-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="《机器学习-》"><a href="#《机器学习-》" class="headerlink" title="《机器学习 》"></a>《机器学习 》</h1><h1 id="第三章：线性模型"><a href="#第三章：线性模型" class="headerlink" title="第三章：线性模型"></a>第三章：线性模型</h1><h2 id="一、基本形式"><a href="#一、基本形式" class="headerlink" title="一、基本形式"></a>一、基本形式</h2><ul>
+<li><p>$$<br>y(w,x)=w1x1+⋯+wdxd+b<br>$$</p>
+</li>
+<li></li>
+<li><p>$$<br>y(w,x)=w^T+b<br>$$</p>
+</li>
+<li></li>
+</ul>
+<p>线性模型的优点：</p>
+<ul>
+<li><p>形式简单但富于变化，易与建模，但却蕴涵着机器学习中的一些重要的基本思路。</p>
+</li>
+<li><p>许多非线性模型都可在线性模型的基础上通过引入层级结构高位映射而得。</p>
+</li>
+<li><p>有很好地解释性。</p>
+</li>
+</ul>
+<h2 id="二、线性回归"><a href="#二、线性回归" class="headerlink" title="二、线性回归"></a>二、线性回归</h2><p>目的是学得<br>$$<br>f(xi)=wxi+b,使得f(xi)约等于yi<br>$$<br>深入后就是确定<br>$$<br>w,b<br>$$<br>确定 w，b的方法是什么呢：</p>
+<p>解释f(x)和y之间的差别——利用均方误差最小化（对应 “欧氏距离”）——</p>
+<p>最小二乘法：线性回归中，就是找到一条直线，使所有样本到直线上的欧氏距离之和最小</p>
+<p>公式：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\1.image" alt="img"></p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\2.image" alt="img"></p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\3.png" alt="img"></p>
+<p>上面只是一元回归的问题</p>
+<p>由上面可推广到多元回归问题和广义线性模型</p>
+<p>多元线性回归即 D个数据集和d个属性描述</p>
+<p><strong>最小二乘法求多元线性回归的参数</strong></p>
+<hr>
+<p>我们要求解多元线性回归模型，就是要求解使均方误差最小化时所对应的参数，类似于</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\4.png" alt="clipboard.png"></p>
+<p>有</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\5.png" alt="clipboard.png"></p>
+<p>X表示增广矩阵， <img src="C:\Users\ACER\AppData\Roaming\Typora\typora-user-images\image-20210520094903628.png" alt="image-20210520094903628"> 表示最优闭式解</p>
+<p>最优解的闭式解，</p>
+<p>求得对应模型的解，即使得均方误差函数最小化时的权重向量。</p>
+<hr>
+<p>同上，我们可以用最小二乘法对模型的参数进行估计，具体做法是：损失函数对需要求解的参数进行求导，并且令其导数为 0，求得相应的参数。</p>
+<p>损失函数对参数求导最后得到：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\6.png" alt="clipboard.png"></p>
+<p>$$<br>X^T为满秩矩阵(full-rank matrix) 或正走矩阵(positivedefinite matrix) 时，令上式为 0 可得：<br>$$<br><img src="D:\blog\myblog\source_posts\线性模型\7.png" alt="clipboard.png"></p>
+<p>其中，<img src="https://segmentfault.com/img/bVbfFzA?w=27&h=15" alt="clipboard.png">需满足条件为满秩矩阵或正定矩阵。</p>
+<p>令<img src="https://segmentfault.com/img/bVbfFz8?w=50&h=16" alt="clipboard.png">，最终学得的多元线性回归模型为：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\8.png" alt="clipboard.png"></p>
+<hr>
+<p><strong>广义线性模型</strong></p>
+<hr>
+<p>将线性回归模型简写为：<br><img src="D:\blog\myblog\source_posts\线性模型\9.png" alt="clipboard.png"></p>
+<p>在线性回归中，所对应的输出标记是在线性尺度（直线）上变化的，我们想把它映射到别的尺度上，来令模型预测值逼近<code>y</code>的衍生物。如指数尺度上，就可以将输出标记的对数作为线性模型逼近的目标，这里是在用<img src="https://segmentfault.com/img/bVbfFBz?w=29&h=17" alt="clipboard.png">去逼近<code>y</code>。即</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\10.png" alt="clipboard.png"></p>
+<p>称为<strong>对数线性回归</strong>。</p>
+<p>上式在形式上仍是线性回归，但实质上已经是在求取输入空间到输出空间的非线性函数映射。示意图如下：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\11.png" alt="clipboard.png"></p>
+<hr>
+<p>更一般地，考虑单调可微函数<code>g(·)</code>，令</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\12.png" alt="clipboard.png"></p>
+<p>这样得到的模型称为<strong>广义线性模型</strong>。其中，函数<code>g(·)</code>称为<strong>联系函数</strong>。</p>
+<p>显然，对数线性回归是广义线性模型在<code>g(·)=ln(·)</code>时的特例。</p>
+<h2 id="三、对数几率模型"><a href="#三、对数几率模型" class="headerlink" title="三、对数几率模型"></a>三、对数几率模型</h2><p>线性回归模型产生的预测值是实值：<br><img src="D:\blog\myblog\source_posts\线性模型\13.png" alt="clipboard.png"></p>
+<p>二分类任务的输出标记为：<br><img src="D:\blog\myblog\source_posts\线性模型\14.png" alt="clipboard.png"></p>
+<p>我们需要将实值<code>z</code>转换为 <code>0/1 值</code>。可通过<strong>单位阶跃函数</strong>转换：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\15.png" alt="clipboard.png"></p>
+<p>即若预测值<code>z</code>大于 0 就判为正例，小于 0 判为反例，预测值为临界值 0 则可任意判别。如下图所示：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\16.png" alt="clipboard.png"></p>
+<p>可以看出，单位阶跃函数（红色部分）不连续，故不满足函数<code>g(·)</code>单调可微的条件，因此我们希望找到能在一定程度上近似它的替代函数，这个函数就是<strong>对数几率函数</strong> (logistic function)，简称<strong>对率函数</strong>，它是一种 <strong>Sigmoid 函数</strong>。</p>
+<p>对数几率函数：<br><img src="D:\blog\myblog\source_posts\线性模型\17.png" alt="clipboard.png"></p>
+<blockquote>
+<p>Sigmoid 函数：<br>即形似 S 的函数，对率函数是 Sigmoid 函数最重要的代表</p>
+</blockquote>
+<p><strong>对数几率回归模型</strong></p>
+<hr>
+<p>对率函数将<code>z</code>值转化为一个接近 0 或 1 的<code>y</code>值，并且在输出值<code>z=0</code>附近变化很陡。将它作为<img src="https://segmentfault.com/img/bVbfFMC?w=26&h=18" alt="clipboard.png">代入广义线性模型，得到模型：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\18.png" alt="clipboard.png"></p>
+<p>将上式变化为以下形式：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\19.png" alt="clipboard.png"></p>
+<p>若将<code>y</code>视为样本<code>x</code>作为正例的可能性，则<code>1-y</code>是其反例可能性，两者的比值</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\20.png" alt="clipboard.png"></p>
+<p>称为<strong>几率</strong>，反映了<code>x</code>作为正例的相对可能性，对其取对数得到<strong>对数几率</strong>：</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\21.png" alt="clipboard.png"></p>
+<p>由以上推导可知，该模型实际上是在用线性回归模型的预测结果<img src="https://segmentfault.com/img/bVbfFN1?w=40&h=15" alt="clipboard.png"></p>
+<p>去逼近真实标记的对数几率<img src="https://segmentfault.com/img/bVbfFOi?w=37&h=33" alt="clipboard.png">。</p>
+<p>ll称它为<strong>对数几率回归</strong> (logistic regression 亦称 logit regression)，是一种<strong>分类学习方法</strong>。</p>
+<h2 id="四、线性判别分析"><a href="#四、线性判别分析" class="headerlink" title="四、线性判别分析"></a>四、线性判别分析</h2><p>LDA 思想：给定训练集，设法将样例投影到一条直线上，使得同类样例的投影点尽可能接近，异类点尽可能远离；再对新鲜样本进行分类时，将其投影到相同的直线上，再根据投影点的位置来确定新的样本类别。</p>
+<p>图：<img src="D:\blog\myblog\source_posts\线性模型\22.jpg" alt="clip_image024"></p>
+<p><img src="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4Sg7CbsHOnRKoYXickZd432123EAp8HmcSPsopZeltdw2AdibwcnNgy9Q/0?wx_fmt=png" alt="img"></p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\23.png" alt="img"></p>
+<p>类内小，内间大     类内方差最小，类间方差最大</p>
+<p>LDA作用：1、分类<br>            2、降维，其将高维空间的点映射到一条直线上，用一个实数来表示高维空间的点，此时点的描述信息会会全部丢失，例如用三个维度（形状、甜度、颜色）来描述苹果，有一个苹果在这三个维度的得分为（1，2，3），则可以用（1，2，3）来表述这个苹果的特征，利用线性判别分析投影到直线后，我们用一个实数来表示这个苹果，但是我们无法知道苹果的甜度是多少</p>
+<p>欲使同类样例投影点尽可能接近，异类样例投影点尽可能远离</p>
+<p>就有了一下算法：</p>
+<p><img src="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4U3s6FpZmj85OSbZAWpBXick6zrCyFRLw6vyUlS4HibLdbK7ZiaxTP5ic7Q/0?wx_fmt=png" alt="img"></p>
+<p><img src="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4DwUEFNNiaLIfAPg2dcpP9htbicYBDN4iaVn4KFeFQh77VyaySibmYicYJibw/0?wx_fmt=png" alt="img"></p>
+<p><img src="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW46EEBkPl2NAYD8aDHCREMzJl3U2aZGBN5TK4XVYibu8fD3LbwkicQWoAQ/0?wx_fmt=png" alt="img"></p>
+<p><img src="https://ss.csdn.net/p?http://mmbiz.qpic.cn/mmbiz_png/KdayOo3PqHAMEdxoVUETWc5TDf4KyBW4j1whYKNf2icErpLDOg2iaZkRcxAhS9sXL4hrBxSXJhibCZrLsmZM4RxNg/0?wx_fmt=png" alt="img"></p>
+<p>若将 W视为一个投影矩阵，则多分类 LDA 将样本投影到 N-1 维空间，N-1 通常远小子数据原有的属性数.于是，可通过这个投影来减小样点的维数，且投影过程中使用了类别信息?因此LDA也常被视为一种经典的监督降维技术。</p>
+<h2 id="五、多分类任务学习"><a href="#五、多分类任务学习" class="headerlink" title="五、多分类任务学习"></a>五、多分类任务学习</h2><p>在多数情况下，都是基于一些基本策略，利用二分类学习器来解决多分类问题。</p>
+<p>引入”拆解法“：将多分类任务拆分为若干个二分类任务求解。</p>
+<p>这里就有三种经典的拆分策略：</p>
+<p>1、“一对一”——“OvO”：①、流程</p>
+<p>将N个类别进行两两配对，产生N(N-1)/2 个二分类任务，然后为每一个二分类任务训练一个分类器。测试阶段，分类器将新样本进行预测，得到N(N-1)/2个预测结果，最终结果通过”投票”产生。</p>
+<p>2、“一对多”——”OvR“：①、流程</p>
+<p>对于由N个类别的样本，每次将样本的一个样例作为正例，其余样例作为反例，训练N个分类器。测试时，若仅有一个分类器预测为正例，则将其作为最终结果。若由多个分类器预测为正例，则选择分类器的预测置信度最大的为最终结果。<br><img src="D:\blog\myblog\source_posts\线性模型\24.png" alt="在这里插入图片描述"><br>OVR、OVO 比较：<br><img src="D:\blog\myblog\source_posts\线性模型\25.png" alt="在这里插入图片描述"></p>
+<p>3、“多对多”——“MvM”：①、流程</p>
+<p>每次将若干个样例作为正例，若干个样例作为反例。MVM的正反类构造需要特殊设计，通常采用“纠错输出码”（“ECOC”）。</p>
+<p>ECOC： —-编码：对N个类别做M次划分，每次划分将一部分类别划为正类，一部分划为反类，从而形成一个二分类训练集。这样一共产生M个训练集，可训练出M个分类器。<br>        —-解码：M 个分类器分别对测试样本进行预测，这些预测标记组成一个编码。将这个预测编码与每个类别各自的编码进行比较，返回其中距离最小的类别作为最终预测结果。</p>
+<h2 id="六、类别不平衡问题"><a href="#六、类别不平衡问题" class="headerlink" title="六、类别不平衡问题"></a>六、类别不平衡问题</h2><p>类别不平衡就是指分类任务中的不同类别的训练样例数目差别很大的情况</p>
+<p>前言： 之前所说的分类学习方法都是基于训练样本比例大致相同，不同类别之间样本数目相差不大的情况， 但若差别很大，例如有 985 个反例，但正例只有 15 个，那么学习训练之后，学习器只需将任何一个新样本都预测为反例，就能达到 98.5% 的精度； 但这样学习器没什么价值。像这样训练样本比例相差很大的情况即为 类别不平衡问题 。<br>        解决方法 ：数值再缩放策略</p>
+<ol>
+<li>Threshold-moving<pre><code>对于样本数据比例相同时，我们采用 y = w^T x + b 
+</code></pre>
+  来对新样本 x 进行分类，y&gt;0.5时判别为正例，否则为反例，相当于对 y 设立一个阈值，设置为0.5，那么此时分类器分类规则则是：<pre><code>                        ![img](D:\blog\myblog\source\_posts\线性模型\26.png)
+</code></pre>
+</li>
+</ol>
+<p>上面可以看出，当阈值设置为 0.5 的时候，那么上式的  y/1-y<br>  则是与 1 进行比较；相应的，对于类别不平衡问题，我们可以尝试改变阈值，不是和1进行比较，我们可以对其进行更改。</p>
+<p>​<br>$$<br>令m+为正例数目，m-为反例数目，此时我们观测几率则是 m+/m- ，因此当预测几率大于观测几率时，则判定为正例，即：<br>$$<br>​                             <img src="D:\blog\myblog\source_posts\线性模型\27.png" alt="img"><br>注意： 分类器都是基于上式那样来进行决策，因此，需要再次进行调整，即：<br>​                a、 <img src="D:\blog\myblog\source_posts\线性模型\28.png" alt="img"></p>
+<ol start="2">
+<li>Over-sampling<pre><code>过采样 则是增加少的那一部分样本来使得正、反例数目接近，然后进行学习。
+</code></pre>
+</li>
+</ol>
+<p>样本插值 (代表性算法：SMOTE)<br>样本生成 (GAN)</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\29.png" alt="在这里插入图片描述">        </p>
+<ol start="3">
+<li>Under-sampling<pre><code>欠采样 则是去除一些样本来使得正、反例数目接近，然后进行学习。
+</code></pre>
+</li>
+</ol>
+<p>集成学习机制 (代表性算法：EasyEnsemble)</p>
+<p><img src="D:\blog\myblog\source_posts\线性模型\30.png" alt="img">        </p>
+<ol start="4">
+<li>直接给予原始训练集进行学习，但在用训练好的分类器进行预测时，将a式嵌入到决策过程中称为“阈值移动”</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/11/mysql-%E5%87%BD%E6%95%B0/" rel="prev" title="mysql-函数">
+      <i class="fa fa-chevron-left"></i> mysql-函数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/11/%E5%86%B3%E7%AD%96%E6%A0%91/" rel="next" title="决策树">
+      决策树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E3%80%8B"><span class="nav-number">1.</span> <span class="nav-text">《机器学习 》</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">第三章：线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">一、基本形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">2.2.</span> <span class="nav-text">二、线性回归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">三、对数几率模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90"><span class="nav-number">2.4.</span> <span class="nav-text">四、线性判别分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%A4%9A%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.5.</span> <span class="nav-text">五、多分类任务学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%B1%BB%E5%88%AB%E4%B8%8D%E5%B9%B3%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="nav-number">2.6.</span> <span class="nav-text">六、类别不平衡问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

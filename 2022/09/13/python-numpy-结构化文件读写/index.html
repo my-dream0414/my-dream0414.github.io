@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-numpy-结构化文件读写">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/13/python-numpy-%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-numpy-结构化文件读写/1.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-numpy-结构化文件读写/2.png">
+<meta property="article:published_time" content="2022-09-13T08:20:16.000Z">
+<meta property="article:modified_time" content="2022-09-13T08:22:10.722Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="PYTHON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/python-numpy-结构化文件读写/1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/13/python-numpy-%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-numpy-结构化文件读写 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/13/python-numpy-%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-numpy-结构化文件读写
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-13 16:20:16 / 修改时间：16:22:10" itemprop="dateCreated datePublished" datetime="2022-09-13T16:20:16+08:00">2022-09-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/" itemprop="url" rel="index"><span itemprop="name">PYTHON</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/Numpy/" itemprop="url" rel="index"><span itemprop="name">Numpy</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python-numpy"><a href="#python-numpy" class="headerlink" title="python-numpy"></a>python-numpy</h1><h3 id="1-常用概念"><a href="#1-常用概念" class="headerlink" title="1.常用概念"></a>1.常用概念</h3><ol>
+<li><h5 id="对象的副本或视图"><a href="#对象的副本或视图" class="headerlink" title="对象的副本或视图"></a>对象的副本或视图</h5><p>NumPy中，尤其是在做数组运算或数组操作时，返回结果不是数组的副本就是视图。NumPy中，所有赋值运算不会为数组和数组中的任何元素创建副本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#数组赋值实际上不是为a创建副本</span></span><br><span class="line">a = np.array([<span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>，<span class="number">4</span>])</span><br><span class="line">b = a</span><br><span class="line">b</span><br><span class="line"><span class="comment"># array([1，2，3，4])</span></span><br><span class="line">a[<span class="number">2</span>] - <span class="number">0</span></span><br><span class="line">b</span><br><span class="line"><span class="comment"># array([1，2，0，4])</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数组切片操作返回的对象只是原数组的视图</span></span><br><span class="line">c = a[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">c</span><br><span class="line"><span class="comment"># array([1,2])</span></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">c</span><br><span class="line"><span class="comment"># array([0,2])</span></span><br></pre></td></tr></table></figure>
+
+<p>切片操作得到的结果，实际上仍指向相同的对象。如果想为原数组生成-份完整的副本，从而得到一个不同的数组，使用copy()函数即可。</p>
+</li>
+<li><h5 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h5><p>向量化和广播这两个概念是NumPy内部实现的基础。有了向量化,编写代码时无需使用显式循环。这些循环实际上不能省略，只不过是在内部实现，被代码中的其他结构代替。向量化的应用使得代码更简洁,可读性更强。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NumPy中两个数组相乘可以表示为:</span></span><br><span class="line">a * b</span><br></pre></td></tr></table></figure></li>
+<li><h5 id="广播机制"><a href="#广播机制" class="headerlink" title="广播机制"></a>广播机制</h5><p>广播机制这一操作实现了对两个或以上数组进行运算或用函数处理，即使这些数组形状并不完全相同。并不是所有的维度都要彼此兼容才符合广播机制的要求，但它们必须要满足一定的条件。</p>
+<p>广播机制满足条件：两个数组的各维度兼容，也就是两个数组的每一维等长，或其中一个数组为一维。如果这两个条件都不能满足，NumPy就会抛出异常，说两个数组不兼容。</p>
+<p>规则：第一条是为缺失的维度不上个1；第二条是假定缺失元素（一维）都用已有的值进行填充<img src="D:\blog\myblog\source_posts\python-numpy-结构化文件读写\1.png" alt="image-20220913154054683"></p>
+</li>
+</ol>
+<h3 id="2-结构化数组"><a href="#2-结构化数组" class="headerlink" title="2.结构化数组"></a>2.结构化数组</h3><p>它包含的是结构或记录而不是独立的元素。</p>
+<p>创建一个简单的结构化数组，其中元素为结构体。你可以用dtype选项，指定一系列用逗号隔开的说明符，指明组成结构体的元素及它们的数据类型和顺序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">structured = np.array([(<span class="number">1</span>,<span class="string">&#x27;First&#x27;</span>,<span class="number">0.5</span>,<span class="number">1</span>+<span class="number">2j</span>),(<span class="number">2</span>,<span class="string">&#x27;Second&#x27;</span>, <span class="number">1.3</span>,<span class="number">2</span>-<span class="number">2j</span>),(<span class="number">3</span>,<span class="string">&#x27;Third&#x27;</span>, o<span class="number">.8</span>,<span class="number">1</span>+<span class="number">3j</span>)],dtype=(<span class="string">&#x27;i2,a6,f4,c8&#x27;</span>))</span><br><span class="line">structured</span><br><span class="line"><span class="comment"># array([(1，&#x27;First &#x27;, o.5，(1+2j)),</span></span><br><span class="line"><span class="comment">#	   (2, &#x27;Second&#x27;, 1.2999999523162842，(2-2j)),</span></span><br><span class="line"><span class="comment">#       (3，&#x27;Third&#x27;, 0.800000011920929,(1+3j))],</span></span><br><span class="line"><span class="comment">#dtype=[( &#x27; fo &#x27;, &#x27;&lt;i2&#x27;)，( &#x27;f1&#x27;， &#x27;S6&#x27;)，( &#x27;f2 &#x27;, &#x27;&lt;f4&#x27;)，#(&#x27;f3 &#x27;, &#x27;&lt;c8&#x27;)])</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>自动赋给结构体每个元素的名称可以看成数组列的名称。用它们作为结构化索引，就能引用类型相同或是位于同列的元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">structured[ <span class="string">&#x27;f1&#x27;</span>]</span><br><span class="line">array([<span class="string">&#x27;First&#x27;</span>, <span class="string">&#x27;Second&#x27;</span> , <span class="string">&#x27;Third&#x27;</span>],dtype=<span class="string">&#x27;|S6&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\blog\myblog\source_posts\python-numpy-结构化文件读写\2.png" alt="image-20220913155546176"></p>
+<h3 id="4-数组数据文件的读写"><a href="#4-数组数据文件的读写" class="headerlink" title="4.数组数据文件的读写"></a>4.数组数据文件的读写</h3><p>NumPy提供了几个函数,数据分析师可用其把结果保存到文本或二进制文件中。类似地，NumPy还提供了从文件中读取数据并将其转换为数组的方法。</p>
+<ol>
+<li><h5 id="二进制文件的读写"><a href="#二进制文件的读写" class="headerlink" title="二进制文件的读写"></a>二进制文件的读写</h5><p>NumPy的save()方法以二进制格式保存数据，load()方法则从二进制文件中读取数据。</p>
+<p>假如你有一个数组要保存，例如数据分析过程产生的结果，调用save()函数即可，参数有两个 : 要保存到的文件名和要保存的数组，其中文件名中的.npy扩展名系统会自动添加。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data</span><br><span class="line"><span class="comment">#array([[ 0.86466285, 0.76943895,0.22678279],</span></span><br><span class="line"><span class="comment">#[ 0.12452825,0.54751384,0.06499123],</span></span><br><span class="line"><span class="comment">#[ 0.06216566，0.85045125，0.92093862],</span></span><br><span class="line"><span class="comment">#[0.58401239,0.93455057，0.28972379]])</span></span><br><span class="line">np.save( <span class="string">&#x27;saved _data&#x27;</span>,data)</span><br></pre></td></tr></table></figure>
+
+<p>若要恢复存储在.npy文件中的数据，可以使用load()函数，用文件名作为参数，这次记得添加.npy扩展名。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 若要恢复存储在.npy文件中的数据，可以使用load()函数，用文件名作为参数，这次记得添加.npy扩展名。</span></span><br><span class="line">loaded_data = np.load(<span class="string">&#x27; saved_data.npy &#x27;</span>)</span><br><span class="line">loaded data</span><br><span class="line"><span class="comment">#array([[0.86466285,0.76943895,0.22678279],</span></span><br><span class="line"><span class="comment">#       [0.12452825,0.54751384，0.06499123],		</span></span><br><span class="line"><span class="comment">#	    [0.06216566,0.85045125,0.92093862],			</span></span><br><span class="line"><span class="comment">#	    [o.58401239,0.93455057,0.28972379]])</span></span><br></pre></td></tr></table></figure></li>
+<li><h5 id="读取文件中的列表形式数据"><a href="#读取文件中的列表形式数据" class="headerlink" title="读取文件中的列表形式数据"></a>读取文件中的列表形式数据</h5><p>NumPy的genfromtxt()函数可以从文本文件中读取数据并将其插入数组中。通常而言，这个函数接收三个参数:存放数据的文件名、用于分割值的字符和是否含有列标题。在接下来这个例子中,分隔符为逗号</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = np.genfromtxt(<span class="string">&#x27;data.csv&#x27;</span>,delimiter=<span class="string">&#x27;,&#x27;</span> ,names=<span class="literal">True</span>)</span><br><span class="line">data</span><br><span class="line"><span class="comment">#array([(1.0，123.0，1.4，23.0)，(2.0，110.0，0.5，18.0),(3.o，164.0，2.1，19.0)]，dtype=[(&#x27;id&#x27;, &#x27;&lt;f8&#x27;)，( &#x27;value1&#x27;, &#x27;&lt;f8&#x27;)，( &#x27;value2 &#x27; , &#x27;if8&#x27;)，( &#x27;value3&#x27;, &#x27;&lt;f8&#x27;)])</span></span><br></pre></td></tr></table></figure>
+
+<p>从输出结果可以看到，我们得到了一个结构化数组，各列的标题变为各字段的名称。这个函数其实包含两层隐式循环:第一层循环每次读取一行;第二层循环将每一行的多个值分开后，再对这些值进行转化，依次插入所创建的元素。这个函数的优点是它能处理文件中的缺失数据。</p>
+<p>genfromtxt()是怎样把内容为空的项填充为nan值的。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PYTHON/" rel="tag"># PYTHON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/13/python-numpy-%E6%9D%A1%E4%BB%B6%E5%B8%83%E5%B0%94-%E5%8F%98%E6%8D%A2%E6%93%8D%E4%BD%9C/" rel="prev" title="python-numpy_条件布尔-变换操作">
+      <i class="fa fa-chevron-left"></i> python-numpy_条件布尔-变换操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/15/python-pandas-DataFrame%E5%AF%B9%E8%B1%A1/" rel="next" title="python-pandas-DataFrame对象">
+      python-pandas-DataFrame对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-numpy"><span class="nav-number">1.</span> <span class="nav-text">python-numpy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.常用概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%89%AF%E6%9C%AC%E6%88%96%E8%A7%86%E5%9B%BE"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">对象的副本或视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E5%8C%96"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">向量化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%BF%E6%92%AD%E6%9C%BA%E5%88%B6"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">广播机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BB%93%E6%9E%84%E5%8C%96%E6%95%B0%E7%BB%84"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.结构化数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%95%B0%E7%BB%84%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%86%99"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.数组数据文件的读写</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%86%99"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">二进制文件的读写</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%88%97%E8%A1%A8%E5%BD%A2%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">读取文件中的列表形式数据</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

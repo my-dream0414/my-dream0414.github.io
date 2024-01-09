@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-pandas-DataFrame对象">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/15/python-pandas-DataFrame%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-pandas-DataFrame对象/1.png">
+<meta property="article:published_time" content="2022-09-15T12:04:29.000Z">
+<meta property="article:modified_time" content="2022-09-15T12:05:58.559Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="PYTHON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/python-pandas-DataFrame对象/1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/15/python-pandas-DataFrame%E5%AF%B9%E8%B1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-pandas-DataFrame对象 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/15/python-pandas-DataFrame%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-pandas-DataFrame对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-15 20:04:29 / 修改时间：20:05:58" itemprop="dateCreated datePublished" datetime="2022-09-15T20:04:29+08:00">2022-09-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/" itemprop="url" rel="index"><span itemprop="name">PYTHON</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/Pandas/" itemprop="url" rel="index"><span itemprop="name">Pandas</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python-pandas-DataFrame对象"><a href="#python-pandas-DataFrame对象" class="headerlink" title="python-pandas-DataFrame对象"></a>python-pandas-DataFrame对象</h1><p>DataFrame由按一定顺序排列的多列数据组成，各列数据类型可以有所不同（数值，字符串或布尔值等）</p>
+<p><img src="D:\blog\myblog\source_posts\python-pandas-DataFrame对象\1.png" alt="image-20220915170248341"></p>
+<p>DataFrame有两个索引数组。第一个数组与行相关，它与Series的索引数组极为相似，每个标签与标签所在行的所有元素相关联。而第二个数组包含一系列列标签，每个标签与一列数据相关联。</p>
+<ol>
+<li><h3 id="定义DataFrame对象"><a href="#定义DataFrame对象" class="headerlink" title="定义DataFrame对象"></a>定义DataFrame对象</h3><p>新建DataFrame对象的最常用方法是传递一个dict对象给DataFrame()构造函数。dict对象以每一列的名称作为键,每个键都有一个数组作为值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = &#123;<span class="string">&#x27;color&#x27;</span>:[<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;white&#x27;</span>],<span class="string">&#x27;object&#x27;</span>:[<span class="string">&#x27;ball&#x27;</span>,<span class="string">&#x27;pen&#x27;</span>,<span class="string">&#x27;pencil&#x27;</span>,<span class="string">&#x27;paper&#x27;</span>,<span class="string">&#x27;mug&#x27;</span>],<span class="string">&#x27;price&#x27;</span>: [<span class="number">1.2</span>,<span class="number">1.0</span>,<span class="number">0.6</span>,<span class="number">0.9</span>,<span class="number">1.7</span>]&#125;</span><br><span class="line">frame = pd.DataFrame(data)</span><br><span class="line">frame</span><br><span class="line"><span class="comment">#    color  object  price</span></span><br><span class="line"><span class="comment"># 0    blue    ball    1.2</span></span><br><span class="line"><span class="comment"># 1   green     pen    1.0</span></span><br><span class="line"><span class="comment"># 2  yellow  pencil    0.6</span></span><br><span class="line"><span class="comment"># 3     red   paper    0.9</span></span><br><span class="line"><span class="comment"># 4   white     mug    1.7</span></span><br></pre></td></tr></table></figure>
+
+<p>如果用来创建DataFrame对象的dict对象包含一些用不到的数据，你可以只选择自己感兴趣的。在DataFrame构造函数中，用columns选项指定需要的列即可。新建的DataFrame各列顺序与你指定的列顺序一致,而与它们在字典中的顺序无关。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = pd.DataFrame(data,colums=[<span class="string">&#x27;object&#x27;</span>,<span class="string">&#x27;price&#x27;</span>])</span><br><span class="line">frame</span><br></pre></td></tr></table></figure>
+
+<p>DataFrame对象跟Series一样，如果Index数组没有明确指定标签，pandas也会自动为其添加一列从0开始的数值作为索引。如果想用标签作为DataFrame的索引，则要把标签放到数组中，赋给index选项。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame2 = pd.DataFrame(data,index=[ <span class="string">&#x27;one&#x27;</span> , <span class="string">&#x27; two &#x27;</span> , <span class="string">&#x27;three&#x27;</span> , <span class="string">&#x27;four&#x27;</span> , <span class="string">&#x27;five&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>定义一个构造函数，指定三个参数，参数顺序如下:数据矩阵、index选项和columns选项。记得将存放有标签的数组赋给index选项,将存放有列名称的数组赋给columns选项。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">frame3 = pd.DataFrame(np.arange(<span class="number">16</span>).reshape((<span class="number">4</span>,<span class="number">4</span>)),index=[<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;yellow&#x27;</span>,<span class="string">&#x27;white&#x27;</span>],columns=[ <span class="string">&#x27;ball&#x27;</span>,<span class="string">&#x27;pen&#x27;</span>,<span class="string">&#x27;pencil&#x27;</span>, <span class="string">&#x27;paper&#x27;</span>])</span><br><span class="line"><span class="comment">#         ball  pen  pencil  paper</span></span><br><span class="line"><span class="comment"># red        0    1       2      3</span></span><br><span class="line"><span class="comment"># blue       4    5       6      7</span></span><br><span class="line"><span class="comment"># yellow     8    9      10     11</span></span><br><span class="line"><span class="comment"># white     12   13      14     15</span></span><br></pre></td></tr></table></figure></li>
+<li><h3 id="选取元素"><a href="#选取元素" class="headerlink" title="选取元素"></a>选取元素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取DataFrame对象所有列的名称</span></span><br><span class="line">frame.columns</span><br><span class="line"><span class="comment"># 获取索引列表</span></span><br><span class="line">frame.index</span><br><span class="line"><span class="comment"># 获取存储在数据结构中的元素</span></span><br><span class="line">frame.values</span><br><span class="line"><span class="comment"># 获取某一列的内容</span></span><br><span class="line">frame[列名]=frame.price</span><br><span class="line"><span class="comment"># 用ix属性和行的索引值就能获取到,返回结果同样是一个Series对象，其中列的名称已经变为索引数组的标签，而列中的元素变为Series的数据部分</span></span><br><span class="line">frame.ix[x]</span><br><span class="line"><span class="comment">#多行索引</span></span><br><span class="line">frame.ix[[<span class="number">2</span>,<span class="number">4</span>]]</span><br><span class="line">frame[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 获取某一个元素</span></span><br><span class="line">frame[<span class="string">&#x27;object&#x27;</span>][<span class="number">3</span>]</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>一旦你理解了组成DataFrame的各元素的获取方法，依照相同的逻辑就能增加或修改元素。</p>
+<p>用index属性指定DataFrame结构中的索引数组，用columns属性指定包含列名称的行。你还可以用name属性为这两个二级结构指定标签,便于识别。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.index.name = <span class="string">&#x27;id&#x27;</span>; frame.columns.name = <span class="string">&#x27;item&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><h3 id="元素的所属关系"><a href="#元素的所属关系" class="headerlink" title="元素的所属关系"></a>元素的所属关系</h3><p>利用isin()函数判断一组元素是否属于DataFrame对象</p>
+<p>得到一个只包含布尔值的DataFrame对象，其中只有满足从属关系之处元素为True。如把上述返回结果作为条件,将得到一个新DataFrame，其中只包含满足条件的元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame.isin([<span class="number">1.0</span>,<span class="string">&#x27;pen&#x27;</span>])</span><br><span class="line">frame[frame.isin([<span class="number">1.0</span>,<span class="string">&#x27;pen&#x27;</span>])]</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="删除一列"><a href="#删除一列" class="headerlink" title="删除一列"></a>删除一列</h3><p>如想删除一整列的所有数据，使用del命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> frame[<span class="string">&#x27;new&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h3><p>同series对象，不符合条件的元素会被替换为NaN</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame[frame &lt; <span class="number">12</span>]</span><br></pre></td></tr></table></figure></li>
+<li><h3 id="用嵌套字典生成DataFrame对象"><a href="#用嵌套字典生成DataFrame对象" class="headerlink" title="用嵌套字典生成DataFrame对象"></a>用嵌套字典生成DataFrame对象</h3><p>直接将嵌套字典作为参数传递给DataFrame()构造函数, pandas就会将外部的键解释成列名称，将内部的键解释为用作索引的标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nestdict = &#123;<span class="string">&#x27;red&#x27;</span>:&#123;<span class="number">2012</span>:<span class="number">22</span>,<span class="number">2013</span>:<span class="number">33</span>&#125;,<span class="string">&#x27;white&#x27;</span>:&#123;<span class="number">2011</span>:<span class="number">13</span>,<span class="number">2012</span>: <span class="number">22</span>,<span class="number">2013</span>:<span class="number">16</span>&#125;,<span class="string">&#x27;blue&#x27;</span>: &#123;<span class="number">2011</span>:<span class="number">17</span>,<span class="number">2012</span>: <span class="number">27</span>,<span class="number">2013</span>:<span class="number">18</span>&#125;&#125;</span><br><span class="line">frame2 = pd.DataFrame(nestdict)</span><br><span class="line"><span class="comment">#        red  white  blue</span></span><br><span class="line"><span class="comment"># 2012  22.0     22    27</span></span><br><span class="line"><span class="comment"># 2013  33.0     16    18</span></span><br><span class="line"><span class="comment"># 2011   NaN     13    17</span></span><br></pre></td></tr></table></figure>
+
+<p>解释嵌套结构时，可能并非所有位置都有相应的元素存在。pandas会用NaN填补缺失的元素。</p>
+</li>
+<li><h3 id="DataFrame转置"><a href="#DataFrame转置" class="headerlink" title="DataFrame转置"></a>DataFrame转置</h3><p>处理列表数据时可能会用到转置操作（列变为行，行变为列)。pandas提供了一种很简单的转置方法。调用T属性就能得到DataFrame对象的转置形式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">frame3 = pd.DataFrame(np.arange(<span class="number">16</span>).reshape((<span class="number">4</span>,<span class="number">4</span>)),index=[<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;yellow&#x27;</span>,<span class="string">&#x27;white&#x27;</span>],columns=[ <span class="string">&#x27;ball&#x27;</span>,<span class="string">&#x27;pen&#x27;</span>,<span class="string">&#x27;pencil&#x27;</span>, <span class="string">&#x27;paper&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(frame3)</span><br><span class="line"><span class="built_in">print</span>(frame3.T)</span><br><span class="line"><span class="comment">#         ball  pen  pencil  paper</span></span><br><span class="line"><span class="comment"># red        0    1       2      3</span></span><br><span class="line"><span class="comment"># blue       4    5       6      7</span></span><br><span class="line"><span class="comment"># yellow     8    9      10     11</span></span><br><span class="line"><span class="comment"># white     12   13      14     15</span></span><br><span class="line"><span class="comment">#         red  blue  yellow  white</span></span><br><span class="line"><span class="comment"># ball      0     4       8     12</span></span><br><span class="line"><span class="comment"># pen       1     5       9     13</span></span><br><span class="line"><span class="comment"># pencil    2     6      10     14</span></span><br><span class="line"><span class="comment"># paper     3     7      11     15</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PYTHON/" rel="tag"># PYTHON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/13/python-numpy-%E7%BB%93%E6%9E%84%E5%8C%96%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" rel="prev" title="python-numpy-结构化文件读写">
+      <i class="fa fa-chevron-left"></i> python-numpy-结构化文件读写
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/15/python-pandas-Index%E5%AF%B9%E8%B1%A1/" rel="next" title="python-pandas-Index对象">
+      python-pandas-Index对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-DataFrame%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-DataFrame对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89DataFrame%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.1.</span> <span class="nav-text">定义DataFrame对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E5%8F%96%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.2.</span> <span class="nav-text">选取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC"><span class="nav-number">1.0.3.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E6%89%80%E5%B1%9E%E5%85%B3%E7%B3%BB"><span class="nav-number">1.0.4.</span> <span class="nav-text">元素的所属关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E5%88%97"><span class="nav-number">1.0.5.</span> <span class="nav-text">删除一列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%9B%E9%80%89"><span class="nav-number">1.0.6.</span> <span class="nav-text">筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E5%B5%8C%E5%A5%97%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90DataFrame%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.7.</span> <span class="nav-text">用嵌套字典生成DataFrame对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame%E8%BD%AC%E7%BD%AE"><span class="nav-number">1.0.8.</span> <span class="nav-text">DataFrame转置</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

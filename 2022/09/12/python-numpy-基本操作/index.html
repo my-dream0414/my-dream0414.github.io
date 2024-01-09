@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-numpy-基本操作">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/12/python-numpy-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-numpy-基本操作/1.png">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-numpy-基本操作/2.png">
+<meta property="article:published_time" content="2022-09-12T08:32:48.000Z">
+<meta property="article:modified_time" content="2022-09-12T08:37:31.859Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="PYTHON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/python-numpy-基本操作/1.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/12/python-numpy-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-numpy-基本操作 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/12/python-numpy-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-numpy-基本操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-12 16:32:48 / 修改时间：16:37:31" itemprop="dateCreated datePublished" datetime="2022-09-12T16:32:48+08:00">2022-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/" itemprop="url" rel="index"><span itemprop="name">PYTHON</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/Numpy/" itemprop="url" rel="index"><span itemprop="name">Numpy</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本操作（运算方法）"><a href="#基本操作（运算方法）" class="headerlink" title="基本操作（运算方法）"></a>基本操作（运算方法）</h2><ol>
+<li><h4 id="算术运算符（-，-，-）"><a href="#算术运算符（-，-，-）" class="headerlink" title="算术运算符（+，-，*）"></a>算术运算符（+，-，*）</h4><p><img src="D:\blog\myblog\source_posts\python-numpy-基本操作\1.png" alt="image-20220912153340105"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">array([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">a + <span class="number">4</span></span><br><span class="line"><span class="comment"># array([4,5,6,7])</span></span><br><span class="line">a * <span class="number">2</span></span><br><span class="line"><span class="comment"># array([0,2,4,6])</span></span><br><span class="line">B</span><br><span class="line">array([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])</span><br><span class="line">a + b</span><br><span class="line"><span class="comment">#array([4,6,8,10])</span></span><br><span class="line">a - b</span><br><span class="line"><span class="comment">#array([-4,-4,-4,-4])</span></span><br><span class="line">a * b</span><br><span class="line"><span class="comment">#array([0,5,12,21])</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="矩阵积"><a href="#矩阵积" class="headerlink" title="矩阵积"></a>矩阵积</h4><p>NumPy用dot()函数表示这类乘法，注意,它不是元素级的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.dot(A,B)</span><br><span class="line"><span class="comment"># array([[ 3., 3.,3.],</span></span><br><span class="line"><span class="comment">#		 [ 12.,12.,12.],</span></span><br><span class="line"><span class="comment">#		 [ 21.,21., 21.]])</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\blog\myblog\source_posts\python-numpy-基本操作\2.png" alt="image-20220912153735217"></p>
+<p>矩阵积的另外一种写法是把dot()函数当作其中一个矩阵对象的方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A.dot(B)</span><br><span class="line"><span class="comment"># array([[ 3., 3., 3.],</span></span><br><span class="line"><span class="comment"># 	    [ 12., 12., 12.],</span></span><br><span class="line"><span class="comment">#	    [ 21., 21., 21.]])</span></span><br></pre></td></tr></table></figure>
+
+<p>由于矩阵积计算不遵循交换律，因此在这里要多说一句，运算对象的顺序很重要。A<em>B确实不等于B</em>A。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.dot(B,A)</span><br><span class="line"><span class="comment">#array([[ 9., 12., 15.],</span></span><br><span class="line"><span class="comment">#		[ 9., 12., 15.],</span></span><br><span class="line"><span class="comment">#		[ 9., 12., 15.]])</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="自增和自减运算符"><a href="#自增和自减运算符" class="headerlink" title="自增和自减运算符"></a>自增和自减运算符</h4><p>Python没有++或–运算符。对变量的值进行自增与自减，需要使用+-或-=-运算符。这两个运算符跟前面见过的只有一点不同,运算得到的结果不是赋给一个新数组而是赋给参与运算的数组自身。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">array([<span class="number">0</span>，<span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>])</span><br><span class="line">a += <span class="number">4</span></span><br><span class="line"><span class="comment"># array([4，5，6，7])</span></span><br><span class="line">a *= <span class="number">2</span></span><br><span class="line"><span class="comment"># array([ 8，10，12，14])</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="通用函数与聚合函数"><a href="#通用函数与聚合函数" class="headerlink" title="通用函数与聚合函数"></a>通用函数与聚合函数</h4><p>通用函数(universal function)）通常叫作ufunc，它对数组中的各个元素逐一进行操作。这表明，通用函数分别处理输入数组的每个元素，生成的结果组成一个新的输出数组。输出数组的大小阳检入数组相同.(三角函数等很多数学运算符合通用函数的定义，例如，计算平方根的sqrt()函数、用来取对数的log()函数和求正弦值的sin()函数。np.sqrt(a)，np.sin(a)，np.log(a))</p>
+<p>聚合函数是指对一组值(比如一个数组)进行操作,返回一个单一值作为结果的函数。因而，求数组所有元素之和的函数就是聚合函数。ndarray类实现了多个这样的函数。1（a.sum(),a.min(),a.max(),a.mean(),a.std()）</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PYTHON/" rel="tag"># PYTHON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/12/python-ndarray/" rel="prev" title="python-numpy-ndarray">
+      <i class="fa fa-chevron-left"></i> python-numpy-ndarray
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/12/python-numpy-%E7%B4%A2%E5%BC%95-%E5%88%87%E7%89%87-%E8%BF%AD%E4%BB%A3/" rel="next" title="python-numpy-索引_切片_迭代">
+      python-numpy-索引_切片_迭代 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%EF%BC%88%E8%BF%90%E7%AE%97%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">基本操作（运算方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88-%EF%BC%8C-%EF%BC%8C-%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">算术运算符（+，-，*）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%A7%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">矩阵积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E5%92%8C%E8%87%AA%E5%87%8F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.0.3.</span> <span class="nav-text">自增和自减运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0%E4%B8%8E%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.4.</span> <span class="nav-text">通用函数与聚合函数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

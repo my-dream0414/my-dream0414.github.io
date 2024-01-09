@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js-express">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/08/01/Node-js-express/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-01T00:53:47.000Z">
+<meta property="article:modified_time" content="2022-08-01T00:54:48.580Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/08/01/Node-js-express/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Node.js-express | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/08/01/Node-js-express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Node.js-express
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-01 08:53:47 / 修改时间：08:54:48" itemprop="dateCreated datePublished" datetime="2022-08-01T08:53:47+08:00">2022-08-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Node-js-express"><a href="#Node-js-express" class="headerlink" title="Node.js-express"></a>Node.js-express</h1><h3 id="Express简介："><a href="#Express简介：" class="headerlink" title="Express简介："></a>Express简介：</h3><p>Express是基于Node.js平台，快速，开放，极简的Web开发框架</p>
+<p>通俗理解：Express的作用和Node.js内置的http模块类似，是专门用来创建Web服务器的。</p>
+<p>Express的本质：就是一个npm上的第三方包，提供了快速创建Web服务器的便捷方法。</p>
+<p><strong>两种服务器：</strong></p>
+<p>Web网站服务器：专门对外提供Web网页资源的服务器</p>
+<p>API接口服务器：专门对外提供API接口的服务器</p>
+<p>使用Express，我们方便、快速的创建Web网站的服务器或Api接口服务器。</p>
+<h2 id="Express的基本使用："><a href="#Express的基本使用：" class="headerlink" title="Express的基本使用："></a>Express的基本使用：</h2><h4 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h4><p>npm i express@+版本号</p>
+<h4 id="创建web服务器"><a href="#创建web服务器" class="headerlink" title="创建web服务器"></a>创建web服务器</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express的使用</span></span><br><span class="line"><span class="comment">//1.导入express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="comment">//2.创建express实例（服务器）</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">//3.启动web服务器</span></span><br><span class="line">app.listen(<span class="number">8081</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;服务器启动成功！&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="监听get请求："><a href="#监听get请求：" class="headerlink" title="监听get请求："></a>监听get请求：</h3><p>通过app.get()方法，可以监听客户端的get请求，具体的语法格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///参数1:客户端请求的URL地址</span></span><br><span class="line"><span class="comment">//参数2:请求对应的处理函数</span></span><br><span class="line"><span class="comment">//req:请求对象(包含了与请求相关的属性与方法)</span></span><br><span class="line"><span class="comment">//res:响应对象(包含了与响应相关的属性与方法)</span></span><br><span class="line">app.get(<span class="string">&#x27;请求URL &#x27;</span>，<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>) </span>&#123;<span class="comment">/*处理函数*/</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="监听post请求："><a href="#监听post请求：" class="headerlink" title="监听post请求："></a>监听post请求：</h3><p>通过app.post()方法，可以监听客户端的post请求，具体的语法格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///参数1:客户端请求的URL地址</span></span><br><span class="line"><span class="comment">//参数2:请求对应的处理函数</span></span><br><span class="line"><span class="comment">//req:请求对象(包含了与请求相关的属性与方法)</span></span><br><span class="line"><span class="comment">//res:响应对象(包含了与响应相关的属性与方法)</span></span><br><span class="line">app.post(<span class="string">&#x27;请求URL &#x27;</span>，<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>) </span>&#123;<span class="comment">/*处理函数*/</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="把内容响应给客户端："><a href="#把内容响应给客户端：" class="headerlink" title="把内容响应给客户端："></a>把内容响应给客户端：</h3><p>通过res.send()方法，可以把处理好的内容，发送给客户端：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/user&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="comment">//问客户端发送JSON对象</span></span><br><span class="line">  res.send(&#123; <span class="attr">name</span>: <span class="string">&#x27;zs &#x27;</span>，age: <span class="number">20</span>，gender: <span class="string">&#x27;男&#x27;</span>&#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.post(<span class="string">&#x27;/user&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="comment">//向客户端发送文本内容</span></span><br><span class="line">  res.send(<span class="string">&#x27;请求成功&#x27;</span>)</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express的使用</span></span><br><span class="line"><span class="comment">//1.引入express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="comment">//2.创建express实例（服务器）</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.监听客户端的get和post请求，并向客户端响应具体的内容</span></span><br><span class="line">app.get(<span class="string">&#x27;/user&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//调用express提供的res.send()方法，向客户端发送响应内容</span></span><br><span class="line">    res.send(&#123;<span class="attr">name</span>: <span class="string">&#x27;张三&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.post(<span class="string">&#x27;/user&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//调用express提供的res.send()方法，dd</span></span><br><span class="line">    res.send(<span class="string">&#x27;post请求&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.启动web服务器</span></span><br><span class="line">app.listen(<span class="number">8081</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;服务器启动成功！&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取URL中携带的查询参数"><a href="#获取URL中携带的查询参数" class="headerlink" title="获取URL中携带的查询参数"></a>获取URL中携带的查询参数</h3><p>通过req.query对象，可以访问到客户端通过查询字符串的形式，发送到服务器的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//使用express提供的req.query获取查询参数</span><br><span class="line">app.get(&#x27;/user&#x27;, function(req, res) &#123;</span><br><span class="line"></span><br><span class="line">    //调用express提供的res.send()方法，向客户端发送响应内容</span><br><span class="line">    //res.query默认是一个空对象</span><br><span class="line">    //客户端使用?name=zs&amp;age=20 这种查询字符串形式，发送到服务器的参数</span><br><span class="line">    //可以通过req.query对象访问到，例如：</span><br><span class="line">    //req.query.name   req.query.age</span><br><span class="line">    res.send(req.query);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取URL中的动态参数"><a href="#获取URL中的动态参数" class="headerlink" title="获取URL中的动态参数"></a>获取URL中的动态参数</h3><p>通过req.params对象，可以访问到URL中，通过：匹配到的动态参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/user/:id&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//调用express提供的res.send()方法，向客户端发送响应内容</span></span><br><span class="line">    <span class="comment">//res.params是一个对象，包含了路由中的参数</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.params);</span><br><span class="line">    res.send(req.params);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="托管静态资源"><a href="#托管静态资源" class="headerlink" title="托管静态资源"></a>托管静态资源</h3><h4 id="托管一个静态资源"><a href="#托管一个静态资源" class="headerlink" title="托管一个静态资源"></a>托管一个静态资源</h4><p><strong>express.static()</strong></p>
+<p>通过这个函数能非常方便的创建一个静态的资源服务器</p>
+<p>express在指定的静态目录中查找文件，并对外提供资源的访问路径因此。存放静态文件的目录名不会出现在URL中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//express.static()</span></span><br><span class="line"><span class="comment">// //express提供的static()方法，用于静态资源的处理</span></span><br><span class="line"><span class="comment">// //1.引入express</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="comment">// 2.创建express实例（服务器）</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="comment">// //3.配置静态资源的处理</span></span><br><span class="line"><span class="comment">// //配置静态资源的处理</span></span><br><span class="line"><span class="comment">// //当客户端访问的url中的文件名是以public开头的，那么就会自动访问public目录下的文件</span></span><br><span class="line">app.use(express.static(<span class="string">&#x27;public&#x27;</span>));</span><br><span class="line"><span class="comment">// //4.启动web服务器</span></span><br><span class="line">app.listen(<span class="number">8081</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;服务器启动成功！&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="托管多个静态资源目录"><a href="#托管多个静态资源目录" class="headerlink" title="托管多个静态资源目录"></a>托管多个静态资源目录</h4><p>多次调用express.static()</p>
+<h4 id="挂载路径前缀"><a href="#挂载路径前缀" class="headerlink" title="挂载路径前缀"></a>挂载路径前缀</h4><p>如果希望在托管的静态资源访问路径之前，挂载路径前缀，则可以使用如下的方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">&#x27;/public&#x27;</span>,express.static(<span class="string">&#x27;public&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="nodemon使用："><a href="#nodemon使用：" class="headerlink" title="nodemon使用："></a>nodemon使用：</h2><p>//为什么要是用nodemon呢？</p>
+<p>因为nodemon是一个实时监控的工具，当我们修改了代码，它会自动重启服务器，并且自动刷新浏览器</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmis.com/package/nodemon">https://www.npmis.com/package/nodemon</a></p>
+<p>安装：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g nodemon</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/31/js-DOM-DOM%E9%87%8D%E7%82%B9%E6%A0%B8%E5%BF%83/" rel="prev" title="js-DOM-DOM重点核心">
+      <i class="fa fa-chevron-left"></i> js-DOM-DOM重点核心
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/01/Node-js-http%E6%A8%A1%E5%9D%97/" rel="next" title="Node.js-http模块">
+      Node.js-http模块 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js-express"><span class="nav-number">1.</span> <span class="nav-text">Node.js-express</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Express%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">Express简介：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Express%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">Express的基本使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">安装：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAweb%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">创建web服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%ACget%E8%AF%B7%E6%B1%82%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">监听get请求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%ACpost%E8%AF%B7%E6%B1%82%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">监听post请求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E5%86%85%E5%AE%B9%E5%93%8D%E5%BA%94%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">把内容响应给客户端：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96URL%E4%B8%AD%E6%90%BA%E5%B8%A6%E7%9A%84%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.4.</span> <span class="nav-text">获取URL中携带的查询参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96URL%E4%B8%AD%E7%9A%84%E5%8A%A8%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.5.</span> <span class="nav-text">获取URL中的动态参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%98%E7%AE%A1%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.6.</span> <span class="nav-text">托管静态资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%98%E7%AE%A1%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">托管一个静态资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%98%E7%AE%A1%E5%A4%9A%E4%B8%AA%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">托管多个静态资源目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%E8%B7%AF%E5%BE%84%E5%89%8D%E7%BC%80"><span class="nav-number">1.1.6.3.</span> <span class="nav-text">挂载路径前缀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodemon%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">nodemon使用：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

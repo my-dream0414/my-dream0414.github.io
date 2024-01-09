@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"my-dream0414.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-pandas-Series对象">
+<meta property="og:url" content="https://my-dream0414.github.io/2022/09/15/python-pandas-Series%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="Strive-NUAA">
+<meta property="og:description" content="......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/blog/myblog/source_posts/python-pandas-Series对象/image-20220915151820732.png">
+<meta property="article:published_time" content="2022-09-15T12:04:49.000Z">
+<meta property="article:modified_time" content="2022-09-15T12:07:13.998Z">
+<meta property="article:author" content="Changwei Luo">
+<meta property="article:tag" content="PYTHON">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/blog/myblog/source_posts/python-pandas-Series对象/image-20220915151820732.png">
+
+<link rel="canonical" href="https://my-dream0414.github.io/2022/09/15/python-pandas-Series%E5%AF%B9%E8%B1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-pandas-Series对象 | Strive-NUAA</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Strive-NUAA</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my-dream0414.github.io/2022/09/15/python-pandas-Series%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Changwei Luo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Strive-NUAA">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-pandas-Series对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-15 20:04:49 / 修改时间：20:07:13" itemprop="dateCreated datePublished" datetime="2022-09-15T20:04:49+08:00">2022-09-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/" itemprop="url" rel="index"><span itemprop="name">PYTHON</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PYTHON/Pandas/" itemprop="url" rel="index"><span itemprop="name">Pandas</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">......</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python-pandas-Series对象"><a href="#python-pandas-Series对象" class="headerlink" title="python-pandas-Series对象"></a>python-pandas-Series对象</h1><p>pandas的核心为两大数据结构，数据分析相关的所有事务都是围绕着这两种结构进行的:</p>
+<ul>
+<li>series</li>
+<li>DataFrame</li>
+</ul>
+<p>Series这类数据结构用于存储一个序列这样的一维数据</p>
+<p>DataFrame作为复杂的数据结构，则用于存储多维数据</p>
+<p>两者的奇特之处是将Index(索引）对象和标签整合到自己的结构中。</p>
+<h3 id="1-Series对象"><a href="#1-Series对象" class="headerlink" title="1.Series对象"></a>1.Series对象</h3><p>pandas库的Series对象用来表示一维数据结构，跟数组类似，但多了一些额外的功能。由两个相互关联的数组组成，其中主数组用来存放数据(NumPy任意类型数据)。主数组的每个元素都有一个与之相关联的标签，这些标签存储在另外一个叫作Index的数组中。</p>
+<p><img src="D:\blog\myblog\source_posts\python-pandas-Series对象\image-20220915151820732.png" alt="image-20220915151820732"></p>
+<ol>
+<li><h4 id="声明Series对象"><a href="#声明Series对象" class="headerlink" title="声明Series对象"></a>声明Series对象</h4><p>调用series()构造函数，把要存放在Series对象中的数据以数组形式传入，就能创建一个Series对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s = pd.Series([<span class="number">12</span>,-<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>])</span><br><span class="line"><span class="comment">#0  12</span></span><br><span class="line"><span class="comment">#1  -4</span></span><br><span class="line"><span class="comment">#2  7</span></span><br><span class="line"><span class="comment">#3  9</span></span><br><span class="line"><span class="comment">#dtype：int64</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#左侧为标签index，右侧是标签对应的元素</span></span><br></pre></td></tr></table></figure>
+
+<p>声明Series时，若不指定标签，pandas默认使用从0开始依次递增的数值作为标签。（最好使用有意义的标签，用以区分和识别每个元素）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s = pd.Series([<span class="number">12</span>,-<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>],index=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line"><span class="comment">#a  12</span></span><br><span class="line"><span class="comment">#b  -4</span></span><br><span class="line"><span class="comment">#c  7</span></span><br><span class="line"><span class="comment">#d  9</span></span><br><span class="line"><span class="comment">#dtype：int64</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#左侧为标签index，右侧是标签对应的元素</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想分别查看组成Series对象的两个数组,可像下面这样调用它的两个属性: index(索引)和values（元素)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s.values</span><br><span class="line">s.index</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="选择内部元素"><a href="#选择内部元素" class="headerlink" title="选择内部元素"></a>选择内部元素</h4><p>获取Scrics对象内部的元素，把它作为普通的NumPy数组，指定键即可，或者指定位于索引位置处的标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s[<span class="number">2</span>]</span><br><span class="line"><span class="comment"># 7</span></span><br><span class="line">s[<span class="string">&#x27;b&#x27;</span>]</span><br><span class="line"><span class="comment"># -4</span></span><br></pre></td></tr></table></figure>
+
+<p>选取多项的方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line"><span class="comment"># A  12</span></span><br><span class="line"><span class="comment"># b  -4</span></span><br><span class="line"><span class="comment">#dtype:int64</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 标签选择</span></span><br><span class="line">s[[<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>]]</span><br><span class="line"><span class="comment"># b  -4</span></span><br><span class="line"><span class="comment"># c   7</span></span><br><span class="line"><span class="comment">#dtype:int64</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="为元素赋值"><a href="#为元素赋值" class="headerlink" title="为元素赋值"></a>为元素赋值</h4><p>索引或标签选取元素后进行赋值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">s[<span class="number">1</span>]=<span class="number">0</span></span><br><span class="line">s</span><br><span class="line"><span class="comment">#a  12</span></span><br><span class="line"><span class="comment">#b  1</span></span><br><span class="line"><span class="comment">#c  7</span></span><br><span class="line"><span class="comment">#d  9</span></span><br><span class="line"><span class="comment">#dtype: int64</span></span><br><span class="line">s[<span class="string">&#x27;b&#x27;</span>] = <span class="number">1</span></span><br><span class="line">s</span><br><span class="line"><span class="comment">#a  12</span></span><br><span class="line"><span class="comment">#b  1</span></span><br><span class="line"><span class="comment">#c  7</span></span><br><span class="line"><span class="comment">#d  9</span></span><br><span class="line"><span class="comment">#dtype: int64</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="用numpy数组或其他Series对象定义新Series对象"><a href="#用numpy数组或其他Series对象定义新Series对象" class="headerlink" title="用numpy数组或其他Series对象定义新Series对象"></a>用numpy数组或其他Series对象定义新Series对象</h4><p>用NumPy数组或现有的Series对象定义新的Series对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">arr = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">s3 = pd.Series(arr)</span><br><span class="line">s3</span><br><span class="line"><span class="comment"># 0 1</span></span><br><span class="line"><span class="comment"># 1 2</span></span><br><span class="line"><span class="comment"># 2 3</span></span><br><span class="line"><span class="comment"># 3 4</span></span><br><span class="line"><span class="comment"># dtype:int32</span></span><br><span class="line"></span><br><span class="line">S4 = pd.Series(s)</span><br><span class="line">s4</span><br><span class="line"><span class="comment">#a  12</span></span><br><span class="line"><span class="comment">#b  4</span></span><br><span class="line"><span class="comment">#c  7</span></span><br><span class="line"><span class="comment">#d  9</span></span><br><span class="line"><span class="comment"># dtype:int64</span></span><br></pre></td></tr></table></figure>
+
+<p>这样做时不要忘记新Series对象中的元素不是原NumPy数组或Series对象元素的副本，而是对它们的引用。也就是说，这些对象是动态插入到新Series对象中。如改变原有对象元素的值，新Series对象中这些元素也会发生改变。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">arr = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">s3 = pd.Series(arr)</span><br><span class="line"><span class="built_in">print</span>(s3)</span><br><span class="line">arr[<span class="number">1</span>] = <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(arr)</span><br><span class="line"><span class="built_in">print</span>(s3)</span><br><span class="line">s3[<span class="number">2</span>] = <span class="number">4</span></span><br><span class="line"><span class="built_in">print</span>(arr)</span><br><span class="line"><span class="built_in">print</span>(s3)</span><br><span class="line"><span class="comment"># 0    1</span></span><br><span class="line"><span class="comment"># 1    2</span></span><br><span class="line"><span class="comment"># 2    3</span></span><br><span class="line"><span class="comment"># 3    4</span></span><br><span class="line"><span class="comment"># dtype: int32</span></span><br><span class="line"><span class="comment"># [1 3 3 4]</span></span><br><span class="line"><span class="comment"># 0    1</span></span><br><span class="line"><span class="comment"># 1    3</span></span><br><span class="line"><span class="comment"># 2    3</span></span><br><span class="line"><span class="comment"># 3    4</span></span><br><span class="line"><span class="comment"># dtype: int32</span></span><br><span class="line"><span class="comment"># [1 3 4 4]</span></span><br><span class="line"><span class="comment"># 0    1</span></span><br><span class="line"><span class="comment"># 1    3</span></span><br><span class="line"><span class="comment"># 2    4</span></span><br><span class="line"><span class="comment"># 3    4</span></span><br><span class="line"><span class="comment"># dtype: int32</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="筛选元素"><a href="#筛选元素" class="headerlink" title="筛选元素"></a>筛选元素</h4><p>pandas库的开发是以NumPy库为基础的，因此就数据结构而言，NumPy数组的多种操作方法得以扩展到Series对象中。</p>
+</li>
+<li><h4 id="Series对象运算和数学函数"><a href="#Series对象运算和数学函数" class="headerlink" title="Series对象运算和数学函数"></a>Series对象运算和数学函数</h4><p>Series对象运算和numpy数组一样</p>
+<p>Numpy库的数学函数的使用需要指定出处np。</p>
+</li>
+<li><h4 id="Series对象的组成元素"><a href="#Series对象的组成元素" class="headerlink" title="Series对象的组成元素"></a>Series对象的组成元素</h4><p>要弄清楚Series对象包含多少个不同的元素，可使用unique()函数。其返回结果为一个数组，包含Series去重后的元素,但顺序看上去是任意的。</p>
+<p>isin()函数用来判断所属关系,也就是判断给定的一列元素是否包含在数据结构之中。isin()函数返回布尔值，可用于筛选Series或DataFrame列中的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">serd = pd.Series([<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],index=[<span class="string">&#x27;white&#x27;</span>,<span class="string">&#x27;white&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;yellow&#x27;</span>])</span><br><span class="line">serd.unique()</span><br><span class="line"><span class="comment"># array([1,0,2,3],dtype=int64)</span></span><br><span class="line">serd.value_counts()</span><br><span class="line"><span class="comment"># 2  2</span></span><br><span class="line"><span class="comment"># 1  2</span></span><br><span class="line"><span class="comment"># 3  1</span></span><br><span class="line"><span class="comment"># 0  1</span></span><br><span class="line"><span class="comment"># dtype: int64</span></span><br><span class="line"></span><br><span class="line">serd.isin([<span class="number">0</span>,<span class="number">3</span>])</span><br><span class="line"><span class="comment"># white  False</span></span><br><span class="line"><span class="comment"># white  True</span></span><br><span class="line"><span class="comment"># blue   False</span></span><br><span class="line"><span class="comment"># green  False</span></span><br><span class="line"><span class="comment"># green  False</span></span><br><span class="line"><span class="comment"># yellow True</span></span><br><span class="line"><span class="comment"># dtype: bool</span></span><br><span class="line">serd[serd.isin([<span class="number">0</span>,<span class="number">3</span>])]</span><br><span class="line"><span class="comment">#white  0</span></span><br><span class="line"><span class="comment">#yellow 3</span></span><br><span class="line"><span class="comment">#dtype</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>NaN Not a Number,非数值</p>
+<p>数据结构中若字段为空或者不符合数字的定义时,用这个特定的值来表示。</p>
+<p>一般来讲，NaN值表示数据有问题，必须对其进行处理，尤其是在数据分析时。从某些数据源抽取数据时遇到了问题，甚至是数据源缺失数据，往往就会产生这类数据。进一步米H，T异负数的对数,执行计算或函数时抛出异常等特定情况,也可能产生这类数据。</p>
+<p>pandas 中可以定义这种数据类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s2 = pd.Series([<span class="number">5</span>,-<span class="number">3</span>,np.NaN,<span class="number">14</span>])</span><br><span class="line"><span class="comment">#0  5 </span></span><br><span class="line"><span class="comment">#1  -3</span></span><br><span class="line"><span class="comment">#2  NaN</span></span><br><span class="line"><span class="comment">#3  14</span></span><br></pre></td></tr></table></figure>
+
+<p>isnull()和notnull()函数用来识别没有对应元素的索引时非常好用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">s2.isnull()</span><br><span class="line"><span class="comment">#0  False</span></span><br><span class="line"><span class="comment">#1  False</span></span><br><span class="line"><span class="comment">#2  True</span></span><br><span class="line"><span class="comment">#3  False</span></span><br><span class="line"><span class="comment">#dtype:bool</span></span><br><span class="line">s2.notnull()</span><br><span class="line"><span class="comment">#0  True</span></span><br><span class="line"><span class="comment">#1  True</span></span><br><span class="line"><span class="comment">#2  False</span></span><br><span class="line"><span class="comment">#3  True</span></span><br><span class="line"><span class="comment">#dtype:bool</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="Series用作字典"><a href="#Series用作字典" class="headerlink" title="Series用作字典"></a>Series用作字典</h4><p>把Series对象当作字典( dict，dictionary)对象来用。定义Series对象时，我们可以用事先定义好的字典来创建Series对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mydict = &#123;<span class="string">&#x27;red&#x27;</span>:<span class="number">2000</span>,<span class="string">&#x27;blue&#x27;</span>:<span class="number">1000</span>,<span class="string">&#x27;yellow&#x27;</span>: <span class="number">500</span>,<span class="string">&#x27;orange&#x27;</span>:<span class="number">1000</span>&#125;</span><br><span class="line">myseries = pd.Series(mydict)</span><br><span class="line"><span class="comment"># blue  1000</span></span><br><span class="line"><span class="comment">#orange 1000</span></span><br><span class="line"><span class="comment">#red    2000</span></span><br><span class="line"><span class="comment">#yellow 500</span></span><br><span class="line"><span class="comment">#dtype: int64</span></span><br></pre></td></tr></table></figure>
+
+<p>上述例子中,索引数组用字典的键来填充，每个索引所对应的元素为用作索引的键在字典中对应的值。你还可以单独指定索引，pandas会控制字典的键和数组索引标签之间的相关性。如遇缺失值处，pandas就会为其添加NaN。</p>
+</li>
+<li><h4 id="Series对象之间的运算"><a href="#Series对象之间的运算" class="headerlink" title="Series对象之间的运算"></a>Series对象之间的运算</h4><p>Series对象之间能进行数学运算，甚至标签也可以参与运算。Series这种数据结构在运算时有一大优点，它能够通过识别标签对齐不一致的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mydict2=&#123;<span class="string">&#x27;red&#x27;</span>:<span class="number">400</span>,<span class="string">&#x27;yellow&#x27;</span>:<span class="number">1000</span>,<span class="string">&#x27;black&#x27;</span>:<span class="number">700</span>&#125;</span><br><span class="line">myseries2=pd.Series(mydict2)</span><br><span class="line">myseries + myseries2</span><br><span class="line"><span class="comment"># black   NaN</span></span><br><span class="line"><span class="comment"># blue    NaN</span></span><br><span class="line"><span class="comment"># orange  NaN</span></span><br><span class="line"><span class="comment"># green   NaN</span></span><br><span class="line"><span class="comment"># red     2400</span></span><br><span class="line"><span class="comment"># yellow  1500</span></span><br><span class="line"><span class="comment"># dtype：float</span></span><br></pre></td></tr></table></figure>
+
+<p>上述运算得到一个新Series对象，其中只对标签相同的元素求和。其他只属于任何一个Series对象的标签也被添加到新对象中,只不过它们的值均为NaN,</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PYTHON/" rel="tag"># PYTHON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/15/python-pandas-Index%E5%AF%B9%E8%B1%A1/" rel="prev" title="python-pandas-Index对象">
+      <i class="fa fa-chevron-left"></i> python-pandas-Index对象
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/16/python-pandas-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99/" rel="next" title="python-pandas-数据读写">
+      python-pandas-数据读写 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-Series%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-Series对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Series%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.Series对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8ESeries%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">声明Series对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%86%85%E9%83%A8%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">选择内部元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E5%85%83%E7%B4%A0%E8%B5%8B%E5%80%BC"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">为元素赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8numpy%E6%95%B0%E7%BB%84%E6%88%96%E5%85%B6%E4%BB%96Series%E5%AF%B9%E8%B1%A1%E5%AE%9A%E4%B9%89%E6%96%B0Series%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">用numpy数组或其他Series对象定义新Series对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">筛选元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Series%E5%AF%B9%E8%B1%A1%E8%BF%90%E7%AE%97%E5%92%8C%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.1.6.</span> <span class="nav-text">Series对象运算和数学函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Series%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%BB%84%E6%88%90%E5%85%83%E7%B4%A0"><span class="nav-number">1.0.1.7.</span> <span class="nav-text">Series对象的组成元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN"><span class="nav-number">1.0.1.8.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Series%E7%94%A8%E4%BD%9C%E5%AD%97%E5%85%B8"><span class="nav-number">1.0.1.9.</span> <span class="nav-text">Series用作字典</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Series%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">1.0.1.10.</span> <span class="nav-text">Series对象之间的运算</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Changwei Luo"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Changwei Luo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Changwei Luo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
