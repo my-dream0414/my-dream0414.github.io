@@ -227,17 +227,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="MIPS指令格式和寻址方式"><a href="#MIPS指令格式和寻址方式" class="headerlink" title="MIPS指令格式和寻址方式"></a>MIPS指令格式和寻址方式</h1><p>MIPS架构是一种精简指令集（RISC）的处理器架构，包含大量的寄存器、指令数和字符。MIPS32的架构是固定长度的定期编码指令集，采用的是导入/存储(load/store)数据模型。</p>
-<h3 id="寄存器："><a href="#寄存器：" class="headerlink" title="寄存器："></a>寄存器：<img src="zhi-1.png" alt="image-20220122100408385"></h3><h3 id="三种指令格式："><a href="#三种指令格式：" class="headerlink" title="三种指令格式："></a>三种指令格式：</h3><p><img src="zhi-2.png" alt="image-20220122095719838"></p>
-<h4 id="R-型指令是RR型指令："><a href="#R-型指令是RR型指令：" class="headerlink" title="R-型指令是RR型指令："></a><strong>R-型指令是RR型指令：</strong></h4><p><img src="zhi-3.png" alt="image-20220122094154483"></p>
+        <h1 id="mips指令格式和寻址方式">MIPS指令格式和寻址方式</h1>
+<p>MIPS架构是一种精简指令集（RISC）的处理器架构，包含大量的寄存器、指令数和字符。MIPS32的架构是固定长度的定期编码指令集，采用的是导入/存储(load/store)数据模型。</p>
+<h3 id="寄存器image-20220122100408385">寄存器：<img src="zhi-1.png" alt="image-20220122100408385"></h3>
+<h3 id="三种指令格式">三种指令格式：</h3>
+<figure>
+<img src="zhi-2.png" alt="image-20220122095719838"><figcaption aria-hidden="true">image-20220122095719838</figcaption>
+</figure>
+<h4 id="r-型指令是rr型指令"><strong>R-型指令是RR型指令：</strong></h4>
+<figure>
+<img src="zhi-3.png" alt="image-20220122094154483"><figcaption aria-hidden="true">image-20220122094154483</figcaption>
+</figure>
 <p>操作码op为000000，操作类型由func字段指定，若要是双目运算类1指令，则rs和rt的内容分别作为第一和第二源操作数，结果送rd；若是移位指令，则对rt的内容进行移位，结果送rd，所移位数由shamt字段给出。因为一条指令需要左移或右移若干位，所以MIPS中移位指令多用桶型移位器实现以提高速度。R-型指令的寻址方式只有一种，就是寄存器寻址方式。</p>
-<p><img src="zhi-4.png" alt="image-20220122100228607"></p>
-<h4 id="I-型指令："><a href="#I-型指令：" class="headerlink" title="I-型指令："></a>I-型指令：</h4><p><img src="zhi-5.png" alt="image-20220122094803408"></p>
+<figure>
+<img src="zhi-4.png" alt="image-20220122100228607"><figcaption aria-hidden="true">image-20220122100228607</figcaption>
+</figure>
+<h4 id="i-型指令">I-型指令：</h4>
+<figure>
+<img src="zhi-5.png" alt="image-20220122094803408"><figcaption aria-hidden="true">image-20220122094803408</figcaption>
+</figure>
 <p>I-型指令是立即数指令，若是双目运算类指令，则将rs的内容和立即数分别作为第一和第二源操作数，结果送rt；若是Load/Store指令，则将rs的内容和立即数符号扩展后的内容相加作为内存单元地址，Load指令将内存单元内容送rt，Store指令将rt内容送内存单元；若是条件转移(分支)指令，则对rs和rt内容进行指定的运算，根据运算的结果，决定是否转到转移目标地址处执行，转移目标地址通过相对地址寻址方式得到，即将PC的内容和立即数符号扩展后的内容相加得到。由此可知，I-型指令的寻址方式有4种，即寄存器寻址，立即数寻址，相对寻址，基址或变址寻址。</p>
-<p><img src="zhi-6.png" alt="image-20220122100307534"></p>
-<h4 id="J-型指令："><a href="#J-型指令：" class="headerlink" title="J-型指令："></a>J-型指令：</h4><p><img src="zhi-7.png" alt="image-20220122095700427"></p>
+<figure>
+<img src="zhi-6.png" alt="image-20220122100307534"><figcaption aria-hidden="true">image-20220122100307534</figcaption>
+</figure>
+<h4 id="j-型指令">J-型指令：</h4>
+<figure>
+<img src="zhi-7.png" alt="image-20220122095700427"><figcaption aria-hidden="true">image-20220122095700427</figcaption>
+</figure>
 <p>J-型指令主要是无条件跳转指令，指令中给出的是26位直接地址，只要将当前PC的高4位拼上26位直接地址最后添两个0就可以得到32位的跳转目标地址。J-型指令的寻址方式只有一种，就是变通的直接寻址。</p>
-<p><img src="zhi-8.png" alt="image-20220122100322816"></p>
+<figure>
+<img src="zhi-8.png" alt="image-20220122100322816"><figcaption aria-hidden="true">image-20220122100322816</figcaption>
+</figure>
 
     </div>
 
@@ -321,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MIPS%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E5%92%8C%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">MIPS指令格式和寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">寄存器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.0.2.</span> <span class="nav-text">三种指令格式：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#R-%E5%9E%8B%E6%8C%87%E4%BB%A4%E6%98%AFRR%E5%9E%8B%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">R-型指令是RR型指令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-%E5%9E%8B%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">I-型指令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J-%E5%9E%8B%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">J-型指令：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mips%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E5%92%8C%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">MIPS指令格式和寻址方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8image-20220122100408385"><span class="nav-number">1.0.1.</span> <span class="nav-text">寄存器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.0.2.</span> <span class="nav-text">三种指令格式：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#r-%E5%9E%8B%E6%8C%87%E4%BB%A4%E6%98%AFrr%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">R-型指令是RR型指令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i-%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">I-型指令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#j-%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">J-型指令：</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

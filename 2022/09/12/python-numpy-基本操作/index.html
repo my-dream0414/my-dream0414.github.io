@@ -221,23 +221,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="基本操作（运算方法）"><a href="#基本操作（运算方法）" class="headerlink" title="基本操作（运算方法）"></a>基本操作（运算方法）</h2><ol>
-<li><h4 id="算术运算符（-，-，-）"><a href="#算术运算符（-，-，-）" class="headerlink" title="算术运算符（+，-，*）"></a>算术运算符（+，-，*）</h4><p><img src="D:\blog\myblog\source_posts\python-numpy-基本操作\1.png" alt="image-20220912153340105"></p>
+        <h2 id="基本操作运算方法">基本操作（运算方法）</h2>
+<ol type="1">
+<li><h4 id="算术运算符-">算术运算符（+，-，*）</h4>
+<figure>
+<img src="D:\blog\myblog\source_posts\python-numpy-基本操作\1.png" alt="image-20220912153340105"><figcaption aria-hidden="true">image-20220912153340105</figcaption>
+</figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">array([<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">a + <span class="number">4</span></span><br><span class="line"><span class="comment"># array([4,5,6,7])</span></span><br><span class="line">a * <span class="number">2</span></span><br><span class="line"><span class="comment"># array([0,2,4,6])</span></span><br><span class="line">B</span><br><span class="line">array([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])</span><br><span class="line">a + b</span><br><span class="line"><span class="comment">#array([4,6,8,10])</span></span><br><span class="line">a - b</span><br><span class="line"><span class="comment">#array([-4,-4,-4,-4])</span></span><br><span class="line">a * b</span><br><span class="line"><span class="comment">#array([0,5,12,21])</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="矩阵积"><a href="#矩阵积" class="headerlink" title="矩阵积"></a>矩阵积</h4><p>NumPy用dot()函数表示这类乘法，注意,它不是元素级的。</p>
+<li><h4 id="矩阵积">矩阵积</h4>
+<p>NumPy用dot()函数表示这类乘法，注意,它不是元素级的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.dot(A,B)</span><br><span class="line"><span class="comment"># array([[ 3., 3.,3.],</span></span><br><span class="line"><span class="comment">#		 [ 12.,12.,12.],</span></span><br><span class="line"><span class="comment">#		 [ 21.,21., 21.]])</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="D:\blog\myblog\source_posts\python-numpy-基本操作\2.png" alt="image-20220912153735217"></p>
+<figure>
+<img src="D:\blog\myblog\source_posts\python-numpy-基本操作\2.png" alt="image-20220912153735217"><figcaption aria-hidden="true">image-20220912153735217</figcaption>
+</figure>
 <p>矩阵积的另外一种写法是把dot()函数当作其中一个矩阵对象的方法。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A.dot(B)</span><br><span class="line"><span class="comment"># array([[ 3., 3., 3.],</span></span><br><span class="line"><span class="comment"># 	    [ 12., 12., 12.],</span></span><br><span class="line"><span class="comment">#	    [ 21., 21., 21.]])</span></span><br></pre></td></tr></table></figure>
-
 <p>由于矩阵积计算不遵循交换律，因此在这里要多说一句，运算对象的顺序很重要。A<em>B确实不等于B</em>A。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.dot(B,A)</span><br><span class="line"><span class="comment">#array([[ 9., 12., 15.],</span></span><br><span class="line"><span class="comment">#		[ 9., 12., 15.],</span></span><br><span class="line"><span class="comment">#		[ 9., 12., 15.]])</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="自增和自减运算符"><a href="#自增和自减运算符" class="headerlink" title="自增和自减运算符"></a>自增和自减运算符</h4><p>Python没有++或–运算符。对变量的值进行自增与自减，需要使用+-或-=-运算符。这两个运算符跟前面见过的只有一点不同,运算得到的结果不是赋给一个新数组而是赋给参与运算的数组自身。</p>
+<li><h4 id="自增和自减运算符">自增和自减运算符</h4>
+<p>Python没有++或--运算符。对变量的值进行自增与自减，需要使用+-或-=-运算符。这两个运算符跟前面见过的只有一点不同,运算得到的结果不是赋给一个新数组而是赋给参与运算的数组自身。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">array([<span class="number">0</span>，<span class="number">1</span>，<span class="number">2</span>，<span class="number">3</span>])</span><br><span class="line">a += <span class="number">4</span></span><br><span class="line"><span class="comment"># array([4，5，6，7])</span></span><br><span class="line">a *= <span class="number">2</span></span><br><span class="line"><span class="comment"># array([ 8，10，12，14])</span></span><br></pre></td></tr></table></figure></li>
-<li><h4 id="通用函数与聚合函数"><a href="#通用函数与聚合函数" class="headerlink" title="通用函数与聚合函数"></a>通用函数与聚合函数</h4><p>通用函数(universal function)）通常叫作ufunc，它对数组中的各个元素逐一进行操作。这表明，通用函数分别处理输入数组的每个元素，生成的结果组成一个新的输出数组。输出数组的大小阳检入数组相同.(三角函数等很多数学运算符合通用函数的定义，例如，计算平方根的sqrt()函数、用来取对数的log()函数和求正弦值的sin()函数。np.sqrt(a)，np.sin(a)，np.log(a))</p>
-<p>聚合函数是指对一组值(比如一个数组)进行操作,返回一个单一值作为结果的函数。因而，求数组所有元素之和的函数就是聚合函数。ndarray类实现了多个这样的函数。1（a.sum(),a.min(),a.max(),a.mean(),a.std()）</p>
-</li>
+<li><h4 id="通用函数与聚合函数">通用函数与聚合函数</h4>
+<p>通用函数(universal function)）通常叫作ufunc，它对数组中的各个元素逐一进行操作。这表明，通用函数分别处理输入数组的每个元素，生成的结果组成一个新的输出数组。输出数组的大小阳检入数组相同.(三角函数等很多数学运算符合通用函数的定义，例如，计算平方根的sqrt()函数、用来取对数的log()函数和求正弦值的sin()函数。np.sqrt(a)，np.sin(a)，np.log(a))</p>
+<p>聚合函数是指对一组值(比如一个数组)进行操作,返回一个单一值作为结果的函数。因而，求数组所有元素之和的函数就是聚合函数。ndarray类实现了多个这样的函数。1（a.sum(),a.min(),a.max(),a.mean(),a.std()）</p></li>
 </ol>
 
     </div>
@@ -322,7 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%EF%BC%88%E8%BF%90%E7%AE%97%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">基本操作（运算方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%88-%EF%BC%8C-%EF%BC%8C-%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">算术运算符（+，-，*）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%A7%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">矩阵积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E5%92%8C%E8%87%AA%E5%87%8F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.0.3.</span> <span class="nav-text">自增和自减运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0%E4%B8%8E%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.4.</span> <span class="nav-text">通用函数与聚合函数</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E8%BF%90%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基本操作（运算方法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6-"><span class="nav-number">1.0.1.</span> <span class="nav-text">算术运算符（+，-，*）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E7%A7%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">矩阵积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E5%92%8C%E8%87%AA%E5%87%8F%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.0.3.</span> <span class="nav-text">自增和自减运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0%E4%B8%8E%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.4.</span> <span class="nav-text">通用函数与聚合函数</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

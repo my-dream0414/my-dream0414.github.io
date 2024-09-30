@@ -224,39 +224,30 @@
 <p><strong>var声明：</strong></p>
 <p>使用var操作符定义的变量会成为包含它的函数的局部变量，如：使用var在一个函数内部定义一个变量，就意味着该变量将在函数退出时被销毁：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line"> <span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>; <span class="comment">// 局部变量</span></span><br><span class="line">&#125; </span><br><span class="line">test(); </span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 出错！</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，message 变量是在函数内部使用 var 定义的。函数叫 test()，调用它会创建这个变量并给<br>它赋值。调用之后变量随即被销毁，因此示例中的最后一行会导致错误。不过，在函数内定义变量时省<br>略 var 操作符，可以创建一个全局变量：</p>
+<p>这里，message 变量是在函数内部使用 var 定义的。函数叫 test()，调用它会创建这个变量并给 它赋值。调用之后变量随即被销毁，因此示例中的最后一行会导致错误。不过，在函数内定义变量时省 略 var 操作符，可以创建一个全局变量：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">message = <span class="string">&quot;hi&quot;</span>; <span class="comment">// 全局变量</span></span><br><span class="line">&#125; </span><br><span class="line">test(); </span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// &quot;hi&quot; </span></span><br></pre></td></tr></table></figure>
-
-<p>去掉之前的 var 操作符之后，message 就变成了全局变量。只要调用一次函数 test()，就会定义<br>这个变量，并且可以在函数外部访问到。</p>
+<p>去掉之前的 var 操作符之后，message 就变成了全局变量。只要调用一次函数 test()，就会定义 这个变量，并且可以在函数外部访问到。</p>
 <p>var声明提升：</p>
 <p>使用var时，下面代码不会报错。这是因为使用这个关键字声明的变量会自动提升到函数作用域顶部：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(age); </span><br><span class="line"> <span class="keyword">var</span> age = <span class="number">26</span>; </span><br><span class="line">&#125; </span><br><span class="line">foo(); <span class="comment">// undefined </span></span><br></pre></td></tr></table></figure>
-
 <p>上述代码等同于：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> age; </span><br><span class="line"> <span class="built_in">console</span>.log(age); </span><br><span class="line"> age = <span class="number">26</span>; </span><br><span class="line">&#125; </span><br><span class="line">foo(); <span class="comment">// undefined </span></span><br></pre></td></tr></table></figure>
-
 <p><strong>let声明：</strong></p>
 <p>let声明和var声明的作用差不多，但有着非常重要的区别。最明显的区别就是，let声明的范围是作用域，而var声明的范围是函数作用域。</p>
 <p>例如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123; </span><br><span class="line"> <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>; </span><br><span class="line"> <span class="built_in">console</span>.log(name); <span class="comment">// Matt </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// Matt </span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123; </span><br><span class="line"> <span class="keyword">let</span> age = <span class="number">26</span>; </span><br><span class="line"> <span class="built_in">console</span>.log(age); <span class="comment">// 26 </span></span><br><span class="line">&#125; </span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// ReferenceError: age 没有定义</span></span><br></pre></td></tr></table></figure>
-
 <p>在这里，age变量之所以不能在if块外部被引用，是因为它的作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于var的作用域限制同样也适用于let。</p>
 <p>let不允许同一个块作用域中出现冗余声明。这样会导致报错。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> age; </span><br><span class="line"><span class="keyword">let</span> age; <span class="comment">// SyntaxError；标识符 age 已经声明过了</span></span><br></pre></td></tr></table></figure>
-
 <p>对声明冗余报错不会因混用 let 和 var 而受影响。这两个关键字声明的并不是不同类型的变量，它们只是指出变量在相关作用域如何存在。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name; </span><br><span class="line"><span class="keyword">let</span> name; <span class="comment">// SyntaxError </span></span><br><span class="line"><span class="keyword">let</span> age; </span><br><span class="line"><span class="keyword">var</span> age; <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
-
 <p>暂时性死区：</p>
 <p>let不会在作用中被提升</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name 会被提升</span></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// undefined </span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>; </span><br><span class="line"><span class="comment">// age 不会被提升</span></span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// ReferenceError：age 没有定义</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">26</span>; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>在解析代码时，JavaScript 引擎也会注意出现在块后面的 let 声明，只不过在此之前不能以任何方式来引用未声明的变量。在 let 声明之前的执行瞬间被称为“暂时性区”（temporal dead zone），在此阶段引用任何后面才声明的变量都会抛出 ReferenceError。</p>
 <p>全局变量：</p>
-<p>与 var 关键字不同，使用 let 在全局作用域中声明的变量不会成为 window 对象的属性（var 声<br>明的变量则会）。</p>
+<p>与 var 关键字不同，使用 let 在全局作用域中声明的变量不会成为 window 对象的属性（var 声 明的变量则会）。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>; </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.name); <span class="comment">// &#x27;Matt&#x27; </span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">26</span>; </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.age); <span class="comment">// undefined </span></span><br></pre></td></tr></table></figure>
-
 <p>不过，let 声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续。因此，为了避免 SyntaxError，必须确保页面不会重复声明同一个变量。</p>
 <p>条件声明：</p>
 <p>在使用 var 声明变量时，由于声明会被提升，JavaScript 引擎会自动将多余的声明在作用域顶部合并为一个声明。因为 let 的作用域是块，所以不可能检查前面是否已经使用 let 声明过同名变量，同时也就不可能在没有声明的情况下声明它。</p>
@@ -265,14 +256,10 @@
 <p>const声明变量时必须同时初始化变量，且尝试修改const声明的变量会导致运行时错误， const 也不允许重复声明，const 声明的作用域也是块。</p>
 <p>如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const age = 26;</span><br><span class="line">age = 36; // TypeError: 给常量赋值</span><br><span class="line">// const 也不允许重复声明</span><br><span class="line">const name = &#x27;Matt&#x27;; </span><br><span class="line">const name = &#x27;Nicholas&#x27;; // SyntaxError </span><br><span class="line">// const 声明的作用域也是块</span><br><span class="line">const name = &#x27;Matt&#x27;; </span><br><span class="line">if (true) &#123; </span><br><span class="line"> const name = &#x27;Nicholas&#x27;; </span><br><span class="line">&#125; </span><br><span class="line">console.log(name); // Matt</span><br></pre></td></tr></table></figure>
-
-<p>const 声明的限制只适用于它指向的变量的引用。换句话说，如果 const 变量引用的是一个对象，<br>那么修改这个对象内部的属性并不违反 const 的限制。</p>
+<p>const 声明的限制只适用于它指向的变量的引用。换句话说，如果 const 变量引用的是一个对象， 那么修改这个对象内部的属性并不违反 const 的限制。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;&#125;; </span><br><span class="line">person.name = <span class="string">&#x27;Matt&#x27;</span>; <span class="comment">// ok </span></span><br></pre></td></tr></table></figure>
-
 <p>JavaScript 引擎会为 for 循环中的 let 声明分别创建独立的变量实例，虽然 const 变量跟 let 变量很相似，但是不能用 const 来声明迭代变量（因为迭代变量会自增）：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;&#125; <span class="comment">// TypeError：给常量赋值</span></span><br></pre></td></tr></table></figure>
-
-
 
     </div>
 

@@ -214,43 +214,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="js-DOM-DOM重点核心"><a href="#js-DOM-DOM重点核心" class="headerlink" title="js-DOM-DOM重点核心"></a>js-DOM-DOM重点核心</h2><p>文档对象模型(Document Object Model，简称DOM），是W3C组织推荐的处理可扩展标记语言(HTML或者XML)的标准编程接口。</p>
+        <h2 id="js-dom-dom重点核心">js-DOM-DOM重点核心</h2>
+<p>文档对象模型(Document Object Model，简称DOM），是W3C组织推荐的处理可扩展标记语言(HTML或者XML)的标准编程接口。</p>
 <p>W3C已经定义了一系列的DOM接口，通过这些DOM接口可以改变网页的内容、结构和样式。</p>
 <p>1.对于JavaScript，为了能够使JavaScript操作HTML ，JavaScript就有了一套自己的dom编程接口。</p>
 <p>2.对于HTML ,dom使得html形成一棵dom树.包含文档、元素、节点（树结构图参考上一张）</p>
 <p><strong>针对元素：主要有创建、增、删、改、查、属性操作、事件操作</strong></p>
-<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><ol>
+<h4 id="创建">创建</h4>
+<ol type="1">
 <li>document.write</li>
 <li>innerHTML</li>
 <li>createElement</li>
 </ol>
-<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><ol>
+<h4 id="增">增</h4>
+<ol type="1">
 <li>appendChild</li>
 <li>insertBefore</li>
 </ol>
-<h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><ol>
+<h4 id="删">删</h4>
+<ol type="1">
 <li>removeChild</li>
 </ol>
-<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><p>主要修改dom的元素属性，dom元素的内容、属性、表单的值等</p>
-<ol>
+<h4 id="改">改</h4>
+<p>主要修改dom的元素属性，dom元素的内容、属性、表单的值等</p>
+<ol type="1">
 <li>修改元素属性：src、href、title等</li>
 <li>修改普通元素内容：innnerHTML、innerText</li>
 <li>修改表单元素：value、type、disabled等</li>
 <li>修改元素样式：style、className</li>
 </ol>
-<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><p>主要获取查询dom的元素</p>
-<ol>
+<h4 id="查">查</h4>
+<p>主要获取查询dom的元素</p>
+<ol type="1">
 <li>DOM提供的API方法:getElementByld、getElementsByTagName古老用法不太推荐</li>
 <li>H5提供的新方法:querySelector、querySelectorAll提倡</li>
 <li>利用节点操作获取元素:父(parentNode)、子(children)、兄(previousElementSibling、nextElementSibling)提倡</li>
 </ol>
-<h4 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h4><p>主要针对于自定义属性。</p>
-<ol>
+<h4 id="属性操作">属性操作</h4>
+<p>主要针对于自定义属性。</p>
+<ol type="1">
 <li>setAttribute :设置dom的属性值</li>
 <li>getAttribute :得到dom的属性值</li>
 <li>removeAttribute移除属性</li>
 </ol>
-<h4 id="事件操作"><a href="#事件操作" class="headerlink" title="事件操作"></a>事件操作</h4><p>给元素注册事件，采取事件源.事件类型=事件处理程序</p>
+<h4 id="事件操作">事件操作</h4>
+<p>给元素注册事件，采取事件源.事件类型=事件处理程序</p>
 
     </div>
 
@@ -334,7 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js-DOM-DOM%E9%87%8D%E7%82%B9%E6%A0%B8%E5%BF%83"><span class="nav-number">1.</span> <span class="nav-text">js-DOM-DOM重点核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">1.0.2.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">1.0.3.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">1.0.4.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.6.</span> <span class="nav-text">属性操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.7.</span> <span class="nav-text">事件操作</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js-dom-dom%E9%87%8D%E7%82%B9%E6%A0%B8%E5%BF%83"><span class="nav-number">1.</span> <span class="nav-text">js-DOM-DOM重点核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E"><span class="nav-number">1.0.2.</span> <span class="nav-text">增</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0"><span class="nav-number">1.0.3.</span> <span class="nav-text">删</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9"><span class="nav-number">1.0.4.</span> <span class="nav-text">改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5"><span class="nav-number">1.0.5.</span> <span class="nav-text">查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.6.</span> <span class="nav-text">属性操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.0.7.</span> <span class="nav-text">事件操作</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

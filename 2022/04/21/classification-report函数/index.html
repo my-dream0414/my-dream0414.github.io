@@ -216,17 +216,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="机器学习笔记："><a href="#机器学习笔记：" class="headerlink" title="机器学习笔记："></a>机器学习笔记：</h3><h5 id="classification-report-参数1，参数2，-target-names"><a href="#classification-report-参数1，参数2，-target-names" class="headerlink" title="classification_report(参数1，参数2， target_names)"></a>classification_report(参数1，参数2， target_names)</h5><p>简介：函数用于显示主要分类指标的文本报告，在报告中显示每个类的精确度，召回率，F1值等信息:</p>
+        <h3 id="机器学习笔记">机器学习笔记：</h3>
+<h5 id="classification_report参数1参数2-target_names">classification_report(参数1，参数2， target_names)</h5>
+<p>简介：函数用于显示主要分类指标的文本报告，在报告中显示每个类的精确度，召回率，F1值等信息:</p>
 <p>主要参数：</p>
 <p>参数1：一维数组，或标签指示器数组/稀疏矩阵，目标值</p>
 <p>参数2：一维数组，标签指示数组/稀疏矩阵，分类器返回的估计值</p>
 <p>target_names：字符串列表，与标签匹配的可选显示名称（相同顺序）。</p>
 <p>其他参数：</p>
 <p>labels：array，shape= [n_labels]，报表中包含的标签索引的可选列表。</p>
-<p>sample_weight：类似于shape = [n_samples]的数组，可选项，样本权重。<br>digits：int，输出浮点值的位数．</p>
-<p>-True Positive(真正, TP)：将正类预测为正类数. </p>
+<p>sample_weight：类似于shape = [n_samples]的数组，可选项，样本权重。 digits：int，输出浮点值的位数．</p>
+<p>-True Positive(真正, TP)：将正类预测为正类数.</p>
 <p>-True Negative(真负, TN)：将负类预测为负类数.</p>
-<p> -False Positive(假正, FP)：将负类预测为正类数 →→ 误报 (Type I error). </p>
+<p>-False Positive(假正, FP)：将负类预测为正类数 →→ 误报 (Type I error).</p>
 <p>-False Negative(假负, FN)：将正类预测为负类数 →→ 漏报 (Type II error).</p>
 <p>精确度：你认为的该类样本，有多少猜对了（猜的准确率如何）</p>
 <p>P=TP/(TP+FP)</p>
@@ -235,7 +237,9 @@
 <p>F1值：F1 Score = P*R/2(P+R)</p>
 <p>精确率是针对我们预测结果而言的，它表示的是预测为正的样本中有多少是真正的正样本。</p>
 <p>召回率是针对我们原来的样本而言的，它表示的是样本中的正例有多少被预测正确了。其实就是分母不同，一个分母是预测为正的样本数，另一个是原来样本中所有的正样本数。</p>
-<p><img src="class.png" alt="示例"></p>
+<figure>
+<img src="class.png" alt="示例"><figcaption aria-hidden="true">示例</figcaption>
+</figure>
 
     </div>
 
@@ -319,7 +323,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">机器学习笔记：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#classification-report-%E5%8F%82%E6%95%B01%EF%BC%8C%E5%8F%82%E6%95%B02%EF%BC%8C-target-names"><span class="nav-number">1.0.1.</span> <span class="nav-text">classification_report(参数1，参数2， target_names)</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">机器学习笔记：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#classification_report%E5%8F%82%E6%95%B01%E5%8F%82%E6%95%B02-target_names"><span class="nav-number">1.0.1.</span> <span class="nav-text">classification_report(参数1，参数2， target_names)</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
