@@ -223,47 +223,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="python-pandas-数据读写">python-pandas-数据读写</h1>
-<p>pandas提供的专门的工具：I/O API函数</p>
+        <h1 id="python-pandas-数据读写"><a href="#python-pandas-数据读写" class="headerlink" title="python-pandas-数据读写"></a>python-pandas-数据读写</h1><p>pandas提供的专门的工具：I&#x2F;O API函数</p>
 <p>分为两个大类：读取函数和写入函数</p>
-<figure>
-<img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916160744192.png" alt="image-20220916160744192"><figcaption aria-hidden="true">image-20220916160744192</figcaption>
-</figure>
-<figure>
-<img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916160758842.png" alt="image-20220916160758842"><figcaption aria-hidden="true">image-20220916160758842</figcaption>
-</figure>
-<h3 id="csv和文本文件">1.CSV和文本文件</h3>
-<p>CSV文件：文件的每一行的多个元素用逗号隔开</p>
-<ol type="1">
-<li><h5 id="读取csv或文本文件数据">读取CSV或文本文件数据</h5>
-<p>读取CSV文件内容，使用read_csv()函数，同时会将读取的内容转化为DataFrame对象。CSV文件被视作文本文件，还可以使用read_table()函数，但是得指定分隔符。</p>
+<p><img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916160744192.png" alt="image-20220916160744192"></p>
+<p><img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916160758842.png" alt="image-20220916160758842"></p>
+<h3 id="1-CSV和文本文件"><a href="#1-CSV和文本文件" class="headerlink" title="1.CSV和文本文件"></a>1.CSV和文本文件</h3><p>CSV文件：文件的每一行的多个元素用逗号隔开</p>
+<ol>
+<li><h5 id="读取CSV或文本文件数据"><a href="#读取CSV或文本文件数据" class="headerlink" title="读取CSV或文本文件数据"></a>读取CSV或文本文件数据</h5><p>读取CSV文件内容，使用read_csv()函数，同时会将读取的内容转化为DataFrame对象。CSV文件被视作文本文件，还可以使用read_table()函数，但是得指定分隔符。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># read_csv()</span></span><br><span class="line">csvframe = pd.read_csv(文件名)</span><br><span class="line"></span><br><span class="line"><span class="comment"># read_table()</span></span><br><span class="line">csvframe = pd.read_table(文件名,分隔符)</span><br></pre></td></tr></table></figure>
+
 <p>对于没有表头这种情况，使用header选项，将其值置为None，pandas会为其添加默认表头</p>
 <p>此外还可以使用names选项指定表头，直接把存有各行各列的数组赋值给它。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加默认表头</span></span><br><span class="line">pd.read(文件名,header=Node)</span><br><span class="line"><span class="comment"># 指定表头</span></span><br><span class="line">pd.read(文件名,names=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
 <p>更为复杂的情况，假如你想读取CSV文件，创建一个具有等级结构的DataFrame付象。为此，可以添加index_col选项，扩展read_csv()函数的功能，把所有想转换为索引的列名东赋给index_col。</p>
-<figure>
-<img src="C:\Users\ACER\AppData\Roaming\Typora\typora-user-images\image-20220916162301653.png" alt="image-20220916162301653"><figcaption aria-hidden="true">image-20220916162301653</figcaption>
-</figure></li>
-<li><h5 id="用regexp解析txt文件">用RegExp解析TXT文件</h5>
-<figure>
-<img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916162359390.png" alt="image-20220916162359390"><figcaption aria-hidden="true">image-20220916162359390</figcaption>
-</figure>
+<p><img src="C:\Users\ACER\AppData\Roaming\Typora\typora-user-images\image-20220916162301653.png" alt="image-20220916162301653"></p>
+</li>
+<li><h5 id="用RegExp解析TXT文件"><a href="#用RegExp解析TXT文件" class="headerlink" title="用RegExp解析TXT文件"></a>用RegExp解析TXT文件</h5><p><img src="D:\blog\myblog\source_posts\python-pandas-数据读写\image-20220916162359390.png" alt="image-20220916162359390"></p>
 <p>正则表达式能兼顾两种分隔符，星号表示这些字符可能有多个。</p>
 <p>使用skiprows选项，可以排除多余的行，要把排除的行的行号放到数组中，赋给该选项即可。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pd.read_table(文件名,sep=<span class="string">&quot;,&quot;</span>,skiprows=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 分隔符为&quot;,&quot;,排除第1，2，4，7行</span></span><br></pre></td></tr></table></figure></li>
-<li><h5 id="从txt文件读取部分数据">从TXT文件读取部分数据</h5>
-<p>处理大文件或是只对文件部分数据感兴趣时，往往需要按照部分（块）读取文件,因为只需要部分数据。这两种情况都得使用迭代。</p>
-<p>另外一种操作是切分想要解析的文本，然后遍历各个部分，逐一对其执行某一特定操作</p></li>
-<li><h5 id="往csv文件中写入数据">往CSV文件中写入数据</h5>
-<p>从文件读取数据很常用,把计算结果或数据结构所包含的数据写入数据文件也是常用的必要操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pd.read_table(文件名,sep=<span class="string">&quot;,&quot;</span>,skiprows=[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 分隔符为&quot;,&quot;,排除第1，2，4，7行</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="从TXT文件读取部分数据"><a href="#从TXT文件读取部分数据" class="headerlink" title="从TXT文件读取部分数据"></a>从TXT文件读取部分数据</h5><p>处理大文件或是只对文件部分数据感兴趣时，往往需要按照部分（块）读取文件,因为只需要部分数据。这两种情况都得使用迭代。</p>
+<p>另外一种操作是切分想要解析的文本，然后遍历各个部分，逐一对其执行某一特定操作</p>
+</li>
+<li><h5 id="往CSV文件中写入数据"><a href="#往CSV文件中写入数据" class="headerlink" title="往CSV文件中写入数据"></a>往CSV文件中写入数据</h5><p>从文件读取数据很常用,把计算结果或数据结构所包含的数据写入数据文件也是常用的必要操作。</p>
 <p>把DataFrame中的数据写入CSV文件，用到to_csv()函数，其参数为即将生成的文件名</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">frame.to_csv(文件名)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将DataFrame对象写入文件时，索引和列名称连同数据一起写入，使用index和header选项，把他们的值设置为False，可取消这一默认行为。</span></span><br><span class="line">frame.to_csv</span><br><span class="line">(文件名,index=<span class="literal">False</span>,header=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>注意:</strong>数据结构中的NaN写入文件后显示为空字段，但是可以用to_csv()函数中的na_rep选项把空字段替换为你需要的值。</p>
+
+<p>**注意:**数据结构中的NaN写入文件后显示为空字段，但是可以用to_csv()函数中的na_rep选项把空字段替换为你需要的值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.to_csv(文件名,na_rep=<span class="string">&#x27;NaN&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="读写excel文件">2.读写Excel文件</h3>
-<p>读写Excel的函数：</p>
+<h3 id="2-读写Excel文件"><a href="#2-读写Excel文件" class="headerlink" title="2.读写Excel文件"></a>2.读写Excel文件</h3><p>读写Excel的函数：</p>
 <ul>
 <li>to_excel()</li>
 <li>read_excel()</li>
@@ -271,18 +262,20 @@
 <p>read_excel()函数能够读取Excel 2003 ( .xls ）和Excel 2007 ( .xlsx)两种类型的文件。该函之所以能够读取Excel，是因为它整合了xlrd模块。</p>
 <p>读取Excel文件中的数据，并将其转化为DataFrame对象，只需要使用read_excel()函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pd.read_excel(文件名)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用第二个参数指定工作表的名称或工作表的序号</span></span><br><span class="line">pd.read_excel(文件名,<span class="string">&#x27;Sheetn&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>上述操作也适用于Excel写操作</p>
 <p>frame.to_excel(文件名)</p>
-<h3 id="json数据">3.JSON数据</h3>
-<p>读写JSON的函数：</p>
+<h3 id="3-JSON数据"><a href="#3-JSON数据" class="headerlink" title="3.JSON数据"></a>3.JSON数据</h3><p>读写JSON的函数：</p>
 <ul>
 <li>to_excel()</li>
 <li>read_excel()</li>
 </ul>
 <p>当json文件中的数据通常不是列表形式，此时需要将字典结构的文件转换为列表形式—（规范化），pandas库的json_normalize()函数能够将字典或列表转换为表格。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入这个函数:</span></span><br><span class="line"><span class="keyword">from</span> pandas.io.json <span class="keyword">import</span> json_normalize</span><br></pre></td></tr></table></figure>
+
 <p>文件结构不是列表形式而是其他复杂形式时无法用read_json()函数处理，就需要使用json_normalize()函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file= <span class="built_in">open</span>(文件名,<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">text = file.read()</span><br><span class="line">text= json.loads(text)</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -366,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-数据读写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#csv%E5%92%8C%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.CSV和文本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96csv%E6%88%96%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">读取CSV或文本文件数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8regexp%E8%A7%A3%E6%9E%90txt%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">用RegExp解析TXT文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8Etxt%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">从TXT文件读取部分数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%80csv%E6%96%87%E4%BB%B6%E4%B8%AD%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.4.</span> <span class="nav-text">往CSV文件中写入数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99excel%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.读写Excel文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.JSON数据</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-数据读写</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CSV%E5%92%8C%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.CSV和文本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96CSV%E6%88%96%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">读取CSV或文本文件数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8RegExp%E8%A7%A3%E6%9E%90TXT%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.1.0.2.</span> <span class="nav-text">用RegExp解析TXT文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8ETXT%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.3.</span> <span class="nav-text">从TXT文件读取部分数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%80CSV%E6%96%87%E4%BB%B6%E4%B8%AD%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.0.4.</span> <span class="nav-text">往CSV文件中写入数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AF%BB%E5%86%99Excel%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.读写Excel文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-JSON%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.JSON数据</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

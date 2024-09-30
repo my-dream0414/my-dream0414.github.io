@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="Strive-NUAA">
 <meta property="og:description" content="......">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905171905321.png">
-<meta property="og:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905174434702.png">
-<meta property="og:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905174518292.png">
-<meta property="og:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905180150831.png">
-<meta property="og:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905182048021.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-20240905171905321.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-20240905174434702.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-20240905174518292.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-20240905180150831.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-20240905182048021.png">
 <meta property="article:published_time" content="2024-09-06T01:10:03.000Z">
 <meta property="article:modified_time" content="2024-09-06T01:18:46.943Z">
 <meta property="article:author" content="Changwei Luo">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/image-20240905171905321.png">
+<meta name="twitter:image" content="https://my-dream0414.github.io/image-20240905171905321.png">
 
 <link rel="canonical" href="https://my-dream0414.github.io/2024/09/06/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
 
@@ -220,8 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="git的操作流程">1.Git的操作流程</h3>
-<p>（1）创建一个 Git 仓库，用于存储代码和版本历史记录。</p>
+        <h3 id="1-Git的操作流程"><a href="#1-Git的操作流程" class="headerlink" title="1.Git的操作流程"></a>1.Git的操作流程</h3><p>（1）创建一个 Git 仓库，用于存储代码和版本历史记录。</p>
 <p>（2）在本地使用git remote与与远程仓库建立连接</p>
 <p>（3）通过 git add 命令将更改的文件添加到 Git 的暂存区中。</p>
 <p>（4）通过 <code>git commit</code> 命令将暂存区中的更改提交到 Git 仓库中，并生成一个新的版本号</p>
@@ -230,72 +229,80 @@
 <p>（7）如果需要查看代码的历史提交记录，可以使用 <code>git log</code> 命令来获取详细信息。</p>
 <p>（8）如果需要将代码推送到远程仓库，可以使用 <code>git push</code> 命令将本地代码推送到远程仓库。</p>
 <p>（9）如果需要从远程仓库中获取代码，可以使用 <code>git pull</code> 命令将远程代码拉取到本地。</p>
-<figure>
-<img src="image-20240905171905321.png" alt="image-20240905171905321"><figcaption aria-hidden="true">image-20240905171905321</figcaption>
-</figure>
+<p><img src="/image-20240905171905321.png" alt="image-20240905171905321"></p>
 <p>其中：workspace是工作区（本地文件），index是暂存区，repository是仓库区（本地仓库），remote是远程仓库</p>
 <p>工作区：指您电脑文件系统上用于修改文件的目录。</p>
 <p>暂存区：一个中间状态，它充当了您提交更改的缓冲区。在Git中，您必须明确地将文件添加到暂存区，然后才能将其提交到版本库中。这样做的好处是，您可以对每个更改进行精细控制，并确保只提交需要保存的更改。</p>
 <p>版本库：包含Git存储库的所有历史记录和元数据。它是Git存储库的核心组成部分，是由Git自动维护的。</p>
-<h3 id="常规操作">2.常规操作</h3>
-<p>（1）初始化Git仓库</p>
+<h3 id="2-常规操作"><a href="#2-常规操作" class="headerlink" title="2.常规操作"></a>2.常规操作</h3><p>（1）初始化Git仓库</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
 <p>（2）git remote相关操作</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git remote add &lt;name&gt; &lt;url&gt;  name:一般是origin</span><br><span class="line"></span><br><span class="line">git remote -v  显示当前仓库中已经配置的远程仓库的简写名称和对应的url</span><br><span class="line"></span><br><span class="line">git remote   显示已经配置的远程仓库的简写名称列表</span><br><span class="line"></span><br><span class="line">git remote rename &lt;old-name&gt; &lt;<span class="keyword">new</span>-name&gt;  将已经存在的远程仓库的简写名称重命名为新的名称。</span><br><span class="line"></span><br><span class="line">git remote remove &lt;name&gt;：从当前仓库中移除指定的远程仓库</span><br><span class="line"></span><br><span class="line">git remote set-url &lt;name&gt; &lt;<span class="keyword">new</span>-url&gt;：修改指定远程仓库的URL。</span><br></pre></td></tr></table></figure>
+
 <p>（3）git add相关操作（一般是使用前两种）</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add .   一次性将所有变更添加到暂存区</span><br><span class="line"></span><br><span class="line">git add -A   将所有文件都添加到暂存区</span><br><span class="line"></span><br><span class="line">git add &lt;file1&gt; &lt;file2&gt;  将某些文件提交到暂存区</span><br><span class="line"></span><br><span class="line">git add &lt;folder1&gt; &lt;folder2&gt;  将某些目录提交到暂存区</span><br></pre></td></tr></table></figure>
+
 <p>（4）其他</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span>  提交暂存区中的变更到本地仓库，并添加一个描述信息</span><br><span class="line"></span><br><span class="line">git status  查看当前工作区和暂存区的状态。</span><br><span class="line"></span><br><span class="line">git log  查看提交记录。</span><br><span class="line"></span><br><span class="line">git branch  管理分支。</span><br><span class="line"></span><br><span class="line">git remote   管理远程仓库。</span><br><span class="line"></span><br><span class="line">git clone &lt;url&gt;  将远程仓库克隆代码到本地</span><br></pre></td></tr></table></figure>
-<p><img src="image-20240905174434702.png" alt="image-20240905174434702"> <img src="image-20240905174518292.png" alt="image-20240905174518292"></p>
-<h3 id="版本回退">3.版本回退</h3>
-<p>（1）查看所有历史版本信息</p>
+
+<p><img src="/image-20240905174434702.png" alt="image-20240905174434702"><br><img src="/image-20240905174518292.png" alt="image-20240905174518292"></p>
+<h3 id="3-版本回退"><a href="#3-版本回退" class="headerlink" title="3.版本回退"></a>3.版本回退</h3><p>（1）查看所有历史版本信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+
 <p>（2）强制回滚到之前版本</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 版本号  将需回滚的版本回到工作区（工作区未修改的区域）</span><br><span class="line">     </span><br><span class="line">git reset --mix 版本号  将需回滚的版本回到工作区（工作区已修改的区域）   </span><br></pre></td></tr></table></figure>
+
 <p>（3）撤销当前回滚至之前版本</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset  --sort  版本号     </span><br></pre></td></tr></table></figure>
+
 <p>（4）暂存区的撤销，将暂存区里的文件或文件夹移到工作区</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset 文件名  回滚至工作区的 文件未修改时状态</span><br><span class="line">   </span><br><span class="line">git reset HEAD   回滚至工作区的 文件修改之后状态</span><br></pre></td></tr></table></figure>
+
 <p>（5）工作区的撤销，将工作区里的修改状态移到工作区未修改状态</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout  文件名</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="image-20240905180150831.png" alt="image-20240905180150831"><figcaption aria-hidden="true">image-20240905180150831</figcaption>
-</figure>
-<h3 id="创建与合并分支">4.创建与合并分支</h3>
-<p>（1）创建一个新的分支</p>
+
+<p><img src="/image-20240905180150831.png" alt="image-20240905180150831"></p>
+<h3 id="4-创建与合并分支"><a href="#4-创建与合并分支" class="headerlink" title="4.创建与合并分支"></a>4.创建与合并分支</h3><p>（1）创建一个新的分支</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（2） 切换到分支</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（3）创建并立即切换到该分支</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -b &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（4）合并分支可以使用以下命令</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="image-20240905182048021.png" alt="image-20240905182048021"><figcaption aria-hidden="true">image-20240905182048021</figcaption>
-</figure>
-<h3 id="推送分支">5.推送分支</h3>
-<p>（1）推送当前分支到远程仓库，并与远程分支关联：</p>
+
+<p><img src="/image-20240905182048021.png" alt="image-20240905182048021"></p>
+<h3 id="5-推送分支"><a href="#5-推送分支" class="headerlink" title="5.推送分支"></a>5.推送分支</h3><p>（1）推送当前分支到远程仓库，并与远程分支关联：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（2）推送当前分支到远程仓库，并与远程分支合并：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（3）强制推送当前分支到远程仓库：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>（4）删除远程分支：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin :&lt;branch-name&gt;</span><br><span class="line">或</span><br><span class="line">git push --delete origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+
 <p>在推送分支时，通常会遇到冲突等问题。如果发生冲突，需要先解决冲突，然后再进行推送。</p>
-<h3 id="下拉代码">6.下拉代码</h3>
-<p>（1）两种方式</p>
+<h3 id="6-下拉代码"><a href="#6-下拉代码" class="headerlink" title="6.下拉代码"></a>6.下拉代码</h3><p>（1）两种方式</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone http://xxx.git  暴力</span><br><span class="line"></span><br><span class="line">git pull http://xxx.git   </span><br></pre></td></tr></table></figure>
+
 <p>（2）git pull的用法：直接使用 <code>git pull</code> 可能会遇到各种问题，特别是当本地分支有未提交的更改时。在这种情况下，<code>git pull</code> 可能会因为合并冲突而失败。</p>
-<p>​ 1）<strong>本地有未提交的更改</strong>: 你有两个选项：</p>
+<p>​	1）<strong>本地有未提交的更改</strong>: 你有两个选项：</p>
 <ul>
 <li><ul>
 <li>使用 <code>git stash</code> 临时保存本地更改，然后执行 <code>git pull</code>，最后用 <code>git stash apply</code> 恢复更改。</li>
 <li>使用 <code>git pull --rebase</code>，这样 Git 会先把你的更改暂存起来，然后尝试应用到拉取下来的最新代码上。</li>
-</ul></li>
 </ul>
-<p>​ 2）<strong>指定合并策略</strong>: 你可以通过 <code>--strategy</code> 参数来指定合并策略，例如 <code>git pull --strategy=ours</code>。</p>
-<p>​ 3）<strong>只拉取不合并</strong>: 如果你只想拉取最新代码但不进行合并，可以使用 <code>git fetch</code>。</p>
+</li>
+</ul>
+<p>​	2）<strong>指定合并策略</strong>: 你可以通过 <code>--strategy</code> 参数来指定合并策略，例如 <code>git pull --strategy=ours</code>。</p>
+<p>​	3）<strong>只拉取不合并</strong>: 如果你只想拉取最新代码但不进行合并，可以使用 <code>git fetch</code>。</p>
 
     </div>
 
@@ -379,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#git%E7%9A%84%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1.Git的操作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">2.常规操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="nav-number">4.</span> <span class="nav-text">4.创建与合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">5.推送分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E6%8B%89%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">6.下拉代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Git%E7%9A%84%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1.Git的操作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%84%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">2.常规操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="nav-number">4.</span> <span class="nav-text">4.创建与合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%8E%A8%E9%80%81%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">5.推送分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%B8%8B%E6%8B%89%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">6.下拉代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Strive-NUAA">
 <meta property="og:description" content="......">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://my-dream0414.github.io/2022/08/01/Node-js-express%E8%B7%AF%E7%94%B1/image-1.png">
+<meta property="og:image" content="https://my-dream0414.github.io/image-1.png">
 <meta property="article:published_time" content="2022-08-01T00:56:20.000Z">
 <meta property="article:modified_time" content="2022-08-01T00:58:14.757Z">
 <meta property="article:author" content="Changwei Luo">
 <meta property="article:tag" content="Node.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://my-dream0414.github.io/2022/08/01/Node-js-express%E8%B7%AF%E7%94%B1/image-1.png">
+<meta name="twitter:image" content="https://my-dream0414.github.io/image-1.png">
 
 <link rel="canonical" href="https://my-dream0414.github.io/2022/08/01/Node-js-express%E8%B7%AF%E7%94%B1/">
 
@@ -216,41 +216,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="node.js-express路由">Node.js-express路由</h2>
-<p>在Express 中，路由指的是客户端的请求与服务器处理函数之间的映射关系。</p>
-<h4 id="express-中的路由分3部分组成">Express 中的路由分3部分组成</h4>
-<ol type="1">
-<li><p>请求的类型</p></li>
-<li><p>请求的URL地址</p></li>
+        <h2 id="Node-js-express路由"><a href="#Node-js-express路由" class="headerlink" title="Node.js-express路由"></a>Node.js-express路由</h2><p>在Express 中，路由指的是客户端的请求与服务器处理函数之间的映射关系。</p>
+<h4 id="Express-中的路由分3部分组成"><a href="#Express-中的路由分3部分组成" class="headerlink" title="Express 中的路由分3部分组成"></a>Express 中的路由分3部分组成</h4><ol>
+<li><p>请求的类型   </p>
+</li>
+<li><p>请求的URL地址</p>
+</li>
 <li><p>处理函数</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.METHODS(PATH,HANDLER)  <span class="comment">//METHODS 请求类型 PATH：请求的URL地址  HANDLER：处理函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例如：</span></span><br><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123; res.send(<span class="string">&quot;Hello World!&quot;</span>) &#125;)</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="路由的匹配过程">路由的匹配过程：</h4>
-<p>每当一个请求到达服务器之后，需要先经过路由的匹配，只有匹配成功之后，才会调用对应的处理函数。</p>
+<h4 id="路由的匹配过程："><a href="#路由的匹配过程：" class="headerlink" title="路由的匹配过程："></a>路由的匹配过程：</h4><p>每当一个请求到达服务器之后，需要先经过路由的匹配，只有匹配成功之后，才会调用对应的处理函数。</p>
 <p>在匹配时，会按照路由的顺序进行匹配，如果请求类型和请求的URL同时匹配成功，则Express 会将这次请求，转交给对应的function函数进行处理。</p>
-<figure>
-<img src="image-1.png" alt="image-20220731171143092"><figcaption aria-hidden="true">image-20220731171143092</figcaption>
-</figure>
+<p><img src="/image-1.png" alt="image-20220731171143092"></p>
 <p>最简单实例（将路由挂载到app身上）：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123; res.send() &#125;)</span><br><span class="line">app.post(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>) =&gt;</span> &#123; res.send() &#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="模块化路由">模块化路由</h4>
-<p>为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到app 上，而是推荐将路由抽离为单独的模块。</p>
+
+<h4 id="模块化路由"><a href="#模块化路由" class="headerlink" title="模块化路由"></a>模块化路由</h4><p>为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到app 上，而是推荐将路由抽离为单独的模块。</p>
 <p>步骤：</p>
-<ol type="1">
-<li><p>创建路由模块对应的js文件</p></li>
-<li><p>调用express.Router()函数创建路由对象</p></li>
-<li><p>向路由对象上挂载具体的路由</p></li>
-<li><p>使用module.exports向外共享路由对象</p></li>
+<ol>
+<li><p>创建路由模块对应的js文件</p>
+</li>
+<li><p>调用express.Router()函数创建路由对象</p>
+</li>
+<li><p>向路由对象上挂载具体的路由</p>
+</li>
+<li><p>使用module.exports向外共享路由对象</p>
+</li>
 <li><p>使用app.use()函数注册路由模块</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>); <span class="comment">//导入express</span></span><br><span class="line"><span class="keyword">var</span> router = express.Router();  <span class="comment">// 创建路由对象</span></span><br><span class="line"></span><br><span class="line">router.get(<span class="string">&#x27;/user/list&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res,req</span>)</span>&#123; res.send() &#125;) <span class="comment">//挂载获取用户列表的路由</span></span><br><span class="line"></span><br><span class="line">router.post( <span class="string">&quot; /user/add&quot;</span>， <span class="function"><span class="keyword">function</span> (<span class="params">req，res</span>)</span>&#123; res.send() &#125;) <span class="comment">//挂载添加用户的路由</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router  <span class="comment">// 向外导出路由对象</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h4 id="注册路由模块">注册路由模块</h4>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入路由模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&quot;./router1.js&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.注册路由模块</span></span><br><span class="line"></span><br><span class="line">app.use(router)</span><br></pre></td></tr></table></figure>
+<h4 id="注册路由模块"><a href="#注册路由模块" class="headerlink" title="注册路由模块"></a>注册路由模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入路由模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&quot;./router1.js&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.注册路由模块</span></span><br><span class="line"></span><br><span class="line">app.use(router)</span><br></pre></td></tr></table></figure>
+
 <p>整体文件：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.导入路由模块</span></span><br><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&quot;./router1.js&quot;</span>)</span><br><span class="line"><span class="comment">//2.注册路由模块</span></span><br><span class="line">app.use(router)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">80</span>,<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;http://127.0.0.1&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="为路由模块添加前缀">为路由模块添加前缀</h4>
-<p>类似于托管静态资源时，为静态资源统一挂载访问前缀一样，路由模块添加前缀的方式也非常简单:</p>
+
+<h4 id="为路由模块添加前缀"><a href="#为路由模块添加前缀" class="headerlink" title="为路由模块添加前缀"></a>为路由模块添加前缀</h4><p>类似于托管静态资源时，为静态资源统一挂载访问前缀一样，路由模块添加前缀的方式也非常简单:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入路由模块</span></span><br><span class="line"><span class="keyword">const</span> userRouter = <span class="built_in">require</span>(<span class="string">&quot;./router/user.js&quot;</span>)</span><br><span class="line"><span class="comment">//使用app.use()注册路由模块，并添加统一的访问前缀/api</span></span><br><span class="line">app.use( <span class="string">&quot;/api&quot;</span>,userRouter)</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -334,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node.js-express%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">Node.js-express路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#express-%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%88%863%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">Express 中的路由分3部分组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="nav-number">1.0.2.</span> <span class="nav-text">路由的匹配过程：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%B7%AF%E7%94%B1"><span class="nav-number">1.0.3.</span> <span class="nav-text">模块化路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.4.</span> <span class="nav-text">注册路由模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97%E6%B7%BB%E5%8A%A0%E5%89%8D%E7%BC%80"><span class="nav-number">1.0.5.</span> <span class="nav-text">为路由模块添加前缀</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-express%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">Node.js-express路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Express-%E4%B8%AD%E7%9A%84%E8%B7%AF%E7%94%B1%E5%88%863%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">Express 中的路由分3部分组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.0.2.</span> <span class="nav-text">路由的匹配过程：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%B7%AF%E7%94%B1"><span class="nav-number">1.0.3.</span> <span class="nav-text">模块化路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.4.</span> <span class="nav-text">注册路由模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97%E6%B7%BB%E5%8A%A0%E5%89%8D%E7%BC%80"><span class="nav-number">1.0.5.</span> <span class="nav-text">为路由模块添加前缀</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

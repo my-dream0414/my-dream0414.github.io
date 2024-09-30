@@ -218,16 +218,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="python-pandas-index对象">python-pandas-Index对象</h1>
-<p>轴标签或其他用作轴名称的元数据就存储为Index对象。</p>
+        <h1 id="python-pandas-Index对象"><a href="#python-pandas-Index对象" class="headerlink" title="python-pandas-Index对象"></a>python-pandas-Index对象</h1><p>轴标签或其他用作轴名称的元数据就存储为Index对象。</p>
 <p>Index对象不可改变（不同数据结构共用Index对象，该特性能够保证它的安全）</p>
 <p>每个Index对象都有很多方法和属性，当你需要知道它们所包含的值时，这些方法和属性非常有用。</p>
-<ol type="1">
-<li><h3 id="index对象的方法">Index对象的方法</h3>
-<p>Index对象提供了几种方法，可用来获取数据结构索引的相关信息</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># idmin()返回索引值最小得元素,idmax()返回索引值最大的元素</span></span><br><span class="line">ser.idmax()</span><br><span class="line">ser.idmin()</span><br></pre></td></tr></table></figure></li>
-<li><h3 id="含有重复标签的index">含有重复标签的Index</h3>
-<p>pandas数据结构是允许有重复标签的。</p>
+<ol>
+<li><h3 id="Index对象的方法"><a href="#Index对象的方法" class="headerlink" title="Index对象的方法"></a>Index对象的方法</h3><p>Index对象提供了几种方法，可用来获取数据结构索引的相关信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># idmin()返回索引值最小得元素,idmax()返回索引值最大的元素</span></span><br><span class="line">ser.idmax()</span><br><span class="line">ser.idmin()</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="含有重复标签的Index"><a href="#含有重复标签的Index" class="headerlink" title="含有重复标签的Index"></a>含有重复标签的Index</h3><p>pandas数据结构是允许有重复标签的。</p>
 <p>数据结构很小时,识别索引的重复项很容易,但随着数据结构逐渐增大以后,难度也在增加。pandas的Index对象还有is_unique属性。调用该属性，就可以知道数据结构(Series和DataFrame )中是否存在重复的索引项。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serd.index.is_unique</span><br><span class="line">frame.index.is_unique</span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -314,7 +312,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-index%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-Index对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#index%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.1.</span> <span class="nav-text">Index对象的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E6%A0%87%E7%AD%BE%E7%9A%84index"><span class="nav-number">1.0.2.</span> <span class="nav-text">含有重复标签的Index</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-Index%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">python-pandas-Index对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Index%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.0.1.</span> <span class="nav-text">Index对象的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E6%A0%87%E7%AD%BE%E7%9A%84Index"><span class="nav-number">1.0.2.</span> <span class="nav-text">含有重复标签的Index</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

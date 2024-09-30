@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Strive-NUAA">
 <meta property="og:description" content="......">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://my-dream0414.github.io/2022/07/31/js-DOM%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C/1.png">
-<meta property="og:image" content="https://my-dream0414.github.io/2022/07/31/js-DOM%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C/2.png">
+<meta property="og:image" content="https://my-dream0414.github.io/1.png">
+<meta property="og:image" content="https://my-dream0414.github.io/2.png">
 <meta property="article:published_time" content="2022-07-31T07:36:34.000Z">
 <meta property="article:modified_time" content="2022-07-31T07:38:01.119Z">
 <meta property="article:author" content="Changwei Luo">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://my-dream0414.github.io/2022/07/31/js-DOM%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C/1.png">
+<meta name="twitter:image" content="https://my-dream0414.github.io/1.png">
 
 <link rel="canonical" href="https://my-dream0414.github.io/2022/07/31/js-DOM%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C/">
 
@@ -217,56 +217,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="js-dom操作-结点操作">js-DOM操作-结点操作</h2>
-<p>节点：网页中的所有元素都是节点（标签、属性、文本、注释等），在DOM中，节点使用node来表示。</p>
+        <h2 id="js-DOM操作-结点操作"><a href="#js-DOM操作-结点操作" class="headerlink" title="js-DOM操作-结点操作"></a>js-DOM操作-结点操作</h2><p>节点：网页中的所有元素都是节点（标签、属性、文本、注释等），在DOM中，节点使用node来表示。</p>
 <p>HTML DOM树中的所有节点均可通过JavaScript进行访问，所有HTML元素（节点)均可被修改，也可以创建或删除。</p>
 <p>一般地，节点至少拥有nodeType(节点类型)、nodeName(节点名称）和nodeValue(节点值）这三个基本属性。</p>
-<p>元素节点：nodeType 为 1</p>
-<p>属性节点：nodeType 为 2</p>
-<p>文本节点：nodeType 为 3（包含文字、空格、换行）</p>
-<h3 id="几点层级">几点层级：</h3>
-<p>利用DOM树可以把节点划分为不同的层级关系，常见的是父子兄层级关系<img src="1.png" alt="image-20220729182310064"></p>
-<h4 id="父节点">父节点：</h4>
-<p>elemente.parentNode</p>
+<p>元素节点：nodeType  为 1</p>
+<p>属性节点：nodeType  为 2</p>
+<p>文本节点：nodeType  为 3（包含文字、空格、换行）</p>
+<h3 id="几点层级："><a href="#几点层级：" class="headerlink" title="几点层级："></a>几点层级：</h3><p>利用DOM树可以把节点划分为不同的层级关系，常见的是父子兄层级关系<img src="/1.png" alt="image-20220729182310064"></p>
+<h4 id="父节点："><a href="#父节点：" class="headerlink" title="父节点："></a>父节点：</h4><p>elemente.parentNode</p>
 <p>得到的是离元素最近的父级节点（亲爸爸）如果找不到父节点就返回null</p>
-<h4 id="子节点">子节点：</h4>
-<p>elemente.childNodes</p>
+<h4 id="子节点："><a href="#子节点：" class="headerlink" title="子节点："></a>子节点：</h4><p>elemente.childNodes</p>
 <p>返回指定节点的子节点的集合，该集合为即时更新的集合</p>
 <p><strong>注意：</strong>子节点 childNodes 所有的子节点 包含元素节点 文本节点等等</p>
-<p>如果只想要获得里面的元素节点，则需要专门处理。所以我们一般不提倡使用childNodes而是使用parentNode.children (非标准)</p>
-<p>parentNode.children (非标准) parentNode.children是一个只读属性，返回所有的子元素节点。它只返回子元素节点，其余节点不返回(这个是我们重点掌握的)。</p>
+<p>如果只想要获得里面的元素节点，则需要专门处理。所以我们一般不提倡使用childNodes而是使用parentNode.children  (非标准)</p>
+<p>parentNode.children  (非标准)  parentNode.children是一个只读属性，返回所有的子元素节点。它只返回子元素节点，其余节点不返回(这个是我们重点掌握的)。</p>
 <p>虽然children是一个非标准，但是得到了各个浏览器的支持，因此我们可以放心使用</p>
 <p>firstChild是返回第一个子节点 不管是文本节点还是元素节点 lastCHild类似</p>
 <p>firstElementCHild 返回第一个子元素节点（这两个方法有兼容性问题，IE9以上才支持）</p>
 <p>实际开发中，既没有兼容性问题又返回第一个子元素</p>
 <p>element.children[0]</p>
-<h4 id="兄弟节点">兄弟节点</h4>
-<p>node.nextSibling 返回当前元素得到下一个兄弟节点，找不到则返回null。同样，也是包含所有节点</p>
+<h4 id="兄弟节点"><a href="#兄弟节点" class="headerlink" title="兄弟节点"></a>兄弟节点</h4><p>node.nextSibling 返回当前元素得到下一个兄弟节点，找不到则返回null。同样，也是包含所有节点</p>
 <p>node.previoussibling 返回当前元素上一个兄弟节点，找不到则返回null。同样，也是包含所有的节点。</p>
 <p>nextElementsibling返回当前元素下一个兄弟元素节点，找不到则返回null</p>
 <p>previousElementsibling返回当前元素上一个兄弟元素节点，找不到则返回null</p>
 <p>（这两个方法有兼容性问题，IE9以上才支持）</p>
 <p>封装的兼容性函数</p>
-<figure>
-<img src="2.png" alt="image-20220729184350705"><figcaption aria-hidden="true">image-20220729184350705</figcaption>
-</figure>
-<h4 id="创建节点添加节点">创建节点、添加节点</h4>
-<p>创建节点：document.createElement('tagName') 方法创建由tagName指定的HTML元素。因为这些元素原先不存在，是根据我们的需求动态生成的，所以我们也称为动态创建元素节点。</p>
-<p>添加节点：node.appendchild(child) 方法将一个节点添加到指定父节点的子节点列表末尾。类似于css里面的after伪元素。</p>
+<p><img src="/2.png" alt="image-20220729184350705"></p>
+<h4 id="创建节点、添加节点"><a href="#创建节点、添加节点" class="headerlink" title="创建节点、添加节点"></a>创建节点、添加节点</h4><p>创建节点：document.createElement(‘tagName’)   方法创建由tagName指定的HTML元素。因为这些元素原先不存在，是根据我们的需求动态生成的，所以我们也称为动态创建元素节点。</p>
+<p>添加节点：node.appendchild(child)   方法将一个节点添加到指定父节点的子节点列表末尾。类似于css里面的after伪元素。</p>
 <p>node.insertBefore(child，指定元素)方法将一个节点添加到父节点的指定子节点前面。类似于css里面的before伪元素。</p>
-<h4 id="删除节点">删除节点</h4>
-<p>node.removeChild(child)</p>
+<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><p>node.removeChild(child)</p>
 <p>node.removeChild() 方法从DOM中删除一个子节点，返回删除的节点</p>
-<h4 id="复制节点">复制节点</h4>
-<p>node.cloneNode()</p>
-<p>node.cloneNode() 方法返回调用该方法的节点的一个副本，也称为克隆节点/拷贝节点</p>
+<h4 id="复制节点"><a href="#复制节点" class="headerlink" title="复制节点"></a>复制节点</h4><p>node.cloneNode()</p>
+<p>node.cloneNode() 方法返回调用该方法的节点的一个副本，也称为克隆节点&#x2F;拷贝节点</p>
 <p><strong>注意：</strong>如果括号参数为空或者为false，则是浅拷贝，即只克隆复制节点本身，不克隆里面的子节点</p>
 <p>如果括号参数为空或者为true，则是深拷贝，复制标签复制里面的内容（会复制节点本身以及里面所有的子节点）</p>
-<h4 id="三种动态创建元素区别">三种动态创建元素区别</h4>
-<p>document.write() 是直接将内容写入页面的内容流，但是文档流执行完毕，则它会导致页面全部重绘</p>
+<h4 id="三种动态创建元素区别"><a href="#三种动态创建元素区别" class="headerlink" title="三种动态创建元素区别"></a>三种动态创建元素区别</h4><p>document.write() 是直接将内容写入页面的内容流，但是文档流执行完毕，则它会导致页面全部重绘</p>
 <p>element.innerHTML 是将内容写入某个DOM节点，不会导致页面全部重绘</p>
 <p>element.innerHTML创建多个元素效率更高（不要拼接字符串，采取数组形式拼接），结构稍微复杂</p>
-<p>document.createElement() 创建多个元素效率稍微低一点点，但是结构更清晰</p>
+<p>document.createElement()  创建多个元素效率稍微低一点点，但是结构更清晰</p>
 
     </div>
 
@@ -350,7 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js-dom%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">js-DOM操作-结点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E7%82%B9%E5%B1%82%E7%BA%A7"><span class="nav-number">1.1.</span> <span class="nav-text">几点层级：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%B6%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.1.</span> <span class="nav-text">父节点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%90%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.2.</span> <span class="nav-text">子节点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.3.</span> <span class="nav-text">兄弟节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%8A%82%E7%82%B9%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.4.</span> <span class="nav-text">创建节点、添加节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.5.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.6.</span> <span class="nav-text">复制节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.7.</span> <span class="nav-text">三种动态创建元素区别</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js-DOM%E6%93%8D%E4%BD%9C-%E7%BB%93%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">js-DOM操作-结点操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">几点层级：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%B6%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">父节点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%90%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">子节点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%84%E5%BC%9F%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.3.</span> <span class="nav-text">兄弟节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%8A%82%E7%82%B9%E3%80%81%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.4.</span> <span class="nav-text">创建节点、添加节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.5.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.6.</span> <span class="nav-text">复制节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.7.</span> <span class="nav-text">三种动态创建元素区别</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

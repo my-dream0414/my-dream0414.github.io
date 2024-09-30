@@ -218,18 +218,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="python-pandas-picklepython对象序列化">PYTHON-pandas-pickle(Python对象序列化)</h1>
-<p>pickle模块实现了一个强大的算法，能够对用Python实现的数据结构进行序列化( pickling )和反序列化操作。序列化是指把对象的层级结构转换为字节流的过程。</p>
-<ol type="1">
-<li><h3 id="用cpickle实现python对象序列化">用CPickle实现Python对象序列化</h3>
-<p>pickle模块（或cPickle)使用的数据格式是Python独有的，默认使用ASCII表达式，以增强可读性。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用模块前，需要先导人它</span></span><br><span class="line"><span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="comment"># 创建具有内部结构的足够复杂的对象</span></span><br><span class="line">data=&#123;<span class="string">&#x27;color&#x27;</span>:[<span class="string">&#x27;white&#x27;</span>,<span class="string">&#x27;red&#x27;</span>],<span class="string">&#x27;value&#x27;</span>:[<span class="number">5</span>,<span class="number">7</span>]&#125;</span><br><span class="line"><span class="comment"># 用cPickle模块的dumps()函数对data对象执行序列化操作。</span></span><br><span class="line">pickled_data = pickle.dumps(data)</span><br><span class="line"><span class="comment"># 输出pickled_data变量的值,查看dict对象序列化的结果。</span></span><br><span class="line"><span class="built_in">print</span>(pickled_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据序列化后，在写入文件或用套接字、管道等发送都很简单</span></span><br><span class="line"><span class="comment"># 传输结束后，用cPickle模块的loads()函数能够重建被序列化的对象（反序列化）</span></span><br><span class="line">nframe = pickle.loads(pickled_data)</span><br></pre></td></tr></table></figure></li>
-<li><h3 id="用pandas实现对象序列化">用pandas实现对象序列化</h3>
-<p>pandas的序列化格式并不是完全使用ASCII编码。</p>
+        <h1 id="PYTHON-pandas-pickle-Python对象序列化"><a href="#PYTHON-pandas-pickle-Python对象序列化" class="headerlink" title="PYTHON-pandas-pickle(Python对象序列化)"></a>PYTHON-pandas-pickle(Python对象序列化)</h1><p>pickle模块实现了一个强大的算法，能够对用Python实现的数据结构进行序列化( pickling )和反序列化操作。序列化是指把对象的层级结构转换为字节流的过程。</p>
+<ol>
+<li><h3 id="用CPickle实现Python对象序列化"><a href="#用CPickle实现Python对象序列化" class="headerlink" title="用CPickle实现Python对象序列化"></a>用CPickle实现Python对象序列化</h3><p>pickle模块（或cPickle)使用的数据格式是Python独有的，默认使用ASCII表达式，以增强可读性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用模块前，需要先导人它</span></span><br><span class="line"><span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="comment"># 创建具有内部结构的足够复杂的对象</span></span><br><span class="line">data=&#123;<span class="string">&#x27;color&#x27;</span>:[<span class="string">&#x27;white&#x27;</span>,<span class="string">&#x27;red&#x27;</span>],<span class="string">&#x27;value&#x27;</span>:[<span class="number">5</span>,<span class="number">7</span>]&#125;</span><br><span class="line"><span class="comment"># 用cPickle模块的dumps()函数对data对象执行序列化操作。</span></span><br><span class="line">pickled_data = pickle.dumps(data)</span><br><span class="line"><span class="comment"># 输出pickled_data变量的值,查看dict对象序列化的结果。</span></span><br><span class="line"><span class="built_in">print</span>(pickled_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据序列化后，在写入文件或用套接字、管道等发送都很简单</span></span><br><span class="line"><span class="comment"># 传输结束后，用cPickle模块的loads()函数能够重建被序列化的对象（反序列化）</span></span><br><span class="line">nframe = pickle.loads(pickled_data)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="用pandas实现对象序列化"><a href="#用pandas实现对象序列化" class="headerlink" title="用pandas实现对象序列化"></a>用pandas实现对象序列化</h3><p>pandas的序列化格式并不是完全使用ASCII编码。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame = pd.DataFrame(np.arange(<span class="number">16</span>).reshape(<span class="number">4</span>,<span class="number">4</span>),index=[<span class="string">&#x27;up&#x27;</span>,<span class="string">&#x27;down&#x27;</span>,<span class="string">&#x27;left&#x27;</span>,<span class="string">&#x27;right&#x27;</span>])</span><br><span class="line">frame.to_pickle(<span class="string">&#x27;frame.pkl&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
 <p>工作目录中将生成新文件frame.pkl，其包含frame中的所有信息。使用以下命令，就能打开PKL文件,读取里面的内容。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_pickle(<span class="string">&#x27;frame.pkl&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>pandas的所有序列化和反序列化操作都在后台运行，用户根本看不到。这使得这两项操作对数据分析人员而言尽可能简单和易于理解。</p></li>
+
+<p>pandas的所有序列化和反序列化操作都在后台运行，用户根本看不到。这使得这两项操作对数据分析人员而言尽可能简单和易于理解。</p>
+</li>
 </ol>
 
     </div>
@@ -314,7 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-pandas-picklepython%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">PYTHON-pandas-pickle(Python对象序列化)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8cpickle%E5%AE%9E%E7%8E%B0python%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.0.1.</span> <span class="nav-text">用CPickle实现Python对象序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8pandas%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.0.2.</span> <span class="nav-text">用pandas实现对象序列化</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PYTHON-pandas-pickle-Python%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">PYTHON-pandas-pickle(Python对象序列化)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8CPickle%E5%AE%9E%E7%8E%B0Python%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.0.1.</span> <span class="nav-text">用CPickle实现Python对象序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8pandas%E5%AE%9E%E7%8E%B0%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.0.2.</span> <span class="nav-text">用pandas实现对象序列化</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
